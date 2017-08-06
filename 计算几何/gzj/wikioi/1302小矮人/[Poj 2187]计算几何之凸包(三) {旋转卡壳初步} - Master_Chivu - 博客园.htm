@@ -1,0 +1,234 @@
+
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>[Poj 2187]计算几何之凸包(三) {旋转卡壳初步} - Master_Chivu - 博客园</title>
+<link type="text/css" rel="stylesheet" href="/bundles/blog-common.css?v=m_FXmwz3wxZoecUwNEK23PAzc-j9vbX_C6MblJ5ouMc1"/>
+<link id="MainCss" type="text/css" rel="stylesheet" href="/skins/BOOK/bundle-BOOK.css?v=fWz3cvIoU0CG8iD-sCmV803XvYIy-SbgoBMZsoVHw9M1"/>
+<link type="text/css" rel="stylesheet" href="/blog/customcss/74721.css?v=DGHyiEy33XTYtGAQUbmGZn5%2f7Vs%3d"/>
+<link id="mobile-style" media="only screen and (max-width: 768px)" type="text/css" rel="stylesheet" href="/skins/BOOK/bundle-BOOK-mobile.css?v=LUvqpSqTyRS1PkUPHXQz7MLe7xXzjopFakWpGxQsAkw1"/>
+<link title="RSS" type="application/rss+xml" rel="alternate" href="http://www.cnblogs.com/Booble/rss"/>
+<link title="RSD" type="application/rsd+xml" rel="EditURI" href="http://www.cnblogs.com/Booble/rsd.xml"/>
+<link type="application/wlwmanifest+xml" rel="wlwmanifest" href="http://www.cnblogs.com/Booble/wlwmanifest.xml"/>
+<script src="//common.cnblogs.com/script/jquery.js" type="text/javascript"></script>  
+<script type="text/javascript">var currentBlogApp = 'Booble', cb_enable_mathjax=false;var isLogined=false;</script>
+<script src="/bundles/blog-common.js?v=E1-LyrzANB2jbN9omtnpOHx3eU0Kt3DyislfhU0b5p81" type="text/javascript"></script>
+</head>
+<body>
+<a name="top"></a>
+<!--PageBeginHtml Block Begin-->
+<a href="http://s06.flagcounter.com/more/Oylq"><img src="http://s06.flagcounter.com/count/Oylq/bg=FFFFFF/txt=000000/border=CCCCCC/columns=3/maxflags=30/viewers=0/labels=0/" alt="free counters" border="0"></a>
+<!--PageBeginHtml Block End-->
+
+<script type="text/javascript">
+	try {
+		if (screen.availWidth > 1200) {
+			document.getElementById("MainCss").href = '/Skins/BOOK/style2.css';
+		}
+	} catch (e) { }
+</script>
+
+<div id="header">
+<div id="HeaderTitle">
+<div id="Title">
+<a id="Header1_HeaderTitle" class="headermaintitle" href="http://www.cnblogs.com/Booble/">Var Bob:^Joy;</a>
+</div>
+<div id="subTitle">While Working, We're Worthy.
+Simple,Efficient,and Beautiful.</div>
+</div>
+</div>
+
+<div id="main">
+	
+<div id="post_detail">
+	<div class="post">
+		<h2>
+			<a id="cb_post_title_url" href="http://www.cnblogs.com/Booble/archive/2011/04/03/2004865.html">[Poj 2187]计算几何之凸包(三) {旋转卡壳初步}</a>
+		</h2>
+		<div id="cnblogs_post_body"><p>{</p>
+<p>上一节介绍了凸包的高效算法</p>
+<p>和一个最远点对的应用</p>
+<p>这一段将更好的解决最远点对问题</p>
+<p>}</p>
+<p>(若不做特殊说明 下文讨论的问题均是在欧氏空间</p>
+<p>&nbsp;若不做特殊说明 下文中距离均是指空间中欧氏距离)</p>
+<p>==============================</p>
+<p><span style="color: #ff0000;"><strong>一.简单枚举算法的不足</strong></span></p>
+<p>上一次介绍了一个基本的求<strong>平面最远点对</strong>的算法</p>
+<p>即先求点集的凸包 然后枚举凸包上的点来求最远点集</p>
+<p>这是利用了凸包上的点相比 点集中的点 一般是很少的 平均情况<span style="font-size: 14px;">很好</span> 并且我们也能AC这个问题</p>
+<p>但是这是有局限性的 当凸包上的点达到<strong>O(N)</strong>的级别时 凸包的<strong>优化作用</strong>就不存在了</p>
+<p>不过我们还要考虑到 凸包还起了<strong>对凸包上点集排序的作用</strong></p>
+<p>凸包有很多的优美的性质 我们可以加以利用 以得到更加高效的算法</p>
+<p><strong>旋转卡壳算法</strong>就是利用凸包特性的一类解决问题的方法</p>
+<p>==============================</p>
+<p><strong><span style="color: #ff0000;">二.旋转卡壳算法</span></strong></p>
+<p><strong>旋转卡(qiǎ)壳算法</strong>(Rotating Calipers Algorithm):</p>
+<p>是解决一些与凸包有关问题的有效算法 就像一对卡壳卡住凸包旋转而得名</p>
+<p>Every time one blade of the caliper lies flat against an edge of the polygon, it forms an antipodal pair
+ with the point or edge touching the opposite blade. It turns out that 
+the complete "rotation" of the caliper around the polygon detects all 
+antipodal pairs and may be carried out in <span class="mw-redirect">O(n)</span> time.</p>
+<p><a target="_blank" href="http://en.wikipedia.org/wiki/Rotating_calipers">http://en.wikipedia.org/wiki/Rotating_calipers</a></p>
+<p><img src="http://pic002.cnblogs.com/images/2011/139826/2011040318073013.gif" /></p>
+<p>(图片来自:<a href="http://cgm.cs.mcgill.ca/~orm/rotcal.html">http://cgm.cs.mcgill.ca/~orm/rotcal.html</a>)</p>
+<p>被一对卡壳正好卡住的对应点对称为<strong>对踵点(<span style="font-size: 14px;">Antipodal point</span>)</strong></p>
+<p><a target="_blank" href="http://en.wikipedia.org/wiki/Antipodal_point">http://en.wikipedia.org/wiki/Antipodal_point</a></p>
+<p>可以证明对踵点的个数不超过<strong>3N/2</strong>个 也就是说对踵点的个数是<strong>O(N)</strong>的</p>
+<p>对踵点的个数也是我们下面解决问题时间复杂度的保证</p>
+<p><img src="http://pic002.cnblogs.com/images/2011/139826/2011040318174581.png" height="427" width="504" /></p>
+<p><img src="http://pic002.cnblogs.com/images/2011/139826/2011040318205530.png" height="415" width="503" /></p>
+<p>上第一个图是卡壳的一般情况 卡住两点 图二是卡住<strong>一条边和一个点</strong></p>
+<p>由于实现中 卡住两点的情况不好处理 我们通常关注第二种情况</p>
+<p>在第二种情况中 我们可以看到 <strong>一个对踵点和对应边之间的距离比其他点要大</strong></p>
+<p>也就是一个对踵点和对应边所形成的<strong>三角形</strong>是最大的 下面我们会据此得到对踵点的简化求法</p>
+<p><img src="http://pic002.cnblogs.com/images/2011/139826/2011040319074871.png" /></p>
+<p>看一下官方的伪代码:</p>
+<p>当时我看完了 就一个字 <span style="color: #000000;"><strong>长</strong></span>... 我最讨厌冗长的程序了...</p>
+<div class="cnblogs_code">
+<pre><div><span style="color: #0000ff;">begin</span><span style="color: #000000;"><br />     p0:</span><span style="color: #000000;">=</span><span style="color: #000000;">pn;<br />     q:</span><span style="color: #000000;">=</span><span style="color: #000000;">NEXT[p];<br />     </span><span style="color: #0000ff;">while</span><span style="color: #000000;"> (Area(p,NEXT[p],NEXT[q]) </span><span style="color: #000000;">&gt;</span><span style="color: #000000;"> Area(p,NEXT[p],q)) </span><span style="color: #0000ff;">do</span><span style="color: #000000;"><br />          q:</span><span style="color: #000000;">=</span><span style="color: #000000;">NEXT[q];<br />          q0:</span><span style="color: #000000;">=</span><span style="color: #000000;">q;<br />          </span><span style="color: #0000ff;">while</span><span style="color: #000000;"> (q !</span><span style="color: #000000;">=</span><span style="color: #000000;"> p0) </span><span style="color: #0000ff;">do</span><span style="color: #000000;"><br />               </span><span style="color: #0000ff;">begin</span><span style="color: #000000;"><br />                    p:</span><span style="color: #000000;">=</span><span style="color: #000000;">NEXT[p];<br />                    Print(p,q);<br />                    </span><span style="color: #0000ff;">while</span><span style="color: #000000;"> (Area(p,NEXT[p],NEXT[q]) </span><span style="color: #000000;">&gt;</span><span style="color: #000000;"> Area(p,NEXT[p],q) </span><span style="color: #0000ff;">do</span><span style="color: #000000;"><br />                         </span><span style="color: #0000ff;">begin</span><span style="color: #000000;"><br />                              q:</span><span style="color: #000000;">=</span><span style="color: #000000;">NEXT[q];<br />                              </span><span style="color: #0000ff;">if</span><span style="color: #000000;"> ((p,q) !</span><span style="color: #000000;">=</span><span style="color: #000000;"> (q0,p0)) </span><span style="color: #0000ff;">then</span><span style="color: #000000;"> Print(p,q)<br />                              </span><span style="color: #0000ff;">else</span><span style="color: #000000;"> return<br />                         </span><span style="color: #0000ff;">end</span><span style="color: #000000;">;<br />                    </span><span style="color: #0000ff;">if</span><span style="color: #000000;"> (Area(p,NEXT[p],NEXT[q]) </span><span style="color: #000000;">=</span><span style="color: #000000;"> Area(p,NEXT[p],q)) </span><span style="color: #0000ff;">then</span><span style="color: #000000;"><br />                      </span><span style="color: #0000ff;">if</span><span style="color: #000000;"> ((p,q) !</span><span style="color: #000000;">=</span><span style="color: #000000;"> (q0,p0)) </span><span style="color: #0000ff;">then</span><span style="color: #000000;"> Print(p,NEXT[q])<br />                      </span><span style="color: #0000ff;">else</span><span style="color: #000000;"> Print(NEXT[p],q)<br />               </span><span style="color: #0000ff;">end</span><span style="color: #000000;"><br /></span><span style="color: #0000ff;">end</span><span style="color: #000000;">.</span></div></pre>
+</div>
+<p>几经折腾 终于找到了一个不错的实现:<a target="_blank" href="http://www.cnblogs.com/DreamUp/archive/2010/09/16/1828131.html">http://www.cnblogs.com/DreamUp/archive/2010/09/16/1828131.html</a></p>
+<p>不过不是很好理解 这里作一下说明</p>
+<div class="cnblogs_code">
+<pre><div><span style="color: #008080;">1</span> <span style="color: #000000;">ch[m</span><span style="color: #000000;">+</span><span style="color: #800080;">1</span><span style="color: #000000;">]:</span><span style="color: #000000;">=</span><span style="color: #000000;">ch[</span><span style="color: #800080;">1</span><span style="color: #000000;">]; j:</span><span style="color: #000000;">=</span><span style="color: #800080;">2</span><span style="color: #000000;">;<br /></span><span style="color: #008080;">2</span> <span style="color: #000000;">&nbsp;</span><span style="color: #0000ff;">for</span><span style="color: #000000;"> i:</span><span style="color: #000000;">=</span><span style="color: #800080;">1</span><span style="color: #000000;"> </span><span style="color: #0000ff;">to</span><span style="color: #000000;"> m </span><span style="color: #0000ff;">do</span><span style="color: #000000;"><br /></span><span style="color: #008080;">3</span> <span style="color: #000000;">    </span><span style="color: #0000ff;">begin</span><span style="color: #000000;"><br /></span><span style="color: #008080;">4</span> <span style="color: #000000;">    </span><span style="color: #0000ff;">while</span><span style="color: #000000;"> cross(ch[i],ch[j],ch[i</span><span style="color: #000000;">+</span><span style="color: #800080;">1</span><span style="color: #000000;">])</span><span style="color: #000000;">&lt;</span><span style="color: #000000;">cross(ch[i],ch[j</span><span style="color: #000000;">+</span><span style="color: #800080;">1</span><span style="color: #000000;">],ch[i</span><span style="color: #000000;">+</span><span style="color: #800080;">1</span><span style="color: #000000;">]) </span><span style="color: #0000ff;">do</span><span style="color: #000000;"><br /></span><span style="color: #008080;">5</span> <span style="color: #000000;">        </span><span style="color: #0000ff;">begin</span><span style="color: #000000;"> inc(j); </span><span style="color: #0000ff;">if</span><span style="color: #000000;"> j</span><span style="color: #000000;">&gt;</span><span style="color: #000000;">m </span><span style="color: #0000ff;">then</span><span style="color: #000000;"> j:</span><span style="color: #000000;">=</span><span style="color: #800080;">1</span><span style="color: #000000;">; </span><span style="color: #0000ff;">end</span><span style="color: #000000;">;<br /></span><span style="color: #008080;">6</span> <span style="color: #000000;">    writeln(ch[i].x,' ',ch[i].y,</span><span style="color: #800000;">'</span><span style="color: #800000;"> </span><span style="color: #800000;">'</span><span style="color: #000000;">,ch[j].x,' ',ch[j].y);<br /></span><span style="color: #008080;">7</span> <span style="color: #000000;">    </span><span style="color: #0000ff;">end</span><span style="color: #000000;">;</span></div></pre>
+</div>
+<p>上面就是<strong>旋转卡壳寻找对踵点</strong>的过程</p>
+<p>其中叉积函数Cross(A,B,C:Point):Real 返回AB到AC的二维定义下的叉积</p>
+<p>这里主要用到了叉积求三角形面积的功能</p>
+<p><img src="http://pic002.cnblogs.com/images/2011/139826/2011040319405316.png" /></p>
+<p>我们对于一条对应边&lt;CH<span style="font-size: 12px;"> i</span>,CH<span style="font-size: 12px;"> Next[i]</span>&gt;求出距离这条边最远的点CH <span style="font-size: 12px;">j</span></p>
+<p>则由上面第二种情况可知 CH i 和 CH j 为一对对踵点 这样让 CH i <strong>绕行凸包一周</strong>即可得到所有的对踵点</p>
+<p>下面面这个图 由于本人的gif图制作水平拙劣 所以不好看</p>
+<p>需要的可以下载几何画板察看原版GSP文件 <a target="_blank" href="http://files.cnblogs.com/Booble/RCpp.rar">点击这里</a>下载GSP文件</p>
+<p><img src="http://pic002.cnblogs.com/images/2011/139826/2011040321530938.gif" /></p>
+<p>接下来考虑 如何得到距离每条对应边的的最远点呢?</p>
+<p>稍加分析 我们可以发现 凸包上的点依次与对应边产生的距离成<strong>单峰函数</strong></p>
+<p>具体证明可以从凸包定义入手 用反证法解决</p>
+<p><img src="http://pic002.cnblogs.com/images/2011/139826/2011040322065770.png" /></p>
+<p>这样我们再找到一个点 <strong>使下一个点的距离小于当前的点时就可以停止了</strong></p>
+<p>而且随着对应边的旋转 最远点也只会顺着这个方向旋转 我们可以<strong>从上一次的对踵点开始继续寻找这一次的</strong></p>
+<p>由于内层while循环的执行次数取决于j<strong>增加次数</strong> j最多增加<strong>O(N)</strong>次</p>
+<p>所以求出所有对踵点的时间复杂度为<strong>O(N)</strong></p>
+<p>还有有两点需要注意:</p>
+<p>1.上面这段代码及代码的分析都是需要凸包上没有三点共线的</p>
+<p>2.Next[i] 不需要手动求 在原代码中有很好的处理</p>
+<p>最后指出网上很多文章的一个错误 一个点的对踵点并不是离这个点最远的点!</p>
+<p>这样子的点对是根本不满足对踵点的性质的 即最为重要的单峰分布性质</p>
+<p>下图是一个反例:</p>
+<p><img src="http://pic002.cnblogs.com/images/2011/139826/2011040322144419.png" /></p>
+<p>==============================</p>
+<p><span style="color: #ff0000;"><strong>三.旋转卡壳算法的简单应用</strong></span></p>
+<p>至此我们终于可以更高效的解决平面最远点对问题了</p>
+<p>有一个很重要的结论是 <strong>最远点对必然属于对踵点对集合</strong></p>
+<p>那么我们先求出凸包 然后求出对踵点对集合 然后选出距离最大的即可</p>
+<p>用这个算法可以47ms AC这个问题 算上凸包的时间 总复杂度为O(Nlog<span style="font-size: 12px;">2</span>N)</p>
+<p>代码如下:</p>
+<div class="cnblogs_code" onclick="cnblogs_code_show('5b3f8e29-b1a3-48ed-96d6-faf9b267a988')"><img src="http://images.cnblogs.com/OutliningIndicators/ContractedBlock.gif" class="code_img_closed" id="code_img_closed_5b3f8e29-b1a3-48ed-96d6-faf9b267a988" /><img src="http://images.cnblogs.com/OutliningIndicators/ExpandedBlockStart.gif" class="code_img_opened" id="code_img_opened_5b3f8e29-b1a3-48ed-96d6-faf9b267a988" onclick="cnblogs_code_hide('5b3f8e29-b1a3-48ed-96d6-faf9b267a988',event)" style="display: none;" /><span class="cnblogs_code_collapse">Maxd</span>
+<div id="cnblogs_code_open_5b3f8e29-b1a3-48ed-96d6-faf9b267a988" class="cnblogs_code_hide">
+<pre><div><span style="color: #008000;">{</span><span style="color: #008000;">$inline on</span><span style="color: #008000;">}</span><span style="color: #000000;"><br /></span><span style="color: #008000;">{</span><span style="color: #008000;">$optimization on</span><span style="color: #008000;">}</span><span style="color: #000000;"><br /></span><span style="color: #0000ff;">const</span><span style="color: #000000;">    maxn</span><span style="color: #000000;">=</span><span style="color: #800080;">50000</span><span style="color: #000000;">;<br /></span><span style="color: #0000ff;">type</span><span style="color: #000000;">    point</span><span style="color: #000000;">=</span><span style="color: #0000ff;">record</span><span style="color: #000000;"> x,y:longint; </span><span style="color: #0000ff;">end</span><span style="color: #000000;">;<br /></span><span style="color: #0000ff;">var</span><span style="color: #000000;">    n,i,x,m,ans,j:longint;<br />    ch,p:</span><span style="color: #0000ff;">array</span><span style="color: #000000;">[</span><span style="color: #800080;">1</span><span style="color: #000000;">..maxn</span><span style="color: #000000;">+</span><span style="color: #800080;">1</span><span style="color: #000000;">]</span><span style="color: #0000ff;">of</span><span style="color: #000000;"> point;<br />    s:</span><span style="color: #0000ff;">array</span><span style="color: #000000;">[</span><span style="color: #800080;">1</span><span style="color: #000000;">..maxn]</span><span style="color: #0000ff;">of</span><span style="color: #000000;"> longint;<br /></span><span style="color: #0000ff;">function</span><span style="color: #000000;"> cross(a,b,c:point):longint; inline;<br /></span><span style="color: #0000ff;">begin</span><span style="color: #000000;"><br />cross:</span><span style="color: #000000;">=</span><span style="color: #000000;">(b.x</span><span style="color: #000000;">-</span><span style="color: #000000;">a.x)</span><span style="color: #000000;">*</span><span style="color: #000000;">(c.y</span><span style="color: #000000;">-</span><span style="color: #000000;">a.y)</span><span style="color: #000000;">-</span><span style="color: #000000;">(b.y</span><span style="color: #000000;">-</span><span style="color: #000000;">a.y)</span><span style="color: #000000;">*</span><span style="color: #000000;">(c.x</span><span style="color: #000000;">-</span><span style="color: #000000;">a.x);<br /></span><span style="color: #0000ff;">end</span><span style="color: #000000;">;<br /></span><span style="color: #0000ff;">function</span><span style="color: #000000;"> dist(a,b:point):longint; inline;<br /></span><span style="color: #0000ff;">begin</span><span style="color: #000000;"><br />dist:</span><span style="color: #000000;">=</span><span style="color: #000000;">sqr(a.x</span><span style="color: #000000;">-</span><span style="color: #000000;">b.x)</span><span style="color: #000000;">+</span><span style="color: #000000;">sqr(a.y</span><span style="color: #000000;">-</span><span style="color: #000000;">b.y);<br /></span><span style="color: #0000ff;">end</span><span style="color: #000000;">;<br /></span><span style="color: #0000ff;">function</span><span style="color: #000000;"> cmp(a,b:point):boolean; inline;<br /></span><span style="color: #0000ff;">begin</span><span style="color: #000000;"><br />cmp:</span><span style="color: #000000;">=</span><span style="color: #000000;">(a.x</span><span style="color: #000000;">&lt;</span><span style="color: #000000;">b.x)</span><span style="color: #0000ff;">or</span><span style="color: #000000;">(a.x</span><span style="color: #000000;">=</span><span style="color: #000000;">b.x)</span><span style="color: #0000ff;">and</span><span style="color: #000000;">(a.y</span><span style="color: #000000;">&lt;</span><span style="color: #000000;">b.y);<br /></span><span style="color: #0000ff;">end</span><span style="color: #000000;">;<br /></span><span style="color: #0000ff;">function</span><span style="color: #000000;"> max(a,b:longint):longint;<br /></span><span style="color: #0000ff;">begin</span><span style="color: #000000;"><br /></span><span style="color: #0000ff;">if</span><span style="color: #000000;"> a</span><span style="color: #000000;">&gt;</span><span style="color: #000000;">b </span><span style="color: #0000ff;">then</span><span style="color: #000000;"> max:</span><span style="color: #000000;">=</span><span style="color: #000000;">a </span><span style="color: #0000ff;">else</span><span style="color: #000000;"> max:</span><span style="color: #000000;">=</span><span style="color: #000000;">b;<br /></span><span style="color: #0000ff;">end</span><span style="color: #000000;">;<br /></span><span style="color: #0000ff;">procedure</span><span style="color: #000000;"> swap(a,b:longint); inline;<br /></span><span style="color: #0000ff;">var</span><span style="color: #000000;">    x:point;<br /></span><span style="color: #0000ff;">begin</span><span style="color: #000000;"><br />x:</span><span style="color: #000000;">=</span><span style="color: #000000;">p[a]; p[a]:</span><span style="color: #000000;">=</span><span style="color: #000000;">p[b]; p[b]:</span><span style="color: #000000;">=</span><span style="color: #000000;">x;<br /></span><span style="color: #0000ff;">end</span><span style="color: #000000;">;<br /></span><span style="color: #0000ff;">procedure</span><span style="color: #000000;"> hull(l,r:longint; a,b:point);<br /></span><span style="color: #0000ff;">var</span><span style="color: #000000;">    x,i,j,k:longint;<br />    y:point;<br /></span><span style="color: #0000ff;">begin</span><span style="color: #000000;"><br />x:</span><span style="color: #000000;">=</span><span style="color: #000000;">l; y:</span><span style="color: #000000;">=</span><span style="color: #000000;">p[l];<br /></span><span style="color: #0000ff;">for</span><span style="color: #000000;"> k:</span><span style="color: #000000;">=</span><span style="color: #000000;">l </span><span style="color: #0000ff;">to</span><span style="color: #000000;"> r </span><span style="color: #0000ff;">do</span><span style="color: #000000;"><br />    </span><span style="color: #0000ff;">if</span><span style="color: #000000;"> (s[x]</span><span style="color: #000000;">&lt;</span><span style="color: #000000;">s[k])</span><span style="color: #0000ff;">or</span><span style="color: #000000;">(s[x]</span><span style="color: #000000;">=</span><span style="color: #000000;">s[k])</span><span style="color: #0000ff;">and</span><span style="color: #000000;">(cmp(y,p[k]))<br />        </span><span style="color: #0000ff;">then</span><span style="color: #000000;"> </span><span style="color: #0000ff;">begin</span><span style="color: #000000;"> x:</span><span style="color: #000000;">=</span><span style="color: #000000;">k; y:</span><span style="color: #000000;">=</span><span style="color: #000000;">p[k]; </span><span style="color: #0000ff;">end</span><span style="color: #000000;">;<br />i:</span><span style="color: #000000;">=</span><span style="color: #000000;">l</span><span style="color: #000000;">-</span><span style="color: #800080;">1</span><span style="color: #000000;">; j:</span><span style="color: #000000;">=</span><span style="color: #000000;">r</span><span style="color: #000000;">+</span><span style="color: #800080;">1</span><span style="color: #000000;">;<br /></span><span style="color: #0000ff;">for</span><span style="color: #000000;"> k:</span><span style="color: #000000;">=</span><span style="color: #000000;">l </span><span style="color: #0000ff;">to</span><span style="color: #000000;"> r </span><span style="color: #0000ff;">do</span><span style="color: #000000;"><br />    </span><span style="color: #0000ff;">begin</span><span style="color: #000000;"><br />    inc(i); s[i]:</span><span style="color: #000000;">=</span><span style="color: #000000;">cross(p[k],a,y);<br />    </span><span style="color: #0000ff;">if</span><span style="color: #000000;"> s[i]</span><span style="color: #000000;">&gt;</span><span style="color: #800080;">0</span><span style="color: #000000;"> </span><span style="color: #0000ff;">then</span><span style="color: #000000;"> swap(i,k) </span><span style="color: #0000ff;">else</span><span style="color: #000000;"> dec(i);<br />    </span><span style="color: #0000ff;">end</span><span style="color: #000000;">;<br /></span><span style="color: #0000ff;">for</span><span style="color: #000000;"> k:</span><span style="color: #000000;">=</span><span style="color: #000000;">r </span><span style="color: #0000ff;">downto</span><span style="color: #000000;"> l </span><span style="color: #0000ff;">do</span><span style="color: #000000;"><br />    </span><span style="color: #0000ff;">begin</span><span style="color: #000000;"><br />    dec(j); s[j]:</span><span style="color: #000000;">=</span><span style="color: #000000;">cross(p[k],y,b);<br />    </span><span style="color: #0000ff;">if</span><span style="color: #000000;"> s[j]</span><span style="color: #000000;">&gt;</span><span style="color: #800080;">0</span><span style="color: #000000;"> </span><span style="color: #0000ff;">then</span><span style="color: #000000;"> swap(j,k) </span><span style="color: #0000ff;">else</span><span style="color: #000000;"> inc(j);<br />    </span><span style="color: #0000ff;">end</span><span style="color: #000000;">;<br /></span><span style="color: #0000ff;">if</span><span style="color: #000000;"> l</span><span style="color: #000000;">&lt;=</span><span style="color: #000000;">i </span><span style="color: #0000ff;">then</span><span style="color: #000000;"> hull(l,i,a,y);<br />inc(m); ch[m]:</span><span style="color: #000000;">=</span><span style="color: #000000;">y;<br /></span><span style="color: #0000ff;">if</span><span style="color: #000000;"> j</span><span style="color: #000000;">&lt;=</span><span style="color: #000000;">r </span><span style="color: #0000ff;">then</span><span style="color: #000000;"> hull(j,r,y,b);<br /></span><span style="color: #0000ff;">end</span><span style="color: #000000;">;<br /></span><span style="color: #0000ff;">begin</span><span style="color: #000000;"><br />assign(input,</span><span style="color: #800000;">'</span><span style="color: #800000;">Maxd.in</span><span style="color: #800000;">'</span><span style="color: #000000;">); reset(input);<br />assign(output,</span><span style="color: #800000;">'</span><span style="color: #800000;">Maxd.out</span><span style="color: #800000;">'</span><span style="color: #000000;">); rewrite(output);<br />readln(n);<br /></span><span style="color: #0000ff;">for</span><span style="color: #000000;"> i:</span><span style="color: #000000;">=</span><span style="color: #800080;">1</span><span style="color: #000000;"> </span><span style="color: #0000ff;">to</span><span style="color: #000000;"> n </span><span style="color: #0000ff;">do</span><span style="color: #000000;"><br />    </span><span style="color: #0000ff;">begin</span><span style="color: #000000;"><br />    readln(p[i].x,p[i].y);<br />    </span><span style="color: #0000ff;">if</span><span style="color: #000000;"> (x</span><span style="color: #000000;">=</span><span style="color: #800080;">0</span><span style="color: #000000;">)</span><span style="color: #0000ff;">or</span><span style="color: #000000;"> cmp(p[i],p[x]) </span><span style="color: #0000ff;">then</span><span style="color: #000000;"> x:</span><span style="color: #000000;">=</span><span style="color: #000000;">i;<br />    </span><span style="color: #0000ff;">end</span><span style="color: #000000;">;<br />swap(</span><span style="color: #800080;">1</span><span style="color: #000000;">,x);<br />m:</span><span style="color: #000000;">=</span><span style="color: #800080;">1</span><span style="color: #000000;">; ch[</span><span style="color: #800080;">1</span><span style="color: #000000;">]:</span><span style="color: #000000;">=</span><span style="color: #000000;">p[</span><span style="color: #800080;">1</span><span style="color: #000000;">]; hull(</span><span style="color: #800080;">2</span><span style="color: #000000;">,n,p[</span><span style="color: #800080;">1</span><span style="color: #000000;">],p[</span><span style="color: #800080;">1</span><span style="color: #000000;">]);<br />ch[m</span><span style="color: #000000;">+</span><span style="color: #800080;">1</span><span style="color: #000000;">]:</span><span style="color: #000000;">=</span><span style="color: #000000;">ch[</span><span style="color: #800080;">1</span><span style="color: #000000;">]; j:</span><span style="color: #000000;">=</span><span style="color: #800080;">2</span><span style="color: #000000;">; ans:</span><span style="color: #000000;">=</span><span style="color: #800080;">0</span><span style="color: #000000;">; <br /></span><span style="color: #0000ff;">for</span><span style="color: #000000;"> i:</span><span style="color: #000000;">=</span><span style="color: #800080;">1</span><span style="color: #000000;"> </span><span style="color: #0000ff;">to</span><span style="color: #000000;"> m </span><span style="color: #0000ff;">do</span><span style="color: #000000;"><br />    </span><span style="color: #0000ff;">begin</span><span style="color: #000000;"><br />    </span><span style="color: #0000ff;">while</span><span style="color: #000000;"> cross(ch[i],ch[j],ch[i</span><span style="color: #000000;">+</span><span style="color: #800080;">1</span><span style="color: #000000;">])</span><span style="color: #000000;">&lt;</span><span style="color: #000000;">cross(ch[i],ch[j</span><span style="color: #000000;">+</span><span style="color: #800080;">1</span><span style="color: #000000;">],ch[i</span><span style="color: #000000;">+</span><span style="color: #800080;">1</span><span style="color: #000000;">]) </span><span style="color: #0000ff;">do</span><span style="color: #000000;"><br />        </span><span style="color: #0000ff;">begin</span><span style="color: #000000;"> inc(j); </span><span style="color: #0000ff;">if</span><span style="color: #000000;"> j</span><span style="color: #000000;">&gt;</span><span style="color: #000000;">m </span><span style="color: #0000ff;">then</span><span style="color: #000000;"> j:</span><span style="color: #000000;">=</span><span style="color: #800080;">1</span><span style="color: #000000;">; </span><span style="color: #0000ff;">end</span><span style="color: #000000;">;<br />    ans:</span><span style="color: #000000;">=</span><span style="color: #000000;">max(ans,dist(ch[i],ch[j]));<br />    </span><span style="color: #0000ff;">end</span><span style="color: #000000;">;<br />writeln(ans);<br />close(input); close(output);<br /></span><span style="color: #0000ff;">end</span><span style="color: #000000;">.</span></div></pre>
+</div>
+</div>
+<p>下一节介绍旋转卡壳的更多应用</p>
+<p>之后开始介绍一点3D凸包</p></div><div id="MySignature"></div>
+<div class="clear"></div>
+<div id="blog_post_info_block">
+<div id="BlogPostCategory"></div>
+<div id="EntryTag"></div>
+<div id="blog_post_info">
+</div>
+<div class="clear"></div>
+<div id="post_next_prev"></div>
+</div>
+
+
+		<p class="postfoot">
+			posted on <span id="post-date">2011-04-03 22:19</span> <a href='http://www.cnblogs.com/Booble/'>Master_Chivu</a> 阅读(<span id="post_view_count">...</span>) 评论(<span id="post_comment_count">...</span>)  <a href ="https://i.cnblogs.com/EditPosts.aspx?postid=2004865" rel="nofollow">编辑</a> <a href="#" onclick="AddToWz(2004865);return false;">收藏</a>
+		</p>
+	</div>
+	<script type="text/javascript">var allowComments=true,cb_blogId=74721,cb_entryId=2004865,cb_blogApp=currentBlogApp,cb_blogUserGuid='ad03a349-fb76-df11-ba8f-001cf0cd104b',cb_entryCreatedDate='2011/4/3 22:19:00';loadViewCount(cb_entryId);</script>
+	
+	</div><a name="!comments"></a><div id="blog-comments-placeholder"></div><script type="text/javascript">var commentManager = new blogCommentManager();commentManager.renderComments(0);</script>
+<div id='comment_form' class='commentform'>
+<a name='commentform'></a>
+<div id='divCommentShow'></div>
+<div id='comment_nav'><span id='span_refresh_tips'></span><a href='javascript:void(0);' onclick='return RefreshCommentList();' id='lnk_RefreshComments' runat='server' clientidmode='Static'>刷新评论</a><a href='#' onclick='return RefreshPage();'>刷新页面</a><a href='#top'>返回顶部</a></div>
+<div id='comment_form_container'></div>
+<div class='ad_text_commentbox' id='ad_text_under_commentbox'></div>
+<div id='ad_t2'></div>
+<div id='opt_under_post'></div>
+<div id='cnblogs_c1' class='c_ad_block'></div>
+<div id='under_post_news'></div>
+<div id='cnblogs_c2' class='c_ad_block'></div>
+<div id='under_post_kb'></div>
+<div id='HistoryToday' class='c_ad_block'></div>
+<script type='text/javascript'>
+    fixPostBody();
+    setTimeout(function () { incrementViewCount(cb_entryId); }, 50);
+    deliverAdT2();
+    deliverAdC1();
+    deliverAdC2();    
+    loadNewsAndKb();
+    loadBlogSignature();
+    LoadPostInfoBlock(cb_blogId, cb_entryId, cb_blogApp, cb_blogUserGuid);
+    GetPrevNextPost(cb_entryId, cb_blogId, cb_entryCreatedDate);
+    loadOptUnderPost();
+    GetHistoryToday(cb_blogId, cb_blogApp, cb_entryCreatedDate);   
+</script>
+</div>
+
+
+	
+<p id="footer">
+	Powered by: 
+	<br />
+	
+	<a id="Footer1_Hyperlink3" NAME="Hyperlink1" href="http://www.cnblogs.com/" style="font-family:Verdana;font-size:12px;">博客园</a>
+	<br />
+	Copyright &copy; Master_Chivu
+</p>
+</div>
+<div id="rightmenu">
+	
+		<div id="blog-calendar" style="display:none"></div><script type="text/javascript">loadBlogDefaultCalendar();</script>
+		
+<h3>导航</h3>
+<ul>
+			<li></li>
+			<li><a id="blog_nav_myhome" href="http://www.cnblogs.com/Booble/">首页</a></li>
+			<li><a id="blog_nav_newpost" rel="nofollow" href="https://i.cnblogs.com/EditPosts.aspx?opt=1">新随笔</a></li>
+			<li><a id="blog_nav_contact" accesskey="9" rel="nofollow" href="https://msg.cnblogs.com/send/Master_Chivu">联系</a></li>
+			<li><a id="blog_nav_rss" href="http://www.cnblogs.com/Booble/rss">订阅</a><a id="blog_nav_rss_image" href="http://www.cnblogs.com/Booble/rss"><img src="//www.cnblogs.com/images/xml.gif" alt="订阅" /></a>
+			<li><a id="blog_nav_admin" rel="nofollow" href="https://i.cnblogs.com/">管理</a></li>
+</ul>
+		<div id="blog_stats">
+<h3>统计</h3>
+	<ul>
+		<li>随笔 - 42
+		<li>文章 - 0
+		<li>评论 - 121
+		<li>引用 - 0
+	</li>
+</ul></div>
+		
+<h3>公告</h3>
+	<div id="blog-news"></div><script type="text/javascript">loadBlogNews();</script>
+
+		<div id="blog-sidecolumn"></div><script type="text/javascript">loadBlogSideColumn();</script>
+	
+</div>
+			
+			
+			
+			
+			 
+
+	
+
+<!--PageEndHtml Block Begin-->
+<a href="http://s06.flagcounter.com/more/Oylq"><img src="http://s06.flagcounter.com/count/Oylq/bg=FFFFFF/txt=000000/border=CCCCCC/columns=3/maxflags=30/viewers=0/labels=0/" alt="free counters" border="0"></a>
+<!--PageEndHtml Block End-->
+</body>
+</html>

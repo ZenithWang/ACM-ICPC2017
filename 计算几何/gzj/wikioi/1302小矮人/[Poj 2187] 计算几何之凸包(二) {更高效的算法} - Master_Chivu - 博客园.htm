@@ -1,0 +1,305 @@
+
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>[Poj 2187] 计算几何之凸包(二) {更高效的算法} - Master_Chivu - 博客园</title>
+<link type="text/css" rel="stylesheet" href="/bundles/blog-common.css?v=m_FXmwz3wxZoecUwNEK23PAzc-j9vbX_C6MblJ5ouMc1"/>
+<link id="MainCss" type="text/css" rel="stylesheet" href="/skins/BOOK/bundle-BOOK.css?v=fWz3cvIoU0CG8iD-sCmV803XvYIy-SbgoBMZsoVHw9M1"/>
+<link type="text/css" rel="stylesheet" href="/blog/customcss/74721.css?v=DGHyiEy33XTYtGAQUbmGZn5%2f7Vs%3d"/>
+<link id="mobile-style" media="only screen and (max-width: 768px)" type="text/css" rel="stylesheet" href="/skins/BOOK/bundle-BOOK-mobile.css?v=LUvqpSqTyRS1PkUPHXQz7MLe7xXzjopFakWpGxQsAkw1"/>
+<link title="RSS" type="application/rss+xml" rel="alternate" href="http://www.cnblogs.com/Booble/rss"/>
+<link title="RSD" type="application/rsd+xml" rel="EditURI" href="http://www.cnblogs.com/Booble/rsd.xml"/>
+<link type="application/wlwmanifest+xml" rel="wlwmanifest" href="http://www.cnblogs.com/Booble/wlwmanifest.xml"/>
+<script src="//common.cnblogs.com/script/jquery.js" type="text/javascript"></script>  
+<script type="text/javascript">var currentBlogApp = 'Booble', cb_enable_mathjax=false;var isLogined=false;</script>
+<script src="/bundles/blog-common.js?v=E1-LyrzANB2jbN9omtnpOHx3eU0Kt3DyislfhU0b5p81" type="text/javascript"></script>
+</head>
+<body>
+<a name="top"></a>
+<!--PageBeginHtml Block Begin-->
+<a href="http://s06.flagcounter.com/more/Oylq"><img src="http://s06.flagcounter.com/count/Oylq/bg=FFFFFF/txt=000000/border=CCCCCC/columns=3/maxflags=30/viewers=0/labels=0/" alt="free counters" border="0"></a>
+<!--PageBeginHtml Block End-->
+
+<script type="text/javascript">
+	try {
+		if (screen.availWidth > 1200) {
+			document.getElementById("MainCss").href = '/Skins/BOOK/style2.css';
+		}
+	} catch (e) { }
+</script>
+
+<div id="header">
+<div id="HeaderTitle">
+<div id="Title">
+<a id="Header1_HeaderTitle" class="headermaintitle" href="http://www.cnblogs.com/Booble/">Var Bob:^Joy;</a>
+</div>
+<div id="subTitle">While Working, We're Worthy.
+Simple,Efficient,and Beautiful.</div>
+</div>
+</div>
+
+<div id="main">
+	
+<div id="post_detail">
+	<div class="post">
+		<h2>
+			<a id="cb_post_title_url" href="http://www.cnblogs.com/Booble/archive/2011/03/10/1980089.html">[Poj 2187] 计算几何之凸包(二) {更高效的算法}</a>
+		</h2>
+		<div id="cnblogs_post_body"><p>{</p>
+<p>承上一节</p>
+<p>继续介绍点集的凸包<strong>&nbsp;</strong></p>
+<p>(下文中所有凸包 若不做特殊说明均指点集的凸包)</p>
+<p>这一节介绍相比更高效的<strong>算法</strong></p>
+<p>}</p>
+<p>====================================================================</p>
+<p><span style="color: #ff0000;"><strong>一.卷包裹算法(Gift Wrapping Algorithm)的特性</strong></span></p>
+<p>前面提到过卷包裹算法的<strong>复杂度问题</strong></p>
+<p>由于卷包裹算法是<strong>两重循环</strong>实现的 因此很好分析它的复杂度</p>
+<div class="cnblogs_code">
+<pre><div><span style="color: #008080;"> 1</span> <span style="color: #0000ff;">while</span><span style="color: #000000;"> true </span><span style="color: #0000ff;">do</span><span style="color: #000000;"><br /></span><span style="color: #008080;"> 2</span> <span style="color: #000000;">    </span><span style="color: #0000ff;">begin</span><span style="color: #000000;"><br /></span><span style="color: #008080;"> 3</span> <span style="color: #000000;">    k:</span><span style="color: #000000;">=</span><span style="color: #800080;">0</span><span style="color: #000000;">;<br /></span><span style="color: #008080;"> 4</span> <span style="color: #000000;">    inc(m); ch[m]:</span><span style="color: #000000;">=</span><span style="color: #000000;">j;<br /></span><span style="color: #008080;"> 5</span> <span style="color: #000000;">    </span><span style="color: #0000ff;">for</span><span style="color: #000000;"> i:</span><span style="color: #000000;">=</span><span style="color: #800080;">1</span><span style="color: #000000;"> </span><span style="color: #0000ff;">to</span><span style="color: #000000;"> n </span><span style="color: #0000ff;">do</span><span style="color: #000000;"><br /></span><span style="color: #008080;"> 6</span> <span style="color: #000000;">        </span><span style="color: #0000ff;">if</span><span style="color: #000000;"> (i</span><span style="color: #000000;">&lt;&gt;</span><span style="color: #000000;">j)</span><span style="color: #0000ff;">and</span><span style="color: #000000;">((k</span><span style="color: #000000;">=</span><span style="color: #800080;">0</span><span style="color: #000000;">)</span><span style="color: #0000ff;">or</span><span style="color: #000000;"><br /></span><span style="color: #008080;"> 7</span> <span style="color: #000000;">        cmp(p[j],p[k],p[i]))<br /></span><span style="color: #008080;"> 8</span> <span style="color: #000000;">            </span><span style="color: #0000ff;">then</span><span style="color: #000000;"> k:</span><span style="color: #000000;">=</span><span style="color: #000000;">i;<br /></span><span style="color: #008080;"> 9</span> <span style="color: #000000;">    </span><span style="color: #0000ff;">if</span><span style="color: #000000;"> k</span><span style="color: #000000;">=</span><span style="color: #000000;">temp </span><span style="color: #0000ff;">then</span><span style="color: #000000;"> break;<br /></span><span style="color: #008080;">10</span> <span style="color: #000000;">    j:</span><span style="color: #000000;">=</span><span style="color: #000000;">k;<br /></span><span style="color: #008080;">11</span> <span style="color: #000000;">    </span><span style="color: #0000ff;">end</span><span style="color: #000000;">;</span></div></pre>
+</div>
+<p>内部循环N次 外循环的次数决定于凸包上的点数H</p>
+<p>所以卷包裹算法复杂度为<strong>O(HN)</strong> 这个复杂度很有特点</p>
+<p>考虑一个随机点集的凸包上的点数<strong>往往很少</strong> 但是最坏情况下是<strong>O(N)</strong>级别的</p>
+<p>比如所有的点都<strong>在一个圆上</strong>的时候</p>
+<p><img src="http://pic002.cnblogs.com/images/2011/139826/2011031016315419.png" height="371" width="384" /></p>
+<p>这就决定了卷包裹算法<strong>很适合随机的点集</strong> 但是如果是<strong>刻意构造的数据</strong>或是比较特殊的数据</p>
+<p>就会达到<strong>O(N^2)</strong>的<strong>最坏复杂度</strong> 这是我们不愿意看到的</p>
+<p>下面介绍最坏情况下复杂度更好的Graham扫描算法(Graham Scan Algorithm)</p>
+<p>====================================================================</p>
+<p><span style="color: #ff0000;"><strong>二.Graham扫描算法(Graham Scan Algorithm)</strong></span></p>
+<p>Graham扫描算法维护一个<strong>凸壳</strong> 通过不断在凸壳中<strong>加入新的点</strong>和去除<strong>影响凸性</strong>的点 最后形成凸包</p>
+<p>The Graham scan is a method of computing the convex hull of a finite set of points in the plane with time complexity O(n log n). It is named after Ronald Graham, who published the original algorithm in 1972.[1] The algorithm finds all vertices of the convex hull ordered along its boundary.</p>
+<p><a href="http://en.wikipedia.org/wiki/Graham_scan">http://en.wikipedia.org/wiki/Graham_scan</a></p>
+<p>算法主体由两部分组成 先是<strong>排序</strong> 后是<strong>扫描</strong> 分块讲解一下</p>
+<p>----------------------------------------------------------------------------------------------------------</p>
+<p><strong>1.点集排序</strong></p>
+<p>为了得到加入新点的顺序 Graham扫描法的第一步是对点集排序 </p>
+<p>排序是对杂乱的点集进行了<strong>梳理</strong> 这也是这种算法能够得到更高效率的根本原因</p>
+<p>排序的方法也有两种 <strong>极角坐标排序(极角序)</strong> 和 <strong>直角坐标排序(水平序)</strong></p>
+<p>前者<strong>好理解</strong>一些 但是在实现的时候 后者<strong>更方便</strong></p>
+<p>先说极角序 为了极角排序 我们先得得到一个参考点</p>
+<p>一般的 我们取最左边(横坐标最小)的点作为<strong>参考点</strong> 如果有多个这样的点就取最下面的(纵坐标最小)</p>
+<p>看这样一个例子 这是一个任意给出的平面点集:</p>
+<p><img src="http://pic002.cnblogs.com/images/2011/139826/2011031017121366.png" height="361" width="461" /></p>
+<p>参考点的<strong>定义</strong>:在<strong>横坐标最小</strong>的情况下取<strong>纵坐标最小</strong>的点</p>
+<p>所以所有的点只能在这个<strong>黄色的半平面</strong>中 而且<strong>正上方为闭(可取得) 正下方为开(不可取)</strong></p>
+<p>这就决定了参考点的<strong>性质</strong>:点集中<strong>任意两点</strong>和参考点所成的到角为<strong>锐角</strong></p>
+<p>这样我们取得参考点 然后再考虑极角排序</p>
+<img src="http://pic002.cnblogs.com/images/2011/139826/2011031017221378.png" height="361" width="461" /><br />
+<p>极角排序以参考点为<strong>极角坐标系原点</strong> 各个点的<strong>极角</strong>为关键字</p>
+<p>由于上面我们得到的参考点的性质 我们可以设所有点的极角<strong>均在(-90,90]之间</strong></p>
+<p>排序完成后应该是这样的:</p>
+<p><img src="http://pic002.cnblogs.com/images/2011/139826/2011031017323131.png" height="361" width="461" /></p>
+<p>比较极角我们仍然可以利用<strong>向量的叉积</strong></p>
+<p>叉积在这里已经介绍了 <a href="http://www.cnblogs.com/Booble/archive/2011/02/28/1967179.html">http://www.cnblogs.com/Booble/archive/2011/02/28/1967179.html</a></p>
+<p>同样由于参考点的性质 所有向量之间的到角都是在<strong>180度以内</strong> 不会产生错误</p>
+<p><img src="http://pic002.cnblogs.com/images/2011/139826/2011031017491387.png" height="361" width="461" /></p>
+<p>----------------------------------------------------------------------------------------------------------</p>
+<p><strong>2.Graham的栈扫描</strong></p>
+<p>Graham的扫描是一个很优美的过程 用到的数据结构也很简单 仅仅是一个栈而已</p>
+<p>核心的思想是按照排好的序 依次加入新点得到新的边</p>
+<p>如果和上一条边<strong>成左转关系就压栈继续</strong> 如果右转就<strong>弹栈直到和栈顶两点的边成左转关系 压栈继续</strong></p>
+<p>实现的时候我们不用存边 只需要含顺序在栈里存点 相邻两点就是一条边</p>
+<p>由于我们<strong>时时刻刻都保证栈内是一个凸壳</strong> 所以最后扫描完毕 就得到了一个凸包</p>
+<p>下面还是继续上面的那个样例 演示一下栈扫描的过程</p>
+<p><img src="http://pic002.cnblogs.com/images/2011/139826/2011031018085630.png" height="361" width="461" /></p>
+<p><img src="http://pic002.cnblogs.com/images/2011/139826/2011031018193031.png" height="361" width="461" /></p>
+<p><img src="http://pic002.cnblogs.com/images/2011/139826/2011031018230049.png" height="361" width="461" /></p>
+<p>这样Graham扫描算法基本完成</p>
+<p>复杂度是<strong>排序O(Nlog<span style="font-size: 12px;">2</span>N) 扫描O(N)</strong> {每个点仅仅出入栈一次}</p>
+<p>合起来是一个O(Nlog<span style="font-size: 12px;">2</span>N)的算法 很优秀</p>
+<p>&nbsp;----------------------------------------------------------------------------------------------------------</p>
+<p><strong>3.双重共线点难题</strong></p>
+<p>和卷包裹算法一样 我们同样还要考虑共线点问题</p>
+<p>而且Graham扫描算法的<strong>共线问题更复杂</strong> 所以需要仔细考虑</p>
+<p><strong>i).排序时的共线问题</strong></p>
+<p><img src="http://pic002.cnblogs.com/images/2011/139826/2011031019520655.png" height="368" width="461" /></p>
+<p>如果极角相同 我们应该怎么定先后呢?</p>
+<p>我们得加上<strong>第二关键字距离</strong> 比如极角相同 距离参考点近的先</p>
+<p>不过不管是近的先还是 远的先 开始和结束的两条边<strong>总是矛盾</strong>的</p>
+<p>我们必须对其中一条特殊处理 除了<strong>结束边外距离近的先 结束边上距离远的先</strong></p>
+<p>这就是为什么极角排序不是很好实现的原因了 下面会介绍一下<strong>水平序</strong></p>
+<p><strong>ii).扫描时的共线问题</strong></p>
+<p>这个和卷包裹算法的处理放法如出一辙</p>
+<p>如果需要保留共线的点就在到角相同时取距离最近的</p>
+<p>如果仅仅需要凸包极点就取距离最远的</p>
+<p>----------------------------------------------------------------------------------------------------------</p>
+<p><strong>4.直角坐标排序(水平序)</strong></p>
+<p>直角坐标排序方法没有了极角排序的不足</p>
+<p>以横坐标为第一关键字 纵坐标为第二关键字 排序点集</p>
+<p>然后从第一个点开始 分别利用Graham扫描生成<strong>左链</strong>和<strong>右链</strong></p>
+<p>需要注意以下两点:</p>
+<p><strong>i).左链和右链的旋转方向是相反的</strong></p>
+<p><strong>ii).注意生成第二条链要忽略第一条链上的点</strong></p>
+<p><strong><img src="http://pic002.cnblogs.com/images/2011/139826/2011031020105070.png" /><br /></strong></p>
+<p>由于水平序的<strong>CMP函数</strong>比较简单 代码也更短</p>
+<p>还有一件有意思的事 Graham扫描算法是1972年提出的 卷包裹算法是1973年提出的</p>
+<p>其实不奇怪 <span style="color: #00ffff;"><strong>这两个算法本来也没有优劣 所用的思想不同 各自善于处理不同的情况</strong></span></p>
+<p>Graham扫描所用时间在点集随机时 还不如卷包裹算法快</p>
+<p>正如第一节所说 卷包裹算法已经可以处理大部分情况 也是一个<strong>可取的算法</strong></p>
+<p>实际应用中点集<strong>更趋向于均匀</strong> 而不是集中在凸包上</p>
+<p>----------------------------------------------------------------------------------------------------------</p>
+<p>最后给一下比较难实现的极角排序代码</p>
+<div class="cnblogs_code" onclick="cnblogs_code_show('bcfb5705-b860-4232-bdbf-3aa50fcaf918')"><img src="http://images.cnblogs.com/OutliningIndicators/ContractedBlock.gif" class="code_img_closed" id="code_img_closed_bcfb5705-b860-4232-bdbf-3aa50fcaf918" /><img src="http://images.cnblogs.com/OutliningIndicators/ExpandedBlockStart.gif" class="code_img_opened" id="code_img_opened_bcfb5705-b860-4232-bdbf-3aa50fcaf918" onclick="cnblogs_code_hide('bcfb5705-b860-4232-bdbf-3aa50fcaf918',event)" style="display: none;" /><span class="cnblogs_code_collapse">GrahamScan</span>
+<div id="cnblogs_code_open_bcfb5705-b860-4232-bdbf-3aa50fcaf918" class="cnblogs_code_hide">
+<pre><div><span style="color: #008000;">{</span><span style="color: #008000;">$inline on</span><span style="color: #008000;">}</span><span style="color: #000000;"><br /></span><span style="color: #0000ff;">const</span><span style="color: #000000;">    zero</span><span style="color: #000000;">=</span><span style="color: #800080;">1e-6</span><span style="color: #000000;">; maxn</span><span style="color: #000000;">=</span><span style="color: #800080;">100000</span><span style="color: #000000;">;<br /></span><span style="color: #0000ff;">type</span><span style="color: #000000;">    point</span><span style="color: #000000;">=</span><span style="color: #0000ff;">record</span><span style="color: #000000;"> x,y:extended; </span><span style="color: #0000ff;">end</span><span style="color: #000000;">;<br /></span><span style="color: #0000ff;">var</span><span style="color: #000000;">    p,ch:</span><span style="color: #0000ff;">array</span><span style="color: #000000;">[</span><span style="color: #800080;">1</span><span style="color: #000000;">..maxn]</span><span style="color: #0000ff;">of</span><span style="color: #000000;"> point;<br />    i,j,n,m,temp:longint;<br /></span><span style="color: #0000ff;">function</span><span style="color: #000000;"> sgn(x:extended):longint; inline;<br /></span><span style="color: #0000ff;">begin</span><span style="color: #000000;"><br /></span><span style="color: #0000ff;">if</span><span style="color: #000000;"> abs(x)</span><span style="color: #000000;">&lt;</span><span style="color: #000000;">zero </span><span style="color: #0000ff;">then</span><span style="color: #000000;"> exit(</span><span style="color: #800080;">0</span><span style="color: #000000;">);<br /></span><span style="color: #0000ff;">if</span><span style="color: #000000;"> x</span><span style="color: #000000;">&lt;</span><span style="color: #800080;">0</span><span style="color: #000000;"> </span><span style="color: #0000ff;">then</span><span style="color: #000000;"> sgn:</span><span style="color: #000000;">=-</span><span style="color: #800080;">1</span><span style="color: #000000;"> </span><span style="color: #0000ff;">else</span><span style="color: #000000;"> sgn:</span><span style="color: #000000;">=</span><span style="color: #800080;">1</span><span style="color: #000000;">;<br /></span><span style="color: #0000ff;">end</span><span style="color: #000000;">;<br /></span><span style="color: #0000ff;">function</span><span style="color: #000000;"> cross(a,b,c,d:point):extended; inline;<br /></span><span style="color: #0000ff;">begin</span><span style="color: #000000;"><br />cross:</span><span style="color: #000000;">=</span><span style="color: #000000;">(b.x</span><span style="color: #000000;">-</span><span style="color: #000000;">a.x)</span><span style="color: #000000;">*</span><span style="color: #000000;">(d.y</span><span style="color: #000000;">-</span><span style="color: #000000;">c.y)</span><span style="color: #000000;">-</span><span style="color: #000000;">(d.x</span><span style="color: #000000;">-</span><span style="color: #000000;">c.x)</span><span style="color: #000000;">*</span><span style="color: #000000;">(b.y</span><span style="color: #000000;">-</span><span style="color: #000000;">a.y);<br /></span><span style="color: #0000ff;">end</span><span style="color: #000000;">;<br /></span><span style="color: #0000ff;">function</span><span style="color: #000000;"> dist(a,b:point):extended; inline;<br /></span><span style="color: #0000ff;">begin</span><span style="color: #000000;"><br />dist:</span><span style="color: #000000;">=</span><span style="color: #000000;">sqr(a.x</span><span style="color: #000000;">-</span><span style="color: #000000;">b.x)</span><span style="color: #000000;">+</span><span style="color: #000000;">sqr(a.y</span><span style="color: #000000;">-</span><span style="color: #000000;">b.y);<br /></span><span style="color: #0000ff;">end</span><span style="color: #000000;">;<br /></span><span style="color: #0000ff;">function</span><span style="color: #000000;"> cmp1(a,b,c:point):boolean; inline;<br /></span><span style="color: #0000ff;">var</span><span style="color: #000000;">    temp:longint;<br /></span><span style="color: #0000ff;">begin</span><span style="color: #000000;"><br />temp:</span><span style="color: #000000;">=</span><span style="color: #000000;">sgn(cross(a,b,a,c));<br /></span><span style="color: #0000ff;">if</span><span style="color: #000000;"> temp</span><span style="color: #000000;">&lt;&gt;</span><span style="color: #800080;">0</span><span style="color: #000000;"> </span><span style="color: #0000ff;">then</span><span style="color: #000000;"> exit(temp</span><span style="color: #000000;">&gt;</span><span style="color: #800080;">0</span><span style="color: #000000;">); </span><span style="color: #008000;">{</span><span style="color: #008000;">*B</span><span style="color: #008000;">}</span><span style="color: #000000;"><br />cmp1:</span><span style="color: #000000;">=</span><span style="color: #000000;">dist(a,b)</span><span style="color: #000000;">&lt;</span><span style="color: #000000;">dist(a,c);<br /></span><span style="color: #0000ff;">end</span><span style="color: #000000;">;<br /></span><span style="color: #0000ff;">function</span><span style="color: #000000;"> cmp2(a,b,c:point):boolean; inline;<br /></span><span style="color: #0000ff;">var</span><span style="color: #000000;">    temp:longint;<br /></span><span style="color: #0000ff;">begin</span><span style="color: #000000;"><br />temp:</span><span style="color: #000000;">=</span><span style="color: #000000;">sgn(cross(a,b,b,c));<br /></span><span style="color: #0000ff;">if</span><span style="color: #000000;"> temp</span><span style="color: #000000;">&lt;&gt;</span><span style="color: #800080;">0</span><span style="color: #000000;"> </span><span style="color: #0000ff;">then</span><span style="color: #000000;"> exit(temp</span><span style="color: #000000;">&lt;</span><span style="color: #800080;">0</span><span style="color: #000000;">); </span><span style="color: #008000;">{</span><span style="color: #008000;">*B</span><span style="color: #008000;">}</span><span style="color: #000000;"><br />cmp2:</span><span style="color: #000000;">=</span><span style="color: #000000;">dist(a,b)</span><span style="color: #000000;">&lt;</span><span style="color: #000000;">dist(a,c); </span><span style="color: #008000;">{</span><span style="color: #008000;">*A</span><span style="color: #008000;">}</span><span style="color: #000000;"><br /></span><span style="color: #0000ff;">end</span><span style="color: #000000;">;<br /></span><span style="color: #0000ff;">procedure</span><span style="color: #000000;"> swap(</span><span style="color: #0000ff;">var</span><span style="color: #000000;"> a,b:point); inline;<br /></span><span style="color: #0000ff;">var</span><span style="color: #000000;">    temp:point;<br /></span><span style="color: #0000ff;">begin</span><span style="color: #000000;"><br />temp:</span><span style="color: #000000;">=</span><span style="color: #000000;">a; a:</span><span style="color: #000000;">=</span><span style="color: #000000;">b; b:</span><span style="color: #000000;">=</span><span style="color: #000000;">temp;<br /></span><span style="color: #0000ff;">end</span><span style="color: #000000;">;<br /></span><span style="color: #0000ff;">procedure</span><span style="color: #000000;"> sort(l,r:longint);<br /></span><span style="color: #0000ff;">var</span><span style="color: #000000;">    i,j:longint;<br />    x:point;<br /></span><span style="color: #0000ff;">begin</span><span style="color: #000000;"><br />i:</span><span style="color: #000000;">=</span><span style="color: #000000;">l; j:</span><span style="color: #000000;">=</span><span style="color: #000000;">r;<br />x:</span><span style="color: #000000;">=</span><span style="color: #000000;">p[(l</span><span style="color: #000000;">+</span><span style="color: #000000;">r)</span><span style="color: #000000;">&gt;&gt;</span><span style="color: #800080;">1</span><span style="color: #000000;">];<br /></span><span style="color: #0000ff;">repeat</span><span style="color: #000000;"><br /></span><span style="color: #0000ff;">while</span><span style="color: #000000;"> cmp1(p[</span><span style="color: #800080;">1</span><span style="color: #000000;">],p[i],x) </span><span style="color: #0000ff;">do</span><span style="color: #000000;"> inc(i);<br /></span><span style="color: #0000ff;">while</span><span style="color: #000000;"> cmp1(p[</span><span style="color: #800080;">1</span><span style="color: #000000;">],x,p[j]) </span><span style="color: #0000ff;">do</span><span style="color: #000000;"> dec(j);<br /></span><span style="color: #0000ff;">if</span><span style="color: #000000;"> </span><span style="color: #0000ff;">not</span><span style="color: #000000;">(i</span><span style="color: #000000;">&gt;</span><span style="color: #000000;">j)<br />    </span><span style="color: #0000ff;">then</span><span style="color: #000000;"> </span><span style="color: #0000ff;">begin</span><span style="color: #000000;"><br />    swap(p[i],p[j]);<br />    inc(i); dec(j);<br />    </span><span style="color: #0000ff;">end</span><span style="color: #000000;">;<br /></span><span style="color: #0000ff;">until</span><span style="color: #000000;"> i</span><span style="color: #000000;">&gt;</span><span style="color: #000000;">j;<br /></span><span style="color: #0000ff;">if</span><span style="color: #000000;"> i</span><span style="color: #000000;">&lt;</span><span style="color: #000000;">r </span><span style="color: #0000ff;">then</span><span style="color: #000000;"> sort(i,r);<br /></span><span style="color: #0000ff;">if</span><span style="color: #000000;"> l</span><span style="color: #000000;">&lt;</span><span style="color: #000000;">j </span><span style="color: #0000ff;">then</span><span style="color: #000000;"> sort(l,j);<br /></span><span style="color: #0000ff;">end</span><span style="color: #000000;">;<br /></span><span style="color: #0000ff;">begin</span><span style="color: #000000;"><br />assign(input,</span><span style="color: #800000;">'</span><span style="color: #800000;">Hull.in</span><span style="color: #800000;">'</span><span style="color: #000000;">); reset(input);<br />assign(output,</span><span style="color: #800000;">'</span><span style="color: #800000;">Hull2.out</span><span style="color: #800000;">'</span><span style="color: #000000;">); rewrite(output);<br />readln(n);<br /></span><span style="color: #0000ff;">for</span><span style="color: #000000;"> i:</span><span style="color: #000000;">=</span><span style="color: #800080;">1</span><span style="color: #000000;"> </span><span style="color: #0000ff;">to</span><span style="color: #000000;"> n </span><span style="color: #0000ff;">do</span><span style="color: #000000;"><br />    </span><span style="color: #0000ff;">begin</span><span style="color: #000000;"><br />    readln(p[i].x,p[i].y);<br />    </span><span style="color: #0000ff;">if</span><span style="color: #000000;"> (p[i].x</span><span style="color: #000000;">&lt;</span><span style="color: #000000;">p[</span><span style="color: #800080;">1</span><span style="color: #000000;">].x)</span><span style="color: #0000ff;">or</span><span style="color: #000000;"><br />    (sgn(p[i].x</span><span style="color: #000000;">-</span><span style="color: #000000;">p[</span><span style="color: #800080;">1</span><span style="color: #000000;">].x)</span><span style="color: #000000;">=</span><span style="color: #800080;">0</span><span style="color: #000000;">)</span><span style="color: #0000ff;">and</span><span style="color: #000000;">(p[i].y</span><span style="color: #000000;">&lt;</span><span style="color: #000000;">p[</span><span style="color: #800080;">1</span><span style="color: #000000;">].y)<br />        </span><span style="color: #0000ff;">then</span><span style="color: #000000;"> swap(p[</span><span style="color: #800080;">1</span><span style="color: #000000;">],p[i]);<br />    </span><span style="color: #0000ff;">end</span><span style="color: #000000;">;<br />sort(</span><span style="color: #800080;">2</span><span style="color: #000000;">,n);<br /></span><span style="color: #0000ff;">while</span><span style="color: #000000;"> i</span><span style="color: #000000;">&gt;</span><span style="color: #800080;">2</span><span style="color: #000000;"> </span><span style="color: #0000ff;">do</span><span style="color: #000000;"><br />    </span><span style="color: #0000ff;">begin</span><span style="color: #000000;"><br />    </span><span style="color: #0000ff;">if</span><span style="color: #000000;"> sgn(cross(p[</span><span style="color: #800080;">1</span><span style="color: #000000;">],p[i],p[</span><span style="color: #800080;">1</span><span style="color: #000000;">],p[i</span><span style="color: #000000;">-</span><span style="color: #800080;">1</span><span style="color: #000000;">]))</span><span style="color: #000000;">&lt;&gt;</span><span style="color: #800080;">0</span><span style="color: #000000;"><br />        </span><span style="color: #0000ff;">then</span><span style="color: #000000;"> break; dec(i);<br />    </span><span style="color: #0000ff;">end</span><span style="color: #000000;">;<br />temp:</span><span style="color: #000000;">=</span><span style="color: #000000;">(i</span><span style="color: #000000;">+</span><span style="color: #000000;">n</span><span style="color: #000000;">+</span><span style="color: #800080;">1</span><span style="color: #000000;">)</span><span style="color: #000000;">&gt;&gt;</span><span style="color: #800080;">1</span><span style="color: #000000;">;<br /></span><span style="color: #0000ff;">for</span><span style="color: #000000;"> j:</span><span style="color: #000000;">=</span><span style="color: #000000;">n </span><span style="color: #0000ff;">downto</span><span style="color: #000000;"> temp </span><span style="color: #0000ff;">do</span><span style="color: #000000;"><br />    swap(p[j],p[i</span><span style="color: #000000;">+</span><span style="color: #000000;">n</span><span style="color: #000000;">-</span><span style="color: #000000;">j]);<br />m:</span><span style="color: #000000;">=</span><span style="color: #800080;">1</span><span style="color: #000000;">; ch[</span><span style="color: #800080;">1</span><span style="color: #000000;">]:</span><span style="color: #000000;">=</span><span style="color: #000000;">p[</span><span style="color: #800080;">1</span><span style="color: #000000;">];<br />inc(n); p[n]:</span><span style="color: #000000;">=</span><span style="color: #000000;">p[</span><span style="color: #800080;">1</span><span style="color: #000000;">];<br /></span><span style="color: #0000ff;">for</span><span style="color: #000000;"> i:</span><span style="color: #000000;">=</span><span style="color: #800080;">2</span><span style="color: #000000;"> </span><span style="color: #0000ff;">to</span><span style="color: #000000;"> n </span><span style="color: #0000ff;">do</span><span style="color: #000000;"><br />    </span><span style="color: #0000ff;">begin</span><span style="color: #000000;"><br />    </span><span style="color: #0000ff;">while</span><span style="color: #000000;"> m</span><span style="color: #000000;">&gt;</span><span style="color: #800080;">1</span><span style="color: #000000;"> </span><span style="color: #0000ff;">do</span><span style="color: #000000;"><br />        </span><span style="color: #0000ff;">begin</span><span style="color: #000000;"><br />        </span><span style="color: #0000ff;">if</span><span style="color: #000000;"> </span><span style="color: #0000ff;">not</span><span style="color: #000000;"> cmp2(ch[m</span><span style="color: #000000;">-</span><span style="color: #800080;">1</span><span style="color: #000000;">],ch[m],p[i])<br />            </span><span style="color: #0000ff;">then</span><span style="color: #000000;"> break; dec(m);<br />        </span><span style="color: #0000ff;">end</span><span style="color: #000000;">;<br />    inc(m); ch[m]:</span><span style="color: #000000;">=</span><span style="color: #000000;">p[i];<br />    </span><span style="color: #0000ff;">end</span><span style="color: #000000;">;<br /></span><span style="color: #0000ff;">for</span><span style="color: #000000;"> i:</span><span style="color: #000000;">=</span><span style="color: #800080;">1</span><span style="color: #000000;"> </span><span style="color: #0000ff;">to</span><span style="color: #000000;"> m</span><span style="color: #000000;">-</span><span style="color: #800080;">1</span><span style="color: #000000;"> </span><span style="color: #0000ff;">do</span><span style="color: #000000;"><br />    writeln(ch[i].x:</span><span style="color: #800080;">0</span><span style="color: #000000;">:</span><span style="color: #800080;">2</span><span style="color: #000000;">,</span><span style="color: #800000;">'</span><span style="color: #800000;"> </span><span style="color: #800000;">'</span><span style="color: #000000;">,ch[i].y:</span><span style="color: #800080;">0</span><span style="color: #000000;">:</span><span style="color: #800080;">2</span><span style="color: #000000;">);<br />close(input); close(output);<br /></span><span style="color: #0000ff;">end</span><span style="color: #000000;">.<br /><br /></span><span style="color: #000000;">*</span><span style="color: #000000;">A Change Direction<br /></span><span style="color: #000000;">*</span><span style="color: #000000;">B Remove Colinear Points</span></div></pre>
+</div>
+</div>
+====================================================================
+<p><span style="color: #ff0000;"><strong>三.快速凸包算法(Quickhull Algorithm)</strong></span></p>
+<p>对比Graham扫描算法和卷包裹算法</p>
+<p>我们发现 Graham扫描算法在凸包上的点很密集时仍然适用</p>
+<p>卷包裹算法在凸包上点集随机分布时是很高效的</p>
+<p>那么有没有两个优点都具备的算法呢?</p>
+<p>是有的! <span style="color: #000000;"><strong>快速凸包算法(Quickhull Algorithm)</strong></span>就是这样的一个算法</p>
+<p>快速凸包算法是一个<strong>和快速排序(Quicksort Algorithm)神似</strong>的算法</p>
+<p>尽管快速排序的最坏复杂度可以达到O(N^2)</p>
+<p>但是有着极小的常数 实现方便 思路优美 绝大多数情况特别高效的快速排序 还是赢得了更多人的青睐</p>
+<p>快速凸包算法也是这样 尽管可以构造一个数据使之达到O(N^2)的复杂度</p>
+<p>但这需要刻意针对程序经过分析 才能做到 是实际应用中根本不会碰到的情况</p>
+<p>在点集<strong>均匀分布</strong>时 快速凸包的复杂度更是达到了<strong>O(N)</strong> 是上面两种算法难以企及的</p>
+<p>在绝大多数情况下 <strong>平均复杂度是O(Nlog<span style="font-size: 12px;">2</span>N)</strong> 也很高效</p>
+<p>快速凸包继承了快速排序<strong>分治</strong>的思想 这是一个<strong>递归</strong>的过程</p>
+<p><img src="http://pic002.cnblogs.com/images/2011/139826/2011031021105993.png" /><img src="http://pic002.cnblogs.com/images/2011/139826/2011031021110691.png" /><img src="http://pic002.cnblogs.com/images/2011/139826/2011031021111384.png" /></p>
+<p>------------------------------------------------------------------------------------</p>
+<p><img src="http://pic002.cnblogs.com/images/2011/139826/2011031021111976.png" /><img src="http://pic002.cnblogs.com/images/2011/139826/2011031021112572.png" /><img src="http://pic002.cnblogs.com/images/2011/139826/2011031021113270.png" /></p>
+<p>伪代码如下:</p>
+<p><strong>&nbsp;</strong></p>
+<div class="cnblogs_code">
+<pre><div><span style="color: #008080;"> 1</span> <span style="color: #0000ff;">void</span><span style="color: #000000;"> 快速凸包(P:点集 , S:向量 </span><span style="color: #008000;">/*</span><span style="color: #008000;">S.p,S.q:点)</span><span style="color: #008000;">*/</span><span style="color: #000000;"> ){<br /></span><span style="color: #008080;"> 2</span> <span style="color: #000000;">　　</span><span style="color: #008000;">/*</span><span style="color: #008000;"> P 在 S 左侧</span><span style="color: #008000;">*/</span><span style="color: #000000;"><br /></span><span style="color: #008080;"> 3</span> <span style="color: #000000;">　　选取 P 中距离 S 最远的 点 Y ;<br /></span><span style="color: #008080;"> 4</span> <span style="color: #000000;">　　向量 A </span><span style="color: #000000;">&lt;-</span><span style="color: #000000;"> { S.p , Y } ; 向量 B </span><span style="color: #000000;">&lt;-</span><span style="color: #000000;"> { Y , S.q } ;<br /></span><span style="color: #008080;"> 5</span> <span style="color: #000000;">　　点集 Q </span><span style="color: #000000;">&lt;-</span><span style="color: #000000;"> 在 P 中 且在 A 左侧的点 ;<br /></span><span style="color: #008080;"> 6</span> <span style="color: #000000;">　　点集 R </span><span style="color: #000000;">&lt;-</span><span style="color: #000000;"> 在 P 中 且在 B 左侧的点 ; </span><span style="color: #008000;">/*</span><span style="color: #008000;"> 划分 </span><span style="color: #008000;">*/</span><span style="color: #000000;"><br /></span><span style="color: #008080;"> 7</span> <span style="color: #000000;">　　快速凸包 ( Q , A ) ; </span><span style="color: #008000;">/*</span><span style="color: #008000;"> 分治 </span><span style="color: #008000;">*/</span><span style="color: #000000;"><br /></span><span style="color: #008080;"> 8</span> <span style="color: #000000;">　　输出 (点 Y) ; </span><span style="color: #008000;">/*</span><span style="color: #008000;"> 按中序输出 保证顺序</span><span style="color: #008000;">*/</span><span style="color: #000000;"><br /></span><span style="color: #008080;"> 9</span> <span style="color: #000000;">　　快速凸包 ( P , B ) ; </span><span style="color: #008000;">/*</span><span style="color: #008000;"> 分治 </span><span style="color: #008000;">*/</span><span style="color: #000000;"><br /></span><span style="color: #008080;">10</span> <span style="color: #000000;">}</span></div></pre>
+</div>
+<p>初始化就选取 <strong>最左下和最右上的点 划分好</strong> 然后调用两次快速凸包函数<strong>分别求上下凸包</strong></p>
+<p>其中 选取和划分都需要用到<strong>向量的叉乘</strong> 注意方向</p>
+<p>另外 存储点集可以用<strong>数组里的连续一段 传参的时候就传左右下标</strong></p>
+<p>划分的时候就是给数组<strong>交换元素</strong> 使新的点集 变成<strong>连续的一段</strong></p>
+<p>这里有一个很好的演示</p>
+<p><a href="http://www.cs.princeton.edu/courses/archive/spr10/cos226/demo/ah/QuickHull.html">http://www.cs.princeton.edu/courses/archive/spr10/cos226/demo/ah/QuickHull.html</a></p>
+<p>还要补充说明一下</p>
+<p>快速凸包在所有点都在圆周上的时候还是O(Nlog2N) 不过会比Graham扫描算法<strong>慢一些</strong></p>
+<p>可以说 这种数据<strong>是Graham扫描法的最好情况</strong> 一遍走完就行了</p>
+<p>构造快速凸包的最坏情况就是使<strong>划分不均等</strong> 和构造快速排序最坏情况一样</p>
+<p>贴以下我很辛苦写出来的代码吧 为了好看些 还心血来潮用cpp写了...</p>
+<div class="cnblogs_code" onclick="cnblogs_code_show('0d89ff8d-9b81-4d2b-8d64-f1800310e1b0')"><img src="http://images.cnblogs.com/OutliningIndicators/ContractedBlock.gif" class="code_img_closed" id="code_img_closed_0d89ff8d-9b81-4d2b-8d64-f1800310e1b0" /><img src="http://images.cnblogs.com/OutliningIndicators/ExpandedBlockStart.gif" class="code_img_opened" id="code_img_opened_0d89ff8d-9b81-4d2b-8d64-f1800310e1b0" onclick="cnblogs_code_hide('0d89ff8d-9b81-4d2b-8d64-f1800310e1b0',event)" style="display: none;" /><span class="cnblogs_code_collapse">QuickHull</span>
+<div id="cnblogs_code_open_0d89ff8d-9b81-4d2b-8d64-f1800310e1b0" class="cnblogs_code_hide">
+<pre><div><span style="color: #000000;">#include </span><span style="color: #000000;">&lt;</span><span style="color: #000000;">iostream</span><span style="color: #000000;">&gt;</span><span style="color: #000000;"><br />#include </span><span style="color: #000000;">&lt;</span><span style="color: #000000;">math.h</span><span style="color: #000000;">&gt;</span><span style="color: #000000;"><br /></span><span style="color: #0000ff;">#define</span><span style="color: #000000;"> maxn 100000</span><span style="color: #000000;"><br /></span><span style="color: #0000ff;">#define</span><span style="color: #000000;"> zero 1e-12</span><span style="color: #000000;"><br /></span><span style="color: #0000ff;">#define</span><span style="color: #000000;"> sgn(x) (fabs(x)&lt;zero?0:(x&gt;0?1:-1))</span><span style="color: #000000;"><br /></span><span style="color: #0000ff;">#define</span><span style="color: #000000;"> cross(a,b,c) ((b.x-a.x)*(c.y-a.y)-(b.y-a.y)*(c.x-a.x))</span><span style="color: #000000;"><br /></span><span style="color: #0000ff;">#define</span><span style="color: #000000;"> cmp(a,b) (a.x&lt;b.x || sgn(a.x-b.x)==0 &amp;&amp; a.y&lt;b.y)</span><span style="color: #000000;"><br /><br /></span><span style="color: #0000ff;">using</span><span style="color: #000000;"> </span><span style="color: #0000ff;">namespace</span><span style="color: #000000;"> std;<br /></span><span style="color: #0000ff;">struct</span><span style="color: #000000;"> point{<br />    </span><span style="color: #0000ff;">double</span><span style="color: #000000;"> x,y;<br />}p[maxn];<br /></span><span style="color: #0000ff;">double</span><span style="color: #000000;"> s[maxn];<br /><br /></span><span style="color: #0000ff;">void</span><span style="color: #000000;"> hull(</span><span style="color: #0000ff;">int</span><span style="color: #000000;"> l,</span><span style="color: #0000ff;">int</span><span style="color: #000000;"> r,point a,point b){<br />    </span><span style="color: #0000ff;">int</span><span style="color: #000000;"> x</span><span style="color: #000000;">=</span><span style="color: #000000;">l,i</span><span style="color: #000000;">=</span><span style="color: #000000;">l</span><span style="color: #000000;">-</span><span style="color: #800080;">1</span><span style="color: #000000;">,j</span><span style="color: #000000;">=</span><span style="color: #000000;">r</span><span style="color: #000000;">+</span><span style="color: #800080;">1</span><span style="color: #000000;">,k;<br />    </span><span style="color: #0000ff;">for</span><span style="color: #000000;"> (k</span><span style="color: #000000;">=</span><span style="color: #000000;">l;k</span><span style="color: #000000;">&lt;=</span><span style="color: #000000;">r;k</span><span style="color: #000000;">++</span><span style="color: #000000;">){<br />        </span><span style="color: #0000ff;">double</span><span style="color: #000000;"> temp</span><span style="color: #000000;">=</span><span style="color: #000000;">sgn(s[x]</span><span style="color: #000000;">-</span><span style="color: #000000;">s[k]);<br />        </span><span style="color: #0000ff;">if</span><span style="color: #000000;"> (temp</span><span style="color: #000000;">&lt;</span><span style="color: #800080;">0</span><span style="color: #000000;"> </span><span style="color: #000000;">||</span><span style="color: #000000;"> temp</span><span style="color: #000000;">==</span><span style="color: #800080;">0</span><span style="color: #000000;"> </span><span style="color: #000000;">&amp;&amp;</span><span style="color: #000000;"> cmp(p[x],p[k])) x</span><span style="color: #000000;">=</span><span style="color: #000000;">k;<br />    }<br />    point y</span><span style="color: #000000;">=</span><span style="color: #000000;">p[x];<br />    </span><span style="color: #0000ff;">for</span><span style="color: #000000;"> (k</span><span style="color: #000000;">=</span><span style="color: #000000;">l;k</span><span style="color: #000000;">&lt;=</span><span style="color: #000000;">r;k</span><span style="color: #000000;">++</span><span style="color: #000000;">){<br />        s[</span><span style="color: #000000;">++</span><span style="color: #000000;">i]</span><span style="color: #000000;">=</span><span style="color: #000000;">cross(p[k],a,y);<br />        </span><span style="color: #0000ff;">if</span><span style="color: #000000;"> (sgn(s[i])</span><span style="color: #000000;">&gt;</span><span style="color: #800080;">0</span><span style="color: #000000;">) swap(p[i],p[k]); </span><span style="color: #0000ff;">else</span><span style="color: #000000;"> i</span><span style="color: #000000;">--</span><span style="color: #000000;">;<br />    }<br />    </span><span style="color: #0000ff;">for</span><span style="color: #000000;"> (k</span><span style="color: #000000;">=</span><span style="color: #000000;">r;k</span><span style="color: #000000;">&gt;=</span><span style="color: #000000;">l;k</span><span style="color: #000000;">--</span><span style="color: #000000;">){<br />        s[</span><span style="color: #000000;">--</span><span style="color: #000000;">j]</span><span style="color: #000000;">=</span><span style="color: #000000;">cross(p[k],y,b);<br />        </span><span style="color: #0000ff;">if</span><span style="color: #000000;"> (sgn(s[j])</span><span style="color: #000000;">&gt;</span><span style="color: #800080;">0</span><span style="color: #000000;">) swap(p[j],p[k]); </span><span style="color: #0000ff;">else</span><span style="color: #000000;"> j</span><span style="color: #000000;">++</span><span style="color: #000000;">;<br />    }<br />    </span><span style="color: #0000ff;">if</span><span style="color: #000000;"> (l</span><span style="color: #000000;">&lt;=</span><span style="color: #000000;">i) hull(l,i,a,y);<br />    printf(</span><span style="color: #800000;">"</span><span style="color: #800000;">%.4lf %.4lf\n</span><span style="color: #800000;">"</span><span style="color: #000000;">,y.x,y.y);<br />    </span><span style="color: #0000ff;">if</span><span style="color: #000000;"> (j</span><span style="color: #000000;">&lt;=</span><span style="color: #000000;">r) hull(j,r,y,b);<br />}<br /><br /></span><span style="color: #0000ff;">int</span><span style="color: #000000;"> main(){<br />    freopen(</span><span style="color: #800000;">"</span><span style="color: #800000;">CH2D.in</span><span style="color: #800000;">"</span><span style="color: #000000;">,</span><span style="color: #800000;">"</span><span style="color: #800000;">r</span><span style="color: #800000;">"</span><span style="color: #000000;">,stdin);<br />    freopen(</span><span style="color: #800000;">"</span><span style="color: #800000;">CH2D1.out</span><span style="color: #800000;">"</span><span style="color: #000000;">,</span><span style="color: #800000;">"</span><span style="color: #800000;">w</span><span style="color: #800000;">"</span><span style="color: #000000;">,stdout);<br />    </span><span style="color: #0000ff;">int</span><span style="color: #000000;"> n,i,x</span><span style="color: #000000;">=</span><span style="color: #800080;">0</span><span style="color: #000000;">;<br />    scanf(</span><span style="color: #800000;">"</span><span style="color: #800000;">%d</span><span style="color: #800000;">"</span><span style="color: #000000;">,</span><span style="color: #000000;">&amp;</span><span style="color: #000000;">n);<br />    </span><span style="color: #0000ff;">for</span><span style="color: #000000;"> (i</span><span style="color: #000000;">=</span><span style="color: #800080;">1</span><span style="color: #000000;">;i</span><span style="color: #000000;">&lt;=</span><span style="color: #000000;">n;i</span><span style="color: #000000;">++</span><span style="color: #000000;">){<br />        scanf(</span><span style="color: #800000;">"</span><span style="color: #800000;">%lf %lf</span><span style="color: #800000;">"</span><span style="color: #000000;">,</span><span style="color: #000000;">&amp;</span><span style="color: #000000;">p[i].x,</span><span style="color: #000000;">&amp;</span><span style="color: #000000;">p[i].y);<br />        </span><span style="color: #0000ff;">if</span><span style="color: #000000;"> (x</span><span style="color: #000000;">==</span><span style="color: #800080;">0</span><span style="color: #000000;"> </span><span style="color: #000000;">||</span><span style="color: #000000;"> cmp(p[i],p[x])) x</span><span style="color: #000000;">=</span><span style="color: #000000;">i;<br />    }<br />    swap(p[</span><span style="color: #800080;">1</span><span style="color: #000000;">],p[x]);<br />    printf(</span><span style="color: #800000;">"</span><span style="color: #800000;">%.4lf %.4lf\n</span><span style="color: #800000;">"</span><span style="color: #000000;">,p[</span><span style="color: #800080;">1</span><span style="color: #000000;">].x,p[</span><span style="color: #800080;">1</span><span style="color: #000000;">].y);<br />    hull(</span><span style="color: #800080;">2</span><span style="color: #000000;">,n,p[</span><span style="color: #800080;">1</span><span style="color: #000000;">],p[</span><span style="color: #800080;">1</span><span style="color: #000000;">]);<br />    </span><span style="color: #0000ff;">return</span><span style="color: #000000;"> </span><span style="color: #800080;">0</span><span style="color: #000000;">;<br />}</span></div></pre>
+</div>
+</div>
+<p>====================================================================</p>
+<p><strong><span style="color: #ff0000;">四.凸包算法复杂度下界</span></strong></p>
+<p>(引自&lt;算法艺术与信息学竞赛&gt;)</p>
+<p><img src="http://pic002.cnblogs.com/images/2011/139826/2011031021160322.png" /></p>
+<p>====================================================================</p>
+<p><strong><span style="color: #ff0000;">五.高效算法的应用</span></strong></p>
+<p>这里有一个<strong>平面最远点对</strong>的问题 可以利用凸包解决</p>
+<p>Poj 2187 <a href="http://poj.org/problem?id=2187">http://poj.org/problem?id=2187</a></p>
+<p>由于最远点对必然在凸包上</p>
+<p>我们先求凸包 然后枚举凸包上的点 不过这个复杂度最坏是O(N^2)的</p>
+<p>不过凸包在很多情况下会<strong>改善问题的平均复杂度</strong></p>
+<p>凸包上的点通常很少 所以这个问题也可以过</p>
+<p>篇幅关系 在下一节会介绍降低最坏复杂度的<strong>旋转卡壳算法</strong></p>
+<p>====================================================================</p>
+<p>文中部分图片来源</p>
+<p>http://westhoffswelt.de/blog/0040_quickhull_introduction_and_php_implementation.html</p>
+<p>http://en.wikipedia.org/wiki/Graham_scan</p></div><div id="MySignature"></div>
+<div class="clear"></div>
+<div id="blog_post_info_block">
+<div id="BlogPostCategory"></div>
+<div id="EntryTag"></div>
+<div id="blog_post_info">
+</div>
+<div class="clear"></div>
+<div id="post_next_prev"></div>
+</div>
+
+
+		<p class="postfoot">
+			posted on <span id="post-date">2011-03-10 21:22</span> <a href='http://www.cnblogs.com/Booble/'>Master_Chivu</a> 阅读(<span id="post_view_count">...</span>) 评论(<span id="post_comment_count">...</span>)  <a href ="https://i.cnblogs.com/EditPosts.aspx?postid=1980089" rel="nofollow">编辑</a> <a href="#" onclick="AddToWz(1980089);return false;">收藏</a>
+		</p>
+	</div>
+	<script type="text/javascript">var allowComments=true,cb_blogId=74721,cb_entryId=1980089,cb_blogApp=currentBlogApp,cb_blogUserGuid='ad03a349-fb76-df11-ba8f-001cf0cd104b',cb_entryCreatedDate='2011/3/10 21:22:00';loadViewCount(cb_entryId);</script>
+	
+	</div><a name="!comments"></a><div id="blog-comments-placeholder"></div><script type="text/javascript">var commentManager = new blogCommentManager();commentManager.renderComments(0);</script>
+<div id='comment_form' class='commentform'>
+<a name='commentform'></a>
+<div id='divCommentShow'></div>
+<div id='comment_nav'><span id='span_refresh_tips'></span><a href='javascript:void(0);' onclick='return RefreshCommentList();' id='lnk_RefreshComments' runat='server' clientidmode='Static'>刷新评论</a><a href='#' onclick='return RefreshPage();'>刷新页面</a><a href='#top'>返回顶部</a></div>
+<div id='comment_form_container'></div>
+<div class='ad_text_commentbox' id='ad_text_under_commentbox'></div>
+<div id='ad_t2'></div>
+<div id='opt_under_post'></div>
+<div id='cnblogs_c1' class='c_ad_block'></div>
+<div id='under_post_news'></div>
+<div id='cnblogs_c2' class='c_ad_block'></div>
+<div id='under_post_kb'></div>
+<div id='HistoryToday' class='c_ad_block'></div>
+<script type='text/javascript'>
+    fixPostBody();
+    setTimeout(function () { incrementViewCount(cb_entryId); }, 50);
+    deliverAdT2();
+    deliverAdC1();
+    deliverAdC2();    
+    loadNewsAndKb();
+    loadBlogSignature();
+    LoadPostInfoBlock(cb_blogId, cb_entryId, cb_blogApp, cb_blogUserGuid);
+    GetPrevNextPost(cb_entryId, cb_blogId, cb_entryCreatedDate);
+    loadOptUnderPost();
+    GetHistoryToday(cb_blogId, cb_blogApp, cb_entryCreatedDate);   
+</script>
+</div>
+
+
+	
+<p id="footer">
+	Powered by: 
+	<br />
+	
+	<a id="Footer1_Hyperlink3" NAME="Hyperlink1" href="http://www.cnblogs.com/" style="font-family:Verdana;font-size:12px;">博客园</a>
+	<br />
+	Copyright &copy; Master_Chivu
+</p>
+</div>
+<div id="rightmenu">
+	
+		<div id="blog-calendar" style="display:none"></div><script type="text/javascript">loadBlogDefaultCalendar();</script>
+		
+<h3>导航</h3>
+<ul>
+			<li></li>
+			<li><a id="blog_nav_myhome" href="http://www.cnblogs.com/Booble/">首页</a></li>
+			<li><a id="blog_nav_newpost" rel="nofollow" href="https://i.cnblogs.com/EditPosts.aspx?opt=1">新随笔</a></li>
+			<li><a id="blog_nav_contact" accesskey="9" rel="nofollow" href="https://msg.cnblogs.com/send/Master_Chivu">联系</a></li>
+			<li><a id="blog_nav_rss" href="http://www.cnblogs.com/Booble/rss">订阅</a><a id="blog_nav_rss_image" href="http://www.cnblogs.com/Booble/rss"><img src="//www.cnblogs.com/images/xml.gif" alt="订阅" /></a>
+			<li><a id="blog_nav_admin" rel="nofollow" href="https://i.cnblogs.com/">管理</a></li>
+</ul>
+		<div id="blog_stats">
+<h3>统计</h3>
+	<ul>
+		<li>随笔 - 42
+		<li>文章 - 0
+		<li>评论 - 121
+		<li>引用 - 0
+	</li>
+</ul></div>
+		
+<h3>公告</h3>
+	<div id="blog-news"></div><script type="text/javascript">loadBlogNews();</script>
+
+		<div id="blog-sidecolumn"></div><script type="text/javascript">loadBlogSideColumn();</script>
+	
+</div>
+			
+			
+			
+			
+			 
+
+	
+
+<!--PageEndHtml Block Begin-->
+<a href="http://s06.flagcounter.com/more/Oylq"><img src="http://s06.flagcounter.com/count/Oylq/bg=FFFFFF/txt=000000/border=CCCCCC/columns=3/maxflags=30/viewers=0/labels=0/" alt="free counters" border="0"></a>
+<!--PageEndHtml Block End-->
+</body>
+</html>
