@@ -1,0 +1,1629 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+    
+    <html xmlns="http://www.w3.org/1999/xhtml">
+    
+<head>  
+        <script type="text/javascript" src="http://static.blog.csdn.net/scripts/tingyun-rum.js?v2"></script>
+            <link rel="canonical" href="http://blog.csdn.net/hanchengxi/article/details/8639476"/> 
+ <meta http-equiv="Cache-Control" content="no-siteapp" /><link rel="alternate" media="handheld" href="#" />
+
+    <meta name="shenma-site-verification" content="5a59773ab8077d4a62bf469ab966a63b_1497598848"> 
+       
+    <title>旋转卡壳算法 - 风云龙儿的专栏
+        - CSDN博客</title><script>window._ty_rum&&window._ty_rum.server||function(t){function e(t){J&&(W.e[t]||(W.e[t]=[])).push(u())}function r(){var t=tt(it);return t||(t=nt(),et(it,t)),t}function n(){var t=a(ot);return t||(t=nt(),i(ot,t)),t}function a(t){if("string"!=typeof t)return null;var e=B.cookie;if(!e)return null;var r=null,n=e.split(";");return X.each(n,function(e){var n=e.split("=");if(X.trim(n[0])===X.trim(t))return r=n[1],!0}),r}function i(t,e,r){var n=t+"="+e;if(r){var a=new Date;a.setTime(a.getTime()+1e3*r),n+=";expires="+a.toGMTString()}B.cookie=n}function o(t){switch(typeof t){case"object":if(!t)return"null";if(t instanceof Array){for(var e="[",r=0;r<t.length;r++)e+=(r>0?",":"")+o(t[r]);return e+"]"}if(t instanceof Date)return t.getTime().toString();var e="{",r=0;for(var n in t)if("function"!=typeof t[n]){var a=o(t[n]);e+=(r>0?",":"")+o(n)+":"+a,r++}return e+"}";case"string":return'"'+t.replace(/([\"\\])/g,"\\$1").replace(/\n/g,"\\n")+'"';case"number":return t.toString();case"boolean":return t?"true":"false";case"function":return o(t.toString());case"undefined":default:return'"undefined"'}}function s(t){return z?z(t):t}function u(){return Date.now?Date.now():(new Date).valueOf()}function c(t,e,r){function n(){var t=X.args.apply(this,arguments);return e(i,t,r)}var a,i=t[t.length-1];if("function"==typeof i){switch(i.length){case 0:a=function(){return n.apply(this,arguments)};break;case 1:a=function(t){return n.apply(this,arguments)};break;case 2:a=function(t,e){return n.apply(this,arguments)};break;case 3:a=function(t,e,r){return n.apply(this,arguments)};break;case 4:a=function(t,e,r,a){return n.apply(this,arguments)};break;case 5:a=function(t,e,r,a,i){return n.apply(this,arguments)};break;default:for(var o=[],s=0,u=i.length;s<u;s++)o.push("_"+s);a=eval("(function(){return function("+o.join(",")+"){var args = [].slice.call(arguments, 0);return e(i, args, r);};})();")}t[t.length-1]=a}return t}function f(t,e){return t&&e&&(t.moduleName=e),t}function l(t,e,r){return function(){try{q=e,r&&d(e),t.apply(this,arguments),r&&p()}catch(n){throw r&&p(),f(n,e)}}}function d(e){X.each(["setTimeout","setInterval"],function(r){X.wrap(!0,t,r,function(t){return function(){var r,n=X.args.apply(this,arguments),a=n[0];return"function"==typeof a&&(r=l(a,e,!0)),r&&(n[0]=r),t.apply?t.apply(this,n):Function.prototype.apply.apply(t,[t,n])}})})}function p(){X.each(["setTimeout","setInterval"],function(e){X.unwrap(t,e)})}function h(t){H&&X.wrap(!1,H.prototype,"addEventListener",function(e){return function(){var r,n=X.args.apply(this,arguments),a=n[1];return"function"==typeof a&&(r=l(a,t,!0)),r&&(n[1]=r),e.apply(this,n)}}),d(t)}function v(){H&&X.unwrap(H.prototype,"addEventListener"),p()}function y(t){return function(t,e){}}function m(){return ft&&ft.indexOf("1")>-1}function g(){var t=0;if(G.firstPaint)t=G.firstPaint;else if(ct){var e=ct.timing;t=e.domLoading,ct.getEntriesByName&&X.each(B.querySelectorAll("head>link, head>script"),function(r){var n;if("LINK"==r.tagName?n=r.href:"SCRIPT"==r.tagName&&(r.defer||(n=r.src)),n){var a=ct.getEntriesByName(n);if(1==a.length){var i=a[0].responseEnd+e.navigationStart;i>t&&(t=i)}}}),t-=e.navigationStart,G.firstPaint=Math.round(t)}return t}function _(){if(G.fs)return G.fs;G.firstPaint||g();var e=G.firstPaint,r=t.innerHeight;if(ct&&ct.getEntriesByName){var n=[];X.each(B.querySelectorAll("img"),function(t){"none"!=t.style.display&&""!=t.src&&t.offsetTop<=r&&n.push(t.src)}),X.each(n,function(t){var r=ct.getEntriesByName(t);if(r.length){var n=r[0].responseEnd;n>e&&(e=n)}})}return G.fs=Math.round(e),e}function S(){var t=ct.timing&&ct.timing.navigationStart||G.st,e=G.end_time-t;return G.dr=e,e}function w(){if(this.errors.length){var t=function(t){var e=[],r={};X.each(t,function(t){var e=N(t[1],t[2],t[3],t[6]);r[e]?r[e][4]+=1:r[e]=[t[1],t[2],t[3],"#"==t[4]?B.URL:t[4],1,t[5],t[6],t[7]]});for(var n in r)e.push(r[n]);return e}(this.errors),e=this;X.POST(X.mkurl(G.server.beacon,"err",{fu:U?U:U++,os:parseInt((u()-(F||G.st))/1e3)}),X.stringify({datas:t}),{},function(t,r){t||(e.errors=[])})}}function T(){e("DOMContentLoaded"),lt.initend()}function b(){"complete"===B.readyState&&(e("readyStateComplete"),lt.initend())}function E(t){function e(){lt.send()}return!!G.load_time||(lt.initend(),G.load_time=u(),J&&(W.load=G.load_time),void(9===t?e():setTimeout(e,0)))}function k(){dt||E(9),X.bind(w,lt)(),dt=1}function x(){lt.touch||(lt.touch=u())}function P(t){if(t[6]){var e=t[4],r=t[5];if(r&&"string"==typeof r&&e){r=r.split(/\n/);var n=$.exec(r[0]);n||(n=$.exec(r[1])),n&&n[1]!=e&&(t[4]=n[1]||e,t[2]=n[2]||t[2],t[3]=n[3]||t[3])}}}function N(t,e,r,n){return String(t)+String(e)+String(r)+String(n)}function L(e){var r=arguments,n="unknown",a=[u()];if(0!=r.length){if("string"==typeof e){var i=r.length<4?r.length:4;a[1]=r[0],i>2&&(a[2]=r[2],a[3]=0,a[4]=r[1]),i>3&&r[3]&&(a[3]=r[3])}else if(e instanceof Event||t.ErrorEvent&&e instanceof ErrorEvent){if(a[1]=e.message||(e.error&&e.error.constructor.name)+(e.error&&e.error.message)||"",a[2]=e.lineno?e.lineno:0,a[3]=e.colno?e.colno:0,a[4]=e.filename||e.error&&e.error.fileName||e.target&&e.target.baseURI||"",!a[4]&&Q)return;a[4]==B.URL&&(a[4]="#"),e.error?(a[5]=e.error.stack,a[6]=e.error.moduleName):(a[5]=null,a[6]=null);var o=N(a[1],a[2],a[3],a[6]);if(a[7]=pt[o]?0:1,pt[o]=!0,a[1]===n&&a[4]===n)return;P(a)}lt.errors.push(a)}}function R(t){return function(){var e=arguments;if(!this._ty_wrap){var r=X.args.apply(this,e);this._ty_rum={method:r[0],url:r[1],start:u()}}try{return t.apply(this,e)}catch(n){return Function.prototype.apply.call(t,this,e)}}}function C(e){return"string"==typeof e?e.length:t.ArrayBuffer&&e instanceof ArrayBuffer?e.byteLength:t.Blob&&e instanceof Blob?e.size:e&&e.length?e.length:0}function I(e){return function(){function r(t){var e,r,n=c._ty_rum;if(n){if(4!==n.readyState&&(n.end=u()),n.s=c.status,""==c.responseType||"text"==c.responseType)n.res=C(c.responseText);else if(c.response)n.res=C(c.response);else try{n.res=C(c.responseText)}catch(i){n.res=0}if(n.readyState=c.readyState,n.cb_time=l,e=[n.method+" "+n.url,n.s>0?n.end-n.start:0,l,n.s,n.s>0?0:t,n.res,n.req],n.r&&(r=a(c),r&&(r=r.xData)&&(e.push(r.id),e.push(r.action),e.push(r.time&&r.time.duration),e.push(r.time&&r.time.qu))),G.aa.push(e),G.server.custom_urls&&G.server.custom_urls.length&&!lt.ct){if(!G.pattern){G.pattern=[];for(var o=0;o<G.server.custom_urls.length;o++)G.pattern.push(new RegExp(G.server.custom_urls[o]))}for(var o=0;o<G.pattern.length;o++)if(n.url.match(G.pattern[o])){lt.ct=n.end+l;break}}lt.sa(),c._ty_rum=null}}function n(){4==c.readyState&&r(0)}function a(e){var r;if(e.getResponseHeader){var n=X.parseJSON(e.getResponseHeader("X-Tingyun-Tx-Data"));n&&n.r&&e._ty_rum&&n.r+""==e._ty_rum.r+""&&(r={name:e._ty_rum.url,xData:n},ct&&t._ty_rum.c_ra.push(r))}return r}function i(t){return function(){var e,r;4==c.readyState&&c._ty_rum&&(c._ty_rum.end=e=u(),c._ty_rum.readyState=4);try{q&&d(q),r=t.apply(this,arguments),q&&p()}catch(a){throw a=f(a,q),q&&p(),q=null,a}return 4==c.readyState&&(l=u()-e),n(),r}}function o(t){return function(){var e=c._ty_rum;return!e||("progress"==t||("abort"==t?r(905):"loadstart"==t?e.start=u():"error"==t?r(990):"timeout"==t&&r(903),!0))}}function s(t,e){e instanceof Array||(e=[e]);for(var r=0;r<e.length;r++){var n=e[r];X.sh(t,n,o(n),!1)}}if(!this._ty_wrap){this._ty_rum.start=u(),this._ty_rum.req=arguments[0]?C(arguments[0]):0;var c=this,l=0,h=X.wrap(!1,this,"onreadystatechange",i);h||X.sh(this,"readystatechange",n,!1),s(this,["error","progress","abort","load","loadstart","loadend","timeout"]),h||setTimeout(function(){X.wrap(!1,c,"onreadystatechange",i)},0)}var v=function(){function t(t){var e={},r=/^(?:([A-Za-z]+):)?(\/{0,3})([0-9.\-A-Za-z]+)(?::(\d+))?/.exec(t);return r&&(e.protocol=r[1]?r[1]+":":"http:",e.hostname=r[3],e.port=r[4]||""),e}return function(e){var r=location;if(e=X.trim(e)){if(e=e.toLowerCase(),e.startsWith("//")&&(e=r.protocol+e),!e.startsWith("http"))return!0;var n=t(e),a=n.protocol===r.protocol&&n.hostname===r.hostname;return a&&(a=n.port===r.port||!r.port&&("http:"===r.protocol&&"80"===n.port||"https:"===r.protocol&&"443"===n.port)),a}return!1}}(),y=arguments;try{var m=G.server;m&&m.id&&this._ty_rum&&v(this._ty_rum.url)&&(this._ty_rum.r=(new Date).getTime()%1e8,this.setRequestHeader&&this.setRequestHeader("X-Tingyun-Id",m.id+";r="+this._ty_rum.r))}catch(g){}try{return e.apply(this,y)}catch(_){return Function.prototype.apply.call(e,this,y)}}}function O(){var e="TINGYUN_DATA";if(G.agent)return G.agent;var r=a(e);if(r){try{r=r.replace(/^"/,"").replace(/"$/,""),r=G.agent=X.parseJSON(decodeURIComponent(r))}catch(n){}i(e,"",-1e3)}else r=t._ty_rum&&t._ty_rum.agent;return r}var q,D=t.XMLHttpRequest,B=document,M=Object.defineProperty,A=t.define,H=t.EventTarget,U=0,$=new RegExp("([a-z]+:/{2,3}.*):(\\d+):(\\d+)"),z=t.encodeURIComponent,F=null,X={wrap:function(t,e,r,n,a){try{var i=e[r]}catch(o){if(!t)return!1}if(!i&&!t)return!1;if(i&&i._ty_wrap)return!1;try{e[r]=n(i,a)}catch(o){return!1}return e[r]._ty_wrap=[i],!0},unwrap:function(t,e){try{var r=t[e]._ty_wrap;r&&(t[e]=r[0])}catch(n){}},each:function(t,e){if(t){var r;for(r=0;r<t.length&&(!t[r]||!e(t[r],r,t));r+=1);}},mkurl:function(t,e){var a=arguments,i=/^https/i.test(B.URL)?"https":"http";if(i=i+"://"+t+"/"+e+"?av=1.6.2&v=1.6.0&key="+s(G.server.key)+"&ref="+s(B.URL)+"&rand="+u()+"&pvid="+at+"&did="+s(r())+"&sid="+s(n()),"pf"!==e&&G&&(G.agent=O(),G.agent&&(G.agent.n&&(i+="&n="+s(G.agent.n)),G.agent.user_label&&(i+="&user_label="+s(G.agent.user_label)))),a.length>2){var o=a[2];for(var c in o)i+="&"+c+"="+o[c]}return j.host&&(i+="&cshst="+s(j.host)),j.url&&(i+="&csurl="+s(j.url)),i},GET:function(t,e){function r(){e&&e.apply(this,arguments),n.parentNode&&n.parentNode.removeChild(n)}if(navigator&&navigator.sendBeacon&&rt.test(t))return navigator.sendBeacon(t,null);var n=B.createElement("img");return n.setAttribute("src",t),n.setAttribute("style","display:none"),this.sh(n,"readystatechange",function(){"loaded"!=n.readyState&&4!=n.readyState||r("loaded")},!1),this.sh(n,"load",function(){return r("load"),!0},!1),this.sh(n,"error",function(){return r("error"),!0},!1),B.body.appendChild(n)},fpt:function(t,e,r){function n(t,e,r){var n=B.createElement(t);try{for(var a in e)n[a]=e[a]}catch(i){var o="<"+t;for(var a in e)o+=" "+a+'="'+e[a]+'"';o+=">",r||(o+="</"+t+">"),n=B.createElement(o)}return n}var a=n("div",{style:"display:none"},!1),i=n("iframe",{name:"_ty_rum_frm",width:0,height:0,style:"display:none"},!1),o=n("form",{style:"display:none",action:t,enctype:"application/x-www-form-urlencoded",method:"post",target:"_ty_rum_frm"},!1),s=n("input",{name:"data",type:"hidden"},!0);return s.value=e,o.appendChild(s),a.appendChild(i),a.appendChild(o),B.body.appendChild(a),o.submit(),i.onreadystatechange=function(){"complete"!==i.readyState&&4!==i.readyState||(r(null,i.innerHTML),B.body.removeChild(a))},!0},POST:function(e,r,n,a){if(this.ie)return this.fpt(e,r,a);if(navigator&&navigator.sendBeacon&&rt.test(e)){var i=navigator.sendBeacon(e,r);return a(!i),i}var o;if(t.XDomainRequest)return o=new XDomainRequest,o.open("POST",e),o.onload=function(){a(null,o.responseText)},this.sh(o,"load",function(){a(null,o.responseText)},!1),this.sh(o,"error",function(){a("POST("+e+")error")},!1),this.wrap(!0,o,"onerror",function(t){return function(){return a&&a("post error",o.responseText),!0}}),o.send(r),!0;if(!D)return!1;o=new D,o.overrideMimeType&&o.overrideMimeType("text/html");try{o._ty_wrap=1}catch(s){}var u=0;o.onreadystatechange=function(){4==o.readyState&&200==o.status&&(0==u&&a(null,o.responseText),u++)},o.onerror&&this.wrap(!0,o,"onerror",function(t){return function(){return a("post error",o.responseText),"function"!=typeof t||t.apply(this,arguments)}});try{o.open("POST",e,!0)}catch(s){return this.fpt(e,r,a)}for(var c in n)o.setRequestHeader(c,n[c]);return o.send(r),!0},sh:function(t,e,r,n){return t.addEventListener?t.addEventListener(e,r,n):!!t.attachEvent&&t.attachEvent("on"+e,r)},args:function(){for(var t=[],e=0;e<arguments.length;e++)t.push(arguments[e]);return t},stringify:o,parseJSON:function(e){if(e&&"string"==typeof e){var r=t.JSON?t.JSON.parse:function(t){return new Function("return "+t)()};return r(e)}return null},trim:V?function(t){return null==t?"":V.call(t)}:function(t){return null==t?"":t.toString().replace(/^\s+/,"").replace(/\s+$/,"")},extend:function(t,e){if(t&&e)for(var r in e)e.hasOwnProperty(r)&&(t[r]=e[r]);return t},bind:function(t,e){return function(){return t.apply(e,arguments)}}},j={},G=t._ty_rum=t.TINGYUN=X.extend({st:u(),ra:[],c_ra:[],aa:[],snd_du:function(){return this.server.adu?1e3*this.server.adu:1e4},cc:function(){return this.server.ac?this.server.ac:10},config:function(t,e){var r;if("object"==typeof t)r=t;else{if("string"!=typeof t||void 0===e)throw new Error("illegal arguments");r={},r[t]=e}for(var n in r)j[n]=r[n];return this},setUserLabel:function(t){t&&((this.agent||(this.agent={})).user_label="string"==typeof t?t:X.stringify(t))}},t._ty_rum||{});var ty_rum=G;ty_rum.server = {beacon:"beacon.tingyun.com",beacon_err:"beacon-err.tingyun.com",key:"heTre0seWW0",trace_threshold:7000,ignore_err:false,fp_threshold:2000,fs_threshold:4000,dr_threshold:4000,id:"wl4EtIR_7Is"};if(G.server&&!(G.server.sr&&Math.random()>=G.server.sr)){var J=!("debug"in G.server)||G.server.debug,W={start:G.st,e:{},an:{count:0},visible:[]};!function(){if(J){var t,e;"undefined"!=typeof B.hidden?(t="hidden",e="visibilitychange"):"undefined"!=typeof B.msHidden?(t="msHidden",e="msvisibilitychange"):"undefined"!=typeof B.webkitHidden&&(t="webkitHidden",e="webkitvisibilitychange"),"undefined"==typeof B.addEventListener||"undefined"==typeof B[t]||X.sh(B,e,function(){J&&W.visible.push([B[t],u()])})}}();var Y={fp_threshold:2e3,fs_threshold:4e3,dr_threshold:4e3},Z=X.extend(Y,G.server),K="ignore_err",Q=!(K in G.server)||G.server[K],V=String.prototype.trim;String.prototype.startsWith||(String.prototype.startsWith=function(t,e){return e=e||0,this.indexOf(t,e)===e});var tt,et,rt=/^http/i,nt=function(){function t(t){return t<0?NaN:t<=30?0|Math.random()*(1<<t):t<=53?(0|Math.random()*(1<<30))+(0|Math.random()*(1<<t-30))*(1<<30):NaN}function e(t,e){for(var r=t.toString(16),n=e-r.length,a="0";n>0;n>>>=1,a+=a)1&n&&(r=a+r);return r}return function(){return e(t(32),8)+"-"+e(t(16),4)+"-"+e(16384|t(12),4)+"-"+e(32768|t(14),4)+"-"+e(t(48),12)}}(),at=nt(),it="TY_DISTINCT_ID",ot="TY_SESSION_ID",st=function(){try{return localStorage.setItem(at,at),localStorage.removeItem(at),!0}catch(t){return!1}}();st?(tt=X.bind(localStorage.getItem,localStorage),et=X.bind(localStorage.setItem,localStorage)):(tt=a,et=i);try{M&&M(t,"define",{get:function(){return A},set:function(t){"function"==typeof t&&(t.amd||t.cmd)?(A=function(){var e=X.args.apply(this,arguments);if(3!==e.length)return t.apply(this,e);var r="string"==typeof e[0]?e[0]:"anonymous";return t.apply(this,c(e,function(t,e,r){var n;try{q=r,h(r),n=t.apply(this,e),v()}catch(a){throw v(),f(a,r)}return n},r))},X.extend(A,t)):A=t},configurable:!0})}catch(ut){}var ct=t.performance?t.performance:t.Performance;ct&&(X.sh(ct,"resourcetimingbufferfull",function(){var t=ct.getEntriesByType("resource");t&&(G.ra=G.ra.concat(t),ct.clearResourceTimings())},!1),X.sh(ct,"webkitresourcetimingbufferfull",function(){var t=ct.getEntriesByType("resource");t&&(G.ra=G.ra.concat(t),ct.webkitClearResourceTimings())},!1));for(var ft="",lt=G.metric={ready:function(){return G.load_time},initend:function(){function t(){lt.sa()}G.end_time||(G.end_time=u(),J&&(W.end=G.end_time),this._h=setInterval(t,2e3))},send:function(){function e(){function e(t){return n[t]>0?n[t]-a:0}var r={};if(ct&&ct.timing){var n=ct.timing;if(J){var i=W.t={};for(var o in n){var u=n[o];"function"!=typeof u&&(i[o]=u)}}a=n.navigationStart;var c=e("domainLookupStart"),f=e("domainLookupEnd"),l=e("redirectStart"),d=e("redirectEnd"),p=e("connectStart"),h=e("connectEnd");r={f:e("fetchStart"),qs:e("requestStart"),rs:e("responseStart"),re:e("responseEnd"),os:e("domContentLoadedEventStart"),oe:e("domContentLoadedEventEnd"),oi:e("domInteractive"),oc:e("domComplete"),ls:e("loadEventStart"),le:e("loadEventEnd"),tus:e("unloadEventStart"),tue:e("unloadEventEnd"),ressize:!0},h-p>0&&(r.cs=p,r.ce=h),f-c>0&&(r.ds=c,r.de=f),(d-l>0||d>0)&&(r.es=l,r.ee=d),0==r.le&&(r.ue=G.load_time-a);var v;if(n.msFirstPaint)v=n.msFirstPaint,J&&(W.fp="m_"+v);else if(t.chrome&&chrome.loadTimes){var y=chrome.loadTimes();y&&(y.firstPaintTime&&(v=1e3*y.firstPaintTime),J&&(W.fp="c_"+y.firstPaintTime))}else G.firstPaint&&(v=G.firstPaint,J&&(W.fp=G.firstPaint));v&&(r.fp=Math.round(v-a),G.firstPaint=r.fp),n.secureConnectionStart&&(r.sl=e("secureConnectionStart"))}else r={t:a,os:G.end_time-a,ls:G.load_time-a,ressize:!1};r.je=lt.errors.length,lt.ct&&(r.ct=lt.ct-a),lt.touch&&(r.fi=lt.touch-a);var m=O();return m&&(r.id=s(m.id),r.a=m.a,r.q=m.q,r.tid=s(m.tid),r.n=s(m.n)),r.sh=t.screen&&t.screen.height,r.sw=t.screen&&t.screen.width,r}function r(e){var r=t._ty_rum.c_ra;if(e)for(var n=r.length-1;n>=0;n--)if(e.indexOf(r[n].name)>-1)return r[n].xData;return null}function n(t){function e(t){return d[t]>0?d[t]:0}var n="1",i="0";if(ft+=g()>=Z.fp_threshold?n:i,ft+=_()>=Z.fs_threshold?n:i,ft+=S()>=Z.dr_threshold?n:i,ft+=t>=G.server.trace_threshold?n:i,!m())return null;var o=ct;if(o&&o.getEntriesByType){var u={tr:!0,tt:s(B.title),charset:B.characterSet},c=G.ra,f=o.getEntriesByType("resource");f&&(c=c.concat(f),o.clearResourceTimings?o.clearResourceTimings():o.webkitClearResourceTimings&&o.webkitClearResourceTimings()),u.res=[];for(var l=0;l<c.length;l++){var d=c[l],p={o:e("startTime"),rt:d.initiatorType,n:d.name,f:e("fetchStart"),ds:e("domainLookupStart"),de:e("domainLookupEnd"),cs:e("connectStart"),ce:e("connectEnd"),sl:e("secureConnectionStart"),qs:e("requestStart"),rs:e("responseStart"),re:e("responseEnd"),ts:d.transferSize||0,es:d.encodedBodySize||0},h=r(d.name);h&&(p.aid=h.id,p.atd=h.trId,p.an=h.action,p.aq=h.time&&h.time.qu,p.as=h.time&&h.time.duration),u.res.push(p)}if(lt.errors.length){u.err=[];for(var l=0,v=lt.errors,y=v.length;l<y;l++)u.err.push({o:Math.round(v[l][0]-a),e:v[l][1]&&v[l][1].replace(/([\"\\])/g,"\\$1").replace(/\n/g,"\\n"),l:v[l][2],c:v[l][3],r:v[l][4],ec:y,s:v[l][5],m:v[l][6],ep:v[l][7]})}return u}return null}if(this.sended)return!1;if(!this.ready())return!1;var a=G.st,i={};try{var o=e();i=n(o.ls>0?o.ls:G.load_time-a);var c={trflag:ft||"0000",fp:G.firstPaint,fs:G.fs,dr:G.dr};X.extend(o,c)}catch(f){}i?(J&&(i.debug=W),i=X.stringify(i)):i="",J=!1;var l=X.mkurl(G.server.beacon,"pf",o);F=u(),0!=i.length&&X.POST(l,i,{},y("POST"))||X.GET(l);var d=X.bind(w,this);return d(),setInterval(d,1e4),this.sended=!0,this.sa(1),!0},sa:function(t){(this.ready()||t)&&(t||(t=!this._last_send||u()-this._last_send>G.snd_du()||G.aa.length>=G.cc()),G.aa.length>0&&t&&(this._last_send=u(),X.POST(X.mkurl(G.server.beacon,"xhr"),X.stringify({xhr:G.aa}),{},y("POST")),G.aa=[]))},errors:[]},dt=null,pt={},ht=[["load",E],["beforeunload",k],["pagehide",k],["unload",k],["pageshow",function(){}]],vt=0;vt<ht.length;vt++){var yt=null;J&&(yt=function(t,r){return function(n){return e(t),r.apply(this,arguments)}}(ht[vt][0],ht[vt][1])),X.sh(t,ht[vt][0],yt||ht[vt][1],!1)}t.addEventListener?X.sh(t,"error",L,!1):t.onerror=function(t,e,r,n,a){if(e||!Q){var i=[u(),t,r,n,e==B.URL?"#":e],o=N(t,r,n,a&&a.moduleName);i=i.concat([a&&a.stack,a&&a.moduleName,pt[o]?0:1]),pt[o]=!0,P(i),lt.errors.push(i)}};for(var mt=[["scroll",x],["keypress",x],["click",x],["DOMContentLoaded",T],["readystatechange",b]],vt=0;vt<mt.length;vt++)X.sh(B,mt[vt][0],mt[vt][1],!1);if(X.wrap(!1,t,"requestAnimationFrame",function(e){return function(){var r=u();return J&&(W.an.count++,W.an.t=r),G.firstPaint=r,t.requestAnimationFrame=e,e.apply(this,arguments)}}),D)if(D.prototype)X.wrap(!1,D.prototype,"open",R),X.wrap(!1,D.prototype,"send",I);else{X.ie=7;var gt=D;t.XMLHttpRequest=function(){var t=new gt;return X.wrap(!1,t,"open",R),X.wrap(!1,t,"send",I),t}}else t.ActiveXObject&&(X.ie=6)}ty_rum.agent={id:'boy5mtpvRsQ#vLgNgZ_Nb2U',n:'WebAction/MVC/Article%2Fdetails',tid:'959c4a3ca403ba3c7a92',q:0,a:125};}(window);</script>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="description" content="转自：http://blog.csdn.net/acmaker/article/details/3188177一、目录一些历史：1978年， M.I. Shamos&#39;s Ph.D. 的论文Computational Geometry标志着计算机科学的这一领域的诞生。 当时他发表成果的是一个寻找凸多边形直径的一个非常简单的算法， 即根据多边形的一对点距离的最大值来确定。" />
+
+    <meta name="keywords" content="旋转卡壳,算法" />
+
+   
+    <script src="http://static.blog.csdn.net/scripts/blog_static_head.min.js" type="text/javascript"></script>
+
+    
+        <!--new top-->
+       
+       
+        <!--new top-->
+    
+      <!-- ad begin -->
+         
+    <!-- ad end-->
+
+    <link rel="Stylesheet" type="text/css" href="http://static.blog.csdn.net/skin/default/css/style.css?v=1.1" />
+
+    
+
+    <link id="RSSLink" title="RSS" type="application/rss+xml" rel="alternate" href="/hanchengxi/rss/list" />
+    <link rel="shortcut icon" href="http://c.csdnimg.cn/public/favicon.ico" />
+    <link type="text/css" rel="stylesheet" href="http://static.blog.csdn.net/scripts/SyntaxHighlighter/styles/default.css" />
+ 
+
+
+
+    <link href="http://c.csdnimg.cn/blog/csdn_public_blog_detail.min.css" type="text/css" rel="stylesheet" />
+     
+         <link rel="stylesheet" href="http://static.blog.csdn.net/css/csdn_blog_detail.min.css" />
+
+  
+
+
+    <!-- 请置于所有广告位代码之前 --> 
+            <script src="http://dup.baidustatic.com/js/ds.js"></script>
+
+</head>
+
+
+<body>
+     
+        <div class="tracking-ad" data-view="true" data-mod="ad_popu_72"  data-mtp="62" data-order="40" data-con="ad_content_2072" >
+                     <script id="popuLayer_js_q" src="http://ads.csdn.net/js/popuLayer.js" defer="defer"  type="text/javascript"></script>
+                <div id="layerd" style="position: fixed;bottom:0px;right:0px;line-height:0px;z-index:1000">
+    	                <div class="J_close layer_close" style="display:;background-color:#efefef;padding:0px;color:#333;font:12px/24px Helvetica,Tahoma,Arial,sans-serif;text-align:right;">关闭</div><!-- 广告占位容器 --><div id="cpro_u2895327"></div></div>
+                <script>  document.getElementById("popuLayer_js_q").onload = function () { var styObjd = styObj = { width: "300px", "height": parseInt(250) + 28 }; window.CSDN.Layer.PopuLayer("#layerd", { storageName: "layerd", styleObj: styObjd, total: 50, expoire: 1000 * 60 }); }</script><!-- 投放代码 --><script type="text/javascript">                    /*服务器频道首页置顶Banner960*90，创建于2014-7-3*/    (window.cproArray = window.cproArray || []).push({ id: "u2895327" });  </script>  <script src="http://cpro.baidustatic.com/cpro/ui/c.js" type="text/javascript"></script>
+     
+        </div>
+
+    <!-- 广告位开始 -->
+        
+    <!-- 广告位结束 -->
+
+    
+   
+      <!--new top-->
+    <script id="toolbar-tpl-scriptId" fixed="true" prod="blog" skin="black" src="http://c.csdnimg.cn/public/common/toolbar/js/html.js" type="text/javascript"></script>
+     <!--new top-->
+    <div id="container">
+        <div id="header">
+    <div class="header">
+        <div id="blog_title">
+            <h2>
+                <a href="http://blog.csdn.net/hanchengxi">风云龙儿的专栏</a></h2>
+            <h3>沉着冷静应对千锤百练，仔细认真方达理想高峰</h3>
+            <div class="clear">
+            </div>
+        </div>
+        <div class="clear">
+        </div>
+        
+     
+    </div>
+</div>
+<div id="navigator">
+    <div class="navigator_bg">
+    </div>
+    <div class="navigator">
+        <ul>           
+                <li id="btnContents"><a href="http://blog.csdn.net/hanchengxi?viewmode=contents"><span onclick="_gaq.push(['_trackEvent','function', 'onclick', 'blog_articles_mulu'])">
+                    <img src="http://static.blog.csdn.net/images/ico_list.gif">目录视图</span></a></li>
+                <li id="btnView"><a href="http://blog.csdn.net/hanchengxi?viewmode=list"><span onclick="_gaq.push(['_trackEvent','function', 'onclick', 'blog_articles_zhaiyao'])">
+                    <img src="http://static.blog.csdn.net/images/ico_summary.gif">摘要视图</span></a></li>
+                <li id="btnRss"><a href="http://blog.csdn.net/hanchengxi/rss/list"><span onclick="_gaq.push(['_trackEvent','function', 'onclick', 'blog_articles_RSS'])">
+                    <img src="http://static.blog.csdn.net/images/ico_rss.gif">订阅</span></a></li>                
+            
+
+            </ul>
+    </div>
+</div>
+<script type="text/javascript">
+    var username = "hanchengxi";
+    var _blogger = username;
+    var blog_address = "http://blog.csdn.net/hanchengxi";
+    var static_host = "http://static.blog.csdn.net";
+    var currentUserName = "";  
+</script>
+
+        <div id="body">
+            <div id="main">
+                <div class="main">
+                        <div class="ad_class">
+<div class="notice tracking-ad" data-mod='popu_3' > 
+
+
+<a href="http://blog.csdn.net/turingbooks/article/details/76034232">
+<font color=red><strong>评论送书 | 7月书讯：众多畅销书升级！ </strong></font></a>
+
+&nbsp;&nbsp;&nbsp;&nbsp
+
+
+<a href="http://blog.csdn.net/blogdevteam/article/details/76215994">
+<font color=blue><strong>CSDN日报20170727——《想提高团队技术，来试试这个套路！》 </strong></font></a>
+&nbsp;&nbsp;&nbsp;&nbsp
+
+
+<a href="http://blog.csdn.net/broadview2006/article/details/76145481">
+<font color=red><strong>评论送书 | 机器学习、Java虚拟机、微信开发</strong></font></a>
+
+</div>                        </div>
+
+                        
+
+
+
+  
+
+
+
+
+
+
+<script   type="text/javascript" src="http://static.blog.csdn.net/scripts/category.js"></script>
+
+  <script type="text/ecmascript">
+      window.quickReplyflag = true;
+      var isBole = false; 
+      var fasrc="http://my.csdn.net/my/favorite/miniadd?t=%e6%97%8b%e8%bd%ac%e5%8d%a1%e5%a3%b3%e7%ae%97%e6%b3%95&u=http://blog.csdn.net/hanchengxi/article/details/8639476"
+    </script>
+<div id="article_details" class="details">
+    <div class="article_title">   
+         <span class="ico ico_type_Repost"></span>
+
+    <h1>
+        <span class="link_title"><a href="/hanchengxi/article/details/8639476">
+        旋转卡壳算法        
+           
+        </a>
+        </span>
+
+         
+    </h1>
+</div>
+
+   
+
+        <div class="article_manage clearfix">
+        <div class="article_l">
+            <span class="link_categories">
+            标签：
+              <a href='http://www.csdn.net/tag/%e6%97%8b%e8%bd%ac%e5%8d%a1%e5%a3%b3' target=_blank onclick="_gaq.push(['_trackEvent','function', 'onclick', 'blog_articles_tag']);">旋转卡壳</a><a href='http://www.csdn.net/tag/%e7%ae%97%e6%b3%95' target=_blank onclick="_gaq.push(['_trackEvent','function', 'onclick', 'blog_articles_tag']);">算法</a>
+            </span>
+        </div>
+        <div class="article_r">
+            <span class="link_postdate">2013-03-05 20:02</span>
+            <span class="link_view" title="阅读次数">10397人阅读</span>
+            <span class="link_comments" title="评论次数"> <a href="#comments" onclick="_gaq.push(['_trackEvent','function', 'onclick', 'blog_articles_pinglun'])">评论</a>(2)</span>
+            <span class="link_collect tracking-ad" data-mod="popu_171"> <a href="javascript:void(0);" onclick="javascript:collectArticle('%e6%97%8b%e8%bd%ac%e5%8d%a1%e5%a3%b3%e7%ae%97%e6%b3%95','8639476');return false;" title="收藏">收藏</a></span>
+             <span class="link_report"> <a href="#report" onclick="javascript:report(8639476,2);return false;" title="举报">举报</a></span>
+
+        </div>
+    </div>    <style type="text/css">        
+            .embody{
+                padding:10px 10px 10px;
+                margin:0 -20px;
+                border-bottom:solid 1px #ededed;                
+            }
+            .embody_b{
+                margin:0 ;
+                padding:10px 0;
+            }
+            .embody .embody_t,.embody .embody_c{
+                display: inline-block;
+                margin-right:10px;
+            }
+            .embody_t{
+                font-size: 12px;
+                color:#999;
+            }
+            .embody_c{
+                font-size: 12px;
+            }
+            .embody_c img,.embody_c em{
+                display: inline-block;
+                vertical-align: middle;               
+            }
+             .embody_c img{               
+                width:30px;
+                height:30px;
+            }
+            .embody_c em{
+                margin: 0 20px 0 10px;
+                color:#333;
+                font-style: normal;
+            }
+    </style>
+    <script  type="text/javascript">
+        $(function () {
+            try
+            {
+                var lib = eval("("+$("#lib").attr("value")+")");
+                var html = "";
+                if (lib.err == 0) {
+                    $.each(lib.data, function (i) {
+                        var obj = lib.data[i];
+                        //html += '<img src="' + obj.logo + '"/>' + obj.name + "&nbsp;&nbsp;";
+                        html += ' <a href="' + obj.url + '" target="_blank">';
+                        html += ' <img src="' + obj.logo + '">';
+                        html += ' <em><b>' + obj.name + '</b></em>';
+                        html += ' </a>';
+                    });
+                    if (html != "") {
+                        setTimeout(function () {
+                            $("#lib").html(html);                      
+                            $("#embody").show();
+                        }, 100);
+                    }
+                }      
+            } catch (err)
+            { }
+            
+        });
+    </script>
+      <div class="category clearfix">
+        <div class="category_l">
+           <img src="http://static.blog.csdn.net/images/category_icon.jpg">
+            <span>分类：</span>
+        </div>
+        <div class="category_r">
+                    <label  onclick="GetCategoryArticles('1264543','hanchengxi','top','8639476');">
+                        <span onclick="_gaq.push(['_trackEvent','function', 'onclick', 'blog_articles_fenlei']);">算法导论/数据结构<em>（22）</em></span>
+                      <img class="arrow-down" src="http://static.blog.csdn.net/images/arrow_triangle _down.jpg" style="display:inline;">
+                      <img class="arrow-up" src="http://static.blog.csdn.net/images/arrow_triangle_up.jpg" style="display:none;">
+                        <div class="subItem">
+                            <div class="subItem_t"><a  href="http://blog.csdn.net/hanchengxi/article/category/1264543"  target="_blank">作者同类文章</a><i class="J_close">X</i></div>
+                            <ul class="subItem_l" id="top_1264543">                            
+                            </ul>
+                        </div>
+                    </label>                    
+        </div>
+    </div>
+
+  
+
+  
+  
+     
+
+
+<div id="article_content" class="article_content tracking-ad" data-mod=popu_307  data-dsm = "post" >
+
+<h2><span style="font-weight:normal"><span style="font-size:14px">转自：<a href="http://blog.csdn.net/acmaker/article/details/3188177">http://blog.csdn.net/acmaker/article/details/3188177</a></span></span></h2>
+<h1><span style="font-size:18px">一、目录</span></h1>
+<div>
+<h3 style="margin:0px; padding:0px; color:rgb(51,51,51); font-family:Arial; line-height:26px">
+<span style="font-weight:normal">一些历史：</span></h3>
+<span style="color:rgb(51,51,51); font-family:Arial; font-size:14px; line-height:26px">1978年， M.I. Shamos's Ph.D. 的论文&quot;Computational Geometry&quot;标志着计算机科学的这一领域的诞生。 当时他发表成果的是一个寻找凸多边形直径的一个非常简单的算法， 即根据多边形的一对点距离的最大&#20540;来确定。&nbsp;</span><br style="color:rgb(51,51,51); font-family:Arial; font-size:14px; line-height:26px">
+<span style="color:rgb(51,51,51); font-family:Arial; font-size:14px; line-height:26px">后来直径演化为由一对</span><span style="font-family:Arial; font-size:14px; line-height:26px">对踵点对</span><span style="color:rgb(51,51,51); font-family:Arial; font-size:14px; line-height:26px">来确定。
+ Shamos提出了一个简单的&nbsp;</span><span style="color:rgb(51,51,51); font-family:Arial; font-size:14px; line-height:26px">O(n)</span><span style="color:rgb(51,51,51); font-family:Arial; font-size:14px; line-height:26px">&nbsp;时间的算法来确定一个凸&nbsp;</span><span style="color:rgb(51,51,51); font-family:Arial; font-size:14px; line-height:26px">n</span><span style="color:rgb(51,51,51); font-family:Arial; font-size:14px; line-height:26px">&nbsp;角形的对踵点对。
+ 因为他们最多只有 3</span><span style="color:rgb(51,51,51); font-family:Arial; font-size:14px; line-height:26px">n</span><span style="color:rgb(51,51,51); font-family:Arial; font-size:14px; line-height:26px">/2 对， 直径可以在&nbsp;</span><span style="color:rgb(51,51,51); font-family:Arial; font-size:14px; line-height:26px">O(n)</span><span style="color:rgb(51,51,51); font-family:Arial; font-size:14px; line-height:26px">&nbsp;时间内算出。&nbsp;</span><br style="color:rgb(51,51,51); font-family:Arial; font-size:14px; line-height:26px">
+<span style="color:rgb(51,51,51); font-family:Arial; font-size:14px; line-height:26px">如同Toussaint后来提出的， Shamos的算法就像绕着多边形旋转一对卡壳。 因此就有了术语“旋转卡壳”。 1983年， Toussaint发表了一篇论文， 其中用同样的技术来解决许多问题。 从此， 基于此模型的新算法就确立了， 解决了许多问题。&nbsp;</span><br style="color:rgb(51,51,51); font-family:Arial; font-size:14px; line-height:26px">
+<span style="color:rgb(51,51,51); font-family:Arial; font-size:14px; line-height:26px">他们包括：&nbsp;</span><br style="color:rgb(51,51,51); font-family:Arial; font-size:14px; line-height:26px">
+<ul style="color:rgb(51,51,51); font-family:Arial; font-size:14px; line-height:26px">
+<li><span style="color:rgb(0,0,0)">计算距离</span>
+<ul>
+<li><span style="color:rgb(0,0,0)">凸多边形直径</span></li><li><span style="color:rgb(0,0,0)">凸多边形宽</span></li><li><span style="color:rgb(0,0,0)">凸多边形间最大距离</span></li><li><span style="color:rgb(0,0,0)">凸多边形间最小距离</span></li></ul>
+</li><li><span style="color:rgb(0,0,0)">外接矩形</span>
+<ul>
+<li><span style="color:rgb(0,0,0)">最小面积外接矩形</span></li><li><span style="color:rgb(0,0,0)">最小周长外接矩形</span></li></ul>
+</li><li><span style="color:rgb(0,0,0)">三角剖分</span>
+<ul>
+<li><span style="color:rgb(0,0,0)">洋葱三角剖分</span></li><li><span style="color:rgb(0,0,0)">螺旋三角剖分</span></li><li><span style="color:rgb(0,0,0)">四边形剖分</span></li></ul>
+</li><li><span style="color:rgb(0,0,0)">凸多边形属性</span>
+<ul>
+<li><span style="color:rgb(0,0,0)">合并凸包</span></li><li><span style="color:rgb(0,0,0)">找共切线</span></li><li><span style="color:rgb(0,0,0)">凸多边形交</span></li><li><span style="color:rgb(0,0,0)">临界切线</span></li><li><span style="color:rgb(0,0,0)">凸多边形矢量和</span></li></ul>
+</li><li><span style="color:rgb(0,0,0)">最薄截面</span>
+<ul>
+<li><span style="color:rgb(0,0,0)">最薄横截带</span></li></ul>
+</li></ul>
+<h2 style="margin:0px; padding:0px; color:rgb(51,51,51); font-family:Arial; line-height:26px">
+</h2>
+<h1><span style="font-size:24px">二、计算距离</span></h1>
+<h2><span style="font-size:18px">1.凸多边形直径</span></h2>
+<span style="color:rgb(51,51,51); font-family:Arial; font-size:14px; line-height:26px">我们将一个多边形上任意两点间的距离的最大&#20540;定义为多边形的直径。 确定这个直径的点对数可能多于一对。 事实上， 对于拥有&nbsp;</span><span style="color:rgb(51,51,51); font-family:Arial; font-size:14px; line-height:26px">n</span><span style="color:rgb(51,51,51); font-family:Arial; font-size:14px; line-height:26px">&nbsp;个顶点的多边形，
+ 就可能有&nbsp;</span><span style="color:rgb(51,51,51); font-family:Arial; font-size:14px; line-height:26px">n</span><span style="color:rgb(51,51,51); font-family:Arial; font-size:14px; line-height:26px">&nbsp;对“直径点对”存在。&nbsp;</span><br style="color:rgb(51,51,51); font-family:Arial; font-size:14px; line-height:26px">
+<br style="color:rgb(51,51,51); font-family:Arial; font-size:14px; line-height:26px">
+<img alt="" src="http://p.blog.csdn.net/images/p_blog_csdn_net/ACMaker/EntryImages/20081029/diam.gif" align="left" style="border:none; color:rgb(51,51,51); font-family:Arial; font-size:14px; line-height:26px"><span style="color:rgb(51,51,51); font-family:Arial; font-size:14px; line-height:26px">&nbsp;</span>
+<p style="color:rgb(51,51,51); font-family:Arial; font-size:14px; line-height:26px">
+一个多边形直径的简单例子如左图所示。 直径点对在图中显示为被平行线穿过的黑点 （红色的一对平行线）. 直径用浅蓝色高亮显示。</p>
+<br clear="all" style="color:rgb(51,51,51); font-family:Arial; font-size:14px; line-height:26px">
+<span style="color:rgb(51,51,51); font-family:Arial; font-size:14px; line-height:26px">显然， 确定一个凸多边形&nbsp;</span><span style="color:rgb(51,51,51); font-family:Arial; font-size:14px; line-height:26px">P</span><span style="color:rgb(51,51,51); font-family:Arial; font-size:14px; line-height:26px">&nbsp;直径的点对不可能在多边形&nbsp;</span><span style="color:rgb(51,51,51); font-family:Arial; font-size:14px; line-height:26px">P</span><span style="color:rgb(51,51,51); font-family:Arial; font-size:14px; line-height:26px">&nbsp;内部。
+ 故搜索应该在边界上进行。 事实上， 由于直径是由多边形的平行切线的最远距离决定的， 所以我们只需要查询</span><span style="font-family:Arial; font-size:14px; line-height:26px">对踵点</span><span style="color:rgb(51,51,51); font-family:Arial; font-size:14px; line-height:26px">。 Shamos (1978) 提供了一个&nbsp;</span><span style="color:rgb(51,51,51); font-family:Arial; font-size:14px; line-height:26px">O(n)</span><span style="color:rgb(51,51,51); font-family:Arial; font-size:14px; line-height:26px">&nbsp;时间复杂度计算n点凸包对踵点对的算法。直径通过遍历顶点列表，
+ 得到最大距离即可。 如下是1985年发表于 Preparata 和 Shamos 文章中的 Shamos 算法的伪代码。&nbsp;</span><br style="color:rgb(51,51,51); font-family:Arial; font-size:14px; line-height:26px">
+<span style="color:rgb(51,51,51); font-family:Arial; font-size:14px; line-height:26px">输入是一个多边形&nbsp;</span><span style="color:rgb(51,51,51); font-family:Arial; font-size:14px; line-height:26px">P</span><span style="color:rgb(51,51,51); font-family:Arial; font-size:14px; line-height:26px">={</span><span style="color:rgb(51,51,51); font-family:Arial; font-size:14px; line-height:26px">p1</span><span style="color:rgb(51,51,51); font-family:Arial; font-size:14px; line-height:26px">,...,</span><span style="color:rgb(51,51,51); font-family:Arial; font-size:14px; line-height:26px">pn</span><span style="color:rgb(51,51,51); font-family:Arial; font-size:14px; line-height:26px">}.&nbsp;</span><br style="color:rgb(51,51,51); font-family:Arial; font-size:14px; line-height:26px">
+<pre style="background-color:rgb(255,255,255); white-space:pre-wrap; word-wrap:break-word; color:rgb(51,51,51); font-size:14px; line-height:26px">begin
+     p0:=pn;
+     q:=NEXT[p];
+     while (Area(p,NEXT[p],NEXT[q]) &gt; Area(p,NEXT[p],q)) do
+          q:=NEXT[q];
+          q0:=q;
+          while (q != p0) do
+               begin
+                    p:=NEXT[p];
+                    Print(p,q);
+                    while (Area(p,NEXT[p],NEXT[q]) &gt; Area(p,NEXT[p],q) do
+                         begin
+                              q:=NEXT[q];
+                              if ((p,q) != (q0,p0)) then Print(p,q)
+                              else return
+                         end;
+                    if (Area(p,NEXT[p],NEXT[q]) = Area(p,NEXT[p],q)) then
+                      if ((p,q) != (q0,p0)) then Print(p,NEXT[q])
+                      else Print(NEXT[p],q)
+               end
+end.</pre>
+<pre style="background-color:rgb(255,255,255); white-space:pre-wrap; word-wrap:break-word; color:rgb(51,51,51); font-size:14px; line-height:26px">
+</pre>
+<span style="color:rgb(51,51,51); font-family:Arial; font-size:14px; line-height:26px">此处&nbsp;</span><code style="color:rgb(51,51,51); font-size:14px; line-height:26px">Print(p,q)</code><span style="color:rgb(51,51,51); font-family:Arial; font-size:14px; line-height:26px">&nbsp;表示将&nbsp;</span><span style="color:rgb(51,51,51); font-family:Arial; font-size:14px; line-height:26px">(p,q)</span><span style="color:rgb(51,51,51); font-family:Arial; font-size:14px; line-height:26px">&nbsp;作为一个对踵点对输出，&nbsp;</span><code style="color:rgb(51,51,51); font-size:14px; line-height:26px">Area(p,q,r)</code><span style="color:rgb(51,51,51); font-family:Arial; font-size:14px; line-height:26px">&nbsp;表示三角形&nbsp;</span><span style="color:rgb(51,51,51); font-family:Arial; font-size:14px; line-height:26px">pqr</span><span style="color:rgb(51,51,51); font-family:Arial; font-size:14px; line-height:26px">&nbsp;的有向面积。&nbsp;</span><br style="color:rgb(51,51,51); font-family:Arial; font-size:14px; line-height:26px">
+<span style="color:rgb(51,51,51); font-family:Arial; font-size:14px; line-height:26px">虽然直观上看这个过程与常规旋转卡壳算法不同， 但他们在本质上是相同的， 并且避免了所有角度的计算。&nbsp;</span></div>
+<div><br style="color:rgb(51,51,51); font-family:Arial; font-size:14px; line-height:26px">
+<span style="color:rgb(51,51,51); font-family:Arial; font-size:14px; line-height:26px">如下是一个更直观的算法：</span>
+<ol style="color:rgb(51,51,51); font-family:Arial; font-size:14px; line-height:26px">
+<li>计算多边形&nbsp;<em>y</em>&nbsp;方向上的端点。 我们称之为&nbsp;<em>ymin</em>&nbsp;和&nbsp;<em>ymax</em>&nbsp;。</li><li>通过&nbsp;<em>ymin</em>&nbsp;和&nbsp;<em>ymax</em>&nbsp;构造两条水平切线。 由于他们已经是一对对踵点， 计算他们之间的距离并维护为一个当前最大&#20540;。</li><li>同时旋转两条线直到其中一条与多边形的一条边重合。</li><li>一个新的对踵点对此时产生。 计算新的距离， 并和当前最大&#20540;比较， 大于当前最大&#20540;则更新。</li><li>重复步骤3和步骤4的过程直到再次产生对踵点对&nbsp;<em>(ymin,ymax)</em>&nbsp;。</li><li>输出确定最大直径的对踵点对。</li></ol>
+<span style="color:rgb(51,51,51); font-family:Arial; font-size:14px; line-height:26px">至此， 上述的过程（伪代码中的）显得十分有用， 我们可以从对踵点对中得到其他的信息， 如多边形的</span><span style="font-family:Arial; font-size:14px; line-height:26px">宽度</span><span style="color:rgb(51,51,51); font-family:Arial; font-size:14px; line-height:26px">&nbsp;。</span><br>
+</div>
+<h2><span style="color:rgb(51,51,51); font-family:Arial; line-height:26px"><span style="font-size:18px">2. 凸多边形的宽度</span></span></h2>
+<div><span style="color:rgb(51,51,51); font-family:Arial; font-size:14px; line-height:26px">凸多边形的宽度定义为平行切线间的最小距离。 这个定义从宽度这个词中已经略有体现。 虽然凸多边形的切线有不同的方向， 并且每个方向上的宽度（通常）是不同的。 但幸运的是， 不是每个方向上都必须被检测。&nbsp;<br>
+<br>
+&nbsp;&nbsp;&nbsp;&nbsp;我们假设存在一个线段 [a,b]， 以及两条通过&nbsp;a&nbsp;和&nbsp;b&nbsp;的平行线。 通过绕着这两个点旋转这两条线， 使他们之间的距离递增或递减。 特别的， 总存在一个&nbsp;特定旋转方向&nbsp;使得两条线之间的距离通过旋转变小。&nbsp;<br>
+<br>
+&nbsp;&nbsp;&nbsp;&nbsp;这个简单的结论可以被应用于宽度的问题中： 不是所有的方向都需要考虑。 假设给定一个多边形， 同时还有两条平行切线。 如果他们都未与边重合， 那么我们总能通过旋转来减小他们之间的距离。 因此， 两条平行切线只有在其中至少一条与边重合的情况下才可能确定多边形的宽度。&nbsp;<br>
+<br>
+&nbsp;&nbsp;&nbsp;&nbsp;这就意味着<span style="color:rgb(0,0,0)">“对踵点 点-边”</span>以及<span style="color:rgb(0,0,0)">“边-边”</span>对需要在计算宽度过程中被考虑。&nbsp;<br>
+<br>
+<img height="169" alt="" src="http://p.blog.csdn.net/images/p_blog_csdn_net/ACMaker/EntryImages/20081029/width.gif" width="254" align="left" style="border:none">&nbsp;</span>
+<p align="center">一个凸多边形宽度的示意图。 直径对如图由平行切线（红线）穿过的黑点所示。 直径如高亮的淡蓝色线所示。</p>
+<br clear="all">
+&nbsp;&nbsp;&nbsp;&nbsp;一个与计算<span style="color:rgb(0,0,0)">直径</span>问题非常相&#20284;的算法可以通过遍历多边形对踵点对列表得到， 确定顶点-边以及边-边对来计算宽度。 选择过程如下:
+<ol>
+<li>计算多边形&nbsp;<em>y</em>&nbsp;方向上的端点。 我们称之为&nbsp;<em>ymin</em>&nbsp;和&nbsp;<em>ymax</em>。</li><li>通过&nbsp;<em>ymin</em>&nbsp;和&nbsp;<em>ymax</em>&nbsp;构造两条水平切线。如果一条（或者两条）线与边重合， 那么一个“对踵点 点-边”对或者“边-边”对已经确立了。 此时， 计算两线间的距离， 并且存为当前最小距离。</li><li>同时旋转两条线直到其中一条与多边形的一条边重合。</li><li>一个新的“对踵点 点-边”对（或者当两条线都与边重合，“边-边”对）此时产生。 计算新的距离， 并和当前最小&#20540;比较， 小于当前最小&#20540;则更新。</li><li>重复步骤3和步骤4（卡壳）的过程直到再次达到最初平行边的位置。</li><li>将获得的最小&#20540;的对作为确定宽度的对输出。</li></ol>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;更为直观的算法再次因为需要引进角度的计算而体现出其不足。 然而， 就如在<span style="color:rgb(0,0,0)">凸多边形间最大距离</span>问题中一样， 有时候更为简单、直观的旋转卡壳算法必须被引入计算。</p>
+<p>&nbsp;</p>
+<h2 style="margin:0px; padding:0px">3.凸多边形间最大距离</h2>
+<p>给定两个凸多边形&nbsp;<em>P</em>&nbsp;和&nbsp;<em>Q</em>， 目标是需要找到点对 (<em>p</em>,<em>q</em>) （<em>p</em>&nbsp;属于&nbsp;<em>P</em>&nbsp;且&nbsp;<em>q</em>&nbsp;属于&nbsp;<em>Q</em>） 使得他们之间的距离最大。&nbsp;<br>
+<br>
+很直观地，这些点不可能属于他们各自多边形的内部。 这个条件事实上与直径问题非常相&#20284;：&nbsp;<br>
+<br>
+两凸多边形&nbsp;<em>P</em>&nbsp;和&nbsp;<em>Q</em>&nbsp;间最大距离由多边形间的对踵点对确定。&nbsp;<br>
+虽然说法一样， 但是这个定义与给定凸多边形的<span style="color:rgb(0,0,0)">对踵点对</span>的不同。&nbsp;<br>
+与<span style="color:rgb(0,0,0)">凸多边形间的对踵点对</span>本质上的区别在于切线是有向且反向的。 下图展示了一个例子：&nbsp;<br>
+<img height="213" alt="" src="http://p.blog.csdn.net/images/p_blog_csdn_net/ACMaker/EntryImages/20081029/maxd2p.gif" width="301" style="border:none">&nbsp;<br clear="all">
+上述结论暗示不单纯只是顶点对需要检测， 而仅仅是特定的顶点对需要被考虑到。 事实上他们只检测一个基于旋转卡壳模式的算法确立的平行切线。&nbsp;<br>
+考虑如下的算法， 算法的输入是两个分别有&nbsp;<em>m</em>&nbsp;和&nbsp;<em>n</em>&nbsp;个顺时针给定顶点的凸多边形&nbsp;<em>P</em>&nbsp;和&nbsp;<em>Q</em>。</p>
+<ol>
+<li>计算&nbsp;<em>P</em>&nbsp;上&nbsp;<em>y</em>&nbsp;坐标&#20540;最小的顶点（称为&nbsp;<em>yminP</em>&nbsp;） 和&nbsp;<em>Q</em>&nbsp;上&nbsp;<em>y</em>&nbsp;坐标&#20540;最大的顶点（称为&nbsp;<em>ymaxQ</em>）。</li><li>为多边形在&nbsp;<em>yminP</em>&nbsp;和&nbsp;<em>ymaxQ</em>&nbsp;处构造两条切线&nbsp;<em>LP</em>&nbsp;和&nbsp;<em>LQ</em>&nbsp;使得他们对应的多边形位于他们的右侧。 此时&nbsp;<em>LP</em>和&nbsp;<em>LQ</em>&nbsp;拥有不同的方向， 并且&nbsp;<em>yminP</em>&nbsp;和&nbsp;<em>ymaxQ</em>&nbsp;成为了多边形间的一个对踵点对。</li><li>计算距离(<em>yminP</em>,<em>ymaxQ</em>) 并且将其维护为当前最大&#20540;。</li><li>顺时针同时旋转平行线直到其中一个与其所在的多边形的边重合。</li><li>一个新的对踵点对产生了。 计算新距离， 与当前最大&#20540;比较， 如果大于当前最大&#20540;则更新。 如果两条线同时与边发生重合， 此时总共三个对踵点对（先前顶点和新顶点的组合）需要考虑在内。</li><li>重复执行步骤4和步骤5， 直到新的点对为(<em>yminP</em>,<em>ymaxQ</em>)。</li><li>输出最大距离。</li></ol>
+<p>旋转卡壳模式确保了所有的对踵点对都被考虑到。 此外， 整个算法拥有线性的时间复杂度， 因为（除了初始化）， 执行步数与顶点数相同。<br>
+<br>
+类&#20284;的算法可以被用于<span style="color:rgb(0,0,0)">凸多边形间最小距离</span>问题中。</p>
+<h2 style="margin:0px; padding:0px">4.凸多边形间最小距离</h2>
+给定两个非连接（比如不相交）的凸多边形&nbsp;P&nbsp;和&nbsp;Q， 目标是找到拥有最小距离的点对 (p,q) （p&nbsp;属于&nbsp;P&nbsp;且&nbsp;q&nbsp;属于Q）。&nbsp;<br>
+<br>
+事实上， 多边形非连接十分重要， 因为我们所说的多边形包含其内部。 如果多边形相交， 那么最小距离就变得没有意义了。 然而， 这个问题的另一个版本， 凸多边形顶点对间最小距离对于相交和非相交的情况都有解存在。&nbsp;<br>
+<br>
+回到我们的主问题： 直观的， 确定最小距离的点不可能包含在多边形的内部。 与最大距离问题相&#20284;， 我们有如下结论：&nbsp;<br>
+<br>
+两个凸多边形&nbsp;P&nbsp;和&nbsp;Q&nbsp;之间的最小距离由<span style="color:rgb(0,0,0)">多边形间的对踵点对</span>确立。 存在凸多边形间的三种<span style="color:rgb(0,0,0)">多边形间的对踵点对</span>， 因此就有三种可能存在的最小距离模式：
+<ol>
+<li>“顶点-顶点”的情况</li><li>“顶点-边”的情况</li><li>“边-边”的情况</li></ol>
+<br>
+换句话说， 确定最小距离的点对不一定必须是顶点。 下面的三个图例表明了以上结论：&nbsp;<br>
+<img height="150" alt="" src="http://p.blog.csdn.net/images/p_blog_csdn_net/ACMaker/EntryImages/20081029/mind2p1.gif" width="227" style="border:none">&nbsp;<img alt="" src="http://p.blog.csdn.net/images/p_blog_csdn_net/ACMaker/EntryImages/20081029/mind2p2.gif" style="border:none">&nbsp;<img alt="" src="http://p.blog.csdn.net/images/p_blog_csdn_net/ACMaker/EntryImages/20081029/mind2p3.gif" style="border:none">&nbsp;<br clear="all">
+给定结果， 一个基于旋转卡壳的算法自然而然的产生了:&nbsp;<br>
+考虑如下的算法， 算法的输入是两个分别有 m 和 n 个顺时针给定顶点的凸多边形 P 和 Q。
+<ol>
+<li>计算&nbsp;<em>P</em>&nbsp;上&nbsp;<em>y</em>&nbsp;坐标&#20540;最小的顶点（称为&nbsp;<em>yminP</em>&nbsp;） 和&nbsp;<em>Q</em>&nbsp;上&nbsp;<em>y</em>&nbsp;坐标&#20540;最大的顶点（称为&nbsp;<em>ymaxQ</em>）。</li><li>为多边形在&nbsp;<em>yminP</em>&nbsp;和&nbsp;<em>ymaxQ</em>&nbsp;处构造两条切线&nbsp;<em>LP</em>&nbsp;和&nbsp;<em>LQ</em>&nbsp;使得他们对应的多边形位于他们的右侧。 此时&nbsp;<em>LP</em>和&nbsp;<em>LQ</em>&nbsp;拥有不同的方向， 并且&nbsp;<em>yminP</em>&nbsp;和&nbsp;<em>ymaxQ</em>&nbsp;成为了多边形间的一个对踵点对。</li><li>计算距离(<em>yminP</em>,<em>ymaxQ</em>) 并且将其维护为当前最小&#20540;。</li><li>顺时针同时旋转平行线直到其中一个与其所在的多边形的边重合。</li><li>如果只有一条线与边重合， 那么只需要计算“顶点-边”对踵点对和“顶点-顶点”对踵点对距离。 都将他们与当前最小&#20540;比较， 如果小于当前最小&#20540;则进行替换更新。 如果两条切线都与边重合， 那么情况就更加复杂了。 如果边“交叠”， 也就是可以构造一条与两条边都相交的公垂线（但不是在顶点处相交）， 那么就计算“边-边”距离。 否则计算三个新的“顶点-顶点”对踵点对距离。 所有的这些距离都与当前最小&#20540;进行比较， 若小于当前最小&#20540;则更新替换。</li><li>重复执行步骤4和步骤5， 直到新的点对为(<em>yminP</em>,<em>ymaxQ</em>)。</li><li>输出最大距离。</li></ol>
+旋转卡壳模式保证了所有的对踵点对（和所有可能的子情况）都被考虑到。 此外， 整个算法拥有现行的时间复杂度， 因为（除了初始化）， 只有与顶点数同数量级的操作步数需要执行。&nbsp;<br>
+<br>
+最小距离和最大距离的问题表明了旋转卡壳模型可以用在不同的条件下（与先前的直径和宽度问题比较）。 这个模型可以应用于两个多边形的问题中。&nbsp;<br>
+“最小盒子”问题（<span style="color:rgb(0,0,0)">最小面积外接矩形</span>）通过同一多边形上两个正交切线集合展示了另一种条件下旋转卡壳的应用。&nbsp;</div>
+<h1><span style="color:rgb(51,51,51); font-family:Arial; line-height:26px"><span style="font-size:18px">三、外接矩形</span></span></h1>
+<div><span style="color:rgb(51,51,51); font-family:Arial; line-height:26px"></span>
+<h2 style="margin:0px; padding:0px"><span style="font-size:18px">1.凸多边形最小面积外接矩形</span></h2>
+<p style="font-size:14px">给定一个凸多边形&nbsp;<em>P</em>&nbsp;， 面积最小的能装下&nbsp;<em>P</em>&nbsp;（就外围而言）的矩形是怎样的呢？ 从技术上说， 给定一个方向， 能计算出&nbsp;<em>P</em>&nbsp;的端点并且构由此造出外接矩形。 但是我们需要测试每个情形来获得每个矩形来计算最小面积吗？ 谢天谢地， 我们不必那么干。&nbsp;<br>
+<br>
+对于多边形&nbsp;<em>P</em>&nbsp;的一个外接矩形存在一条边与原多边形的边共线。&nbsp;<br>
+<br>
+上述结论有力地限制了矩形的可能范围。 我们不仅不必去检测所有可能的方向， 而且只需要检测与多边形边数相等数量的矩形。&nbsp;<br>
+<br>
+</p>
+<p style="font-size:14px"><img height="164" alt="" hspace="0" src="http://p.blog.csdn.net/images/p_blog_csdn_net/ACMaker/EntryImages/20081030/the_new_maer.gif" width="227" align="left" style="border:none">图示上述结论： 四条切线（红色）， 其中一条与多边形一条边重合， 确定了外接矩形（蓝色）。</p>
+<p style="font-size:14px"><br clear="all">
+一个简单的算法是依次将每条边作为与矩形重合的边进行计算。 但是这种构造矩形的方法涉及到计算多边形每条边端点， 一个花费&nbsp;<em>O(n)</em>&nbsp;时间（因为有&nbsp;<em>n</em>&nbsp;条边）的计算。 整个算法将有二次时间复杂度。&nbsp;<br>
+<br>
+一个更高效的算法已经发现。 利用旋转卡壳， 我们可以在常数时间内实时更新， 而不是重新计算端点。&nbsp;<br>
+实际上， 考虑一个凸多边形， 拥有两对和&nbsp;<em>x</em>&nbsp;和&nbsp;<em>y</em>&nbsp;方向上四个端点相切的切线。 四条线已经确定了一个多边形的外接矩形。 但是除非多边形有一条水平的或是垂直的边， 这个矩形的面积就不能算入最小面积中。&nbsp;<br>
+然而， 可以通过旋转线直到条件满足。 这个过程是下属算法的核心。 假设按照顺时针顺序输入一个凸多边形的<em>n</em>&nbsp;个顶点。&nbsp;<br>
+</p>
+<ol style="font-size:14px">
+<li>计算全部四个多边形的端点， 称之为&nbsp;<em>xminP</em>，&nbsp;<em>xmaxP</em>，&nbsp;<em>yminP</em>，&nbsp;<em>ymaxP</em>。</li><li>通过四个点构造&nbsp;<em>P</em>&nbsp;的四条切线。 他们确定了两个“卡壳”集合。</li><li>如果一条（或两条）线与一条边重合， 那么计算由四条线决定的矩形的面积， 并且保存为当前最小&#20540;。 否则将当前最小&#20540;定义为无穷大。</li><li>顺时针旋转线直到其中一条和多边形的一条边重合。</li><li>计算新矩形的面积， 并且和当前最小&#20540;比较。 如果小于当前最小&#20540;则更新， 并保存确定最小&#20540;的矩形信息。&nbsp;<br>
+</li><li>重复步骤4和步骤5， 直到线旋转过的角度大于90度。</li><li>输出外接矩形的最小面积。</li></ol>
+<p style="font-size:14px">因为两对的“卡壳”确定了一个外接矩形， 这个算法考虑到了所有可能算出最小面积的矩形。 进一步， 除了初始&#20540;外， 算法的主循环只需要执行顶点总数多次。 因此算法是线性时间复杂度的。&nbsp;<br>
+<br>
+一个相&#20284;但是鲜为人知的问题是<span style="color:rgb(0,0,0)">最小周长外接矩形</span>问题。 有趣的是这两个问题是完全不同的问题， 因为存在（尽管极少）最小面积外接矩形和最小周长外接矩形多边形不重合的多边形。</p>
+<h2 style="margin:0px; padding:0px"></h2>
+<h2 style="margin:0px; padding:0px"><span style="font-size:18px">2.凸多边形最小周长外接矩形</span></h2>
+<p style="font-size:14px">这个问题和<span style="color:rgb(0,0,0)">最小面积外接矩形</span>相&#20284;。 我们的目标是找到一个最小盒子（就周长而言）外接多边形&nbsp;<em>P</em>&nbsp;。&nbsp;<br>
+<br>
+有趣的是通常情况下最小面积的和最小周长的外接矩形是重合的。 有人不禁想问这是不是总成立的。 下面的例子回答了这个问题： 多边形（灰色的）及其最小面积外接矩形（左边的）和最小周长外接矩形（右边的）。&nbsp;<br>
+</p>
+<center style="font-size:14px">&nbsp;</center>
+<p style="font-size:14px"><br clear="all">
+<img alt="" src="http://p.blog.csdn.net/images/p_blog_csdn_net/ACMaker/EntryImages/20081030/areavsperim.gif" style="border:none"></p>
+<p style="font-size:14px">现在， 给定一个方向， 我们可以算出&nbsp;<em>P</em>&nbsp;的端点， 以此来确定一个外接矩形。 但是， 就如同面积问题中一样， 由于有下面的结论， 我们不必检测每个状态来获得拥有最小周长的矩形：&nbsp;<br>
+<br>
+凸多边形&nbsp;<em>P</em>&nbsp;的最小周长外接矩形存在一条边和多边形的一条边重合。&nbsp;<br>
+<br>
+这个结论通过枚举多边形的一条重合边有力地限制了矩形的可能范围。&nbsp;<br>
+<br>
+<img height="172" alt="" hspace="0" src="http://p.blog.csdn.net/images/p_blog_csdn_net/ACMaker/EntryImages/20081030/mper.gif" width="232" align="left" style="border:none">&nbsp;</p>
+<p style="font-size:14px">图示上述结论： 四条切线（红色）， 其中一条与多边形边重合， 确定了外接矩形（蓝色）。</p>
+<p style="font-size:14px"><br clear="all">
+因为与其<span style="color:rgb(0,0,0)">面积</span>问题相当， 这个问题可以通过一个基于旋转卡壳的相&#20284;的算法来解决。&nbsp;<br>
+下属算法的输入是顺时针顺序给定的一个凸多边形的&nbsp;<em>n</em>&nbsp;个顶点。&nbsp;<br>
+</p>
+<ol style="font-size:14px">
+<li>计算全部四个多边形的端点， 称之为&nbsp;<em>xminP</em>，&nbsp;<em>xmaxP</em>，&nbsp;<em>yminP</em>，&nbsp;<em>ymaxP</em>。</li><li>通过四个点构造&nbsp;<em>P</em>&nbsp;的四条切线。 他们确定了两个“卡壳”集合。</li><li>如果一条（或两条）线与一条边重合， 那么计算由四条线决定的矩形的面积， 并且保存为当前最小&#20540;。 否则将当前最小&#20540;定义为无穷大。</li><li>顺时针旋转线直到其中一条和多边形的一条边重合。</li><li>计算新矩形的周长， 并且和当前最小&#20540;比较。 如果小于当前最小&#20540;则更新， 并保存确定最小&#20540;的矩形信息。&nbsp;<br>
+</li><li>重复步骤4和步骤5， 直到线旋转过的角度大于90度。</li><li>输出外接矩形的最小周长。</li></ol>
+<p style="font-size:14px">因为两对的“卡壳”确定了一个外接矩形， 这个算法考虑到了所有可能算出最小周长的矩形。 进一步， 除了初始&#20540;外， 算法的主循环只需要执行顶点总数多次。 因此算法是线性时间复杂度的。&nbsp;<br>
+<br>
+问题处理同样包含三角形。 有两个特例， 具体参见<span style="color:rgb(0,0,0)">洋葱三角剖分</span>和<span style="color:rgb(0,0,0)">螺旋三角剖分</span>。</p>
+<h1><span style="font-size:18px">四、三角剖分</span></h1>
+<h2 style="margin:0px; padding:0px"><span style="color:rgb(0,0,0)">1.洋葱三角剖分</span></h2>
+<p style="font-size:14px"><span style="color:rgb(0,0,0)">给定一个平面上的点集， 目标是构造一个点集的三角剖分。&nbsp;<br>
+<br>
+从Lennes 1911年二次时间复杂度的源算法到Chazelle 1991线性时间复杂度的算法， 前人已经做了许多关于提高三角剖分算法效率的研究。&nbsp;<br>
+<br>
+这里的焦点是关于一种特殊的三角剖分， 一种基于对点集进行“剥洋葱皮”操作。&nbsp;<br>
+考虑平面上一个有&nbsp;<em>n</em>&nbsp;个点的集合&nbsp;<em>S</em>&nbsp;。 计算&nbsp;<em>S</em>&nbsp;的凸包， 并且设&nbsp;<em>S'</em>&nbsp;为在凸包内的点集。 然后计算&nbsp;<em>S'</em>&nbsp;的凸包并且反复执行这个操作直到没有点剩下。 最后剩下了一个像鸟巢一样层层覆盖的凸包序列， 称为洋葱皮集合&nbsp;<em>S</em>&nbsp;。 感谢Chazelle的算法， 这个结构能够在&nbsp;<em>O</em>(<em>n</em>&nbsp;log&nbsp;<em>n</em>) 时间操作内实现。&nbsp;<br>
+</span></p>
+<p style="font-size:14px"><span style="color:rgb(0,0,0)"><img height="234" alt="" src="http://p.blog.csdn.net/images/p_blog_csdn_net/ACMaker/EntryImages/20081116/onpeel633624726664375000.gif" width="264" align="left" style="border:none">一个点集的洋葱皮。 注意除了凸多边形外，
+ 最里面的结构可能是一条线段或者是一个单一点。 这个图给出了点的层次信息， 比如点间哪个相对更“深”。</span></p>
+<p style="font-size:14px"><br clear="all">
+<span style="color:rgb(0,0,0)">两个嵌套的凸包间的区域称为一个环面。 Toussaint在1986年发表了一个利用旋转卡壳计算环面三角剖分的简单算法。 利用这个方法， 一旦构造出洋葱皮， 就能在现行时间内构造出三角剖分。 进一步， 这个三角剖分有两个特点： 他的子图仍然是洋葱皮， 并且他是一个哈密尔顿图， 即三角剖分图的顶点可以是链状的。&nbsp;<br>
+<br>
+一个环面的三角剖分算法是非常简单的。 算法输入一个被凸包&nbsp;<em>P</em>&nbsp;包裹的凸包&nbsp;<em>Q</em>， 他们的顶点都是顺时针序的。</span></p>
+<ol style="font-size:14px">
+<li><span style="color:rgb(0,0,0)">将凸包的边作为三角剖分的边插入。</span></li><li><span style="color:rgb(0,0,0)">计算&nbsp;<em>P</em>&nbsp;和&nbsp;<em>Q</em>&nbsp;的&nbsp;<em>x</em>&nbsp;坐标最小的点， 分别称为&nbsp;<em>xmin(P)</em>&nbsp;和&nbsp;<em>xmin(Q)</em>&nbsp;。</span></li><li><span style="color:rgb(0,0,0)">在&nbsp;<em>xmin(P)</em>&nbsp;和&nbsp;<em>xmin(Q)</em>&nbsp;处构造两条铅垂切线， 称之为&nbsp;<em>LP</em>&nbsp;和&nbsp;<em>LQ</em>&nbsp;。</span></li><li><span style="color:rgb(0,0,0)">将 (<em>xmin(P)</em>,&nbsp;<em>xmin(Q)</em>) 作为三角剖分的一条边插入。</span></li><li><span style="color:rgb(0,0,0)">当前&nbsp;<em>LP</em>&nbsp;和&nbsp;<em>LQ</em>&nbsp;对应的&nbsp;<em>p</em>&nbsp;和&nbsp;<em>q</em>&nbsp;点分别是&nbsp;<em>xmin(P)</em>&nbsp;和&nbsp;<em>xmin(Q)</em>。</span></li><li><span style="color:rgb(0,0,0)">将线顺时针旋转直到其中一个与一条边重合。 一个新的顶点由此被一条线“击”出。</span>
+<ul>
+<li><span style="color:rgb(0,0,0)">如果他属于&nbsp;<em>P</em>&nbsp;（称为&nbsp;<em>p'</em>）， 插入 (<em>p'</em>,&nbsp;<em>q</em>) 到三角剖分中。 更新当前的点为&nbsp;<em>p'</em>&nbsp;和&nbsp;<em>p'</em>&nbsp;。</span></li><li><span style="color:rgb(0,0,0)">如果他属于&nbsp;<em>Q</em>&nbsp;（称为 q'）， 插入 (<em>p</em>,&nbsp;<em>q'</em>) 到三角剖分中。 更新当前的点为&nbsp;<em>p</em>&nbsp;和&nbsp;<em>q'</em>&nbsp;。</span></li><li><span style="color:rgb(0,0,0)">对于平行边的情况， 两条切线都和边重合， 并且两个新的顶点被“击”出（称他们为&nbsp;<em>p'</em>&nbsp;和&nbsp;<em>q'</em>）。 然后插入 (<em>p'</em>,&nbsp;<em>q'</em>) ， 以及 (<em>p</em>,&nbsp;<em>q'</em>) 和 (<em>p'</em>,&nbsp;<em>q</em>) 到三角剖分中。 更新当前的点为&nbsp;<em>p'</em>&nbsp;和&nbsp;<em>q'</em>&nbsp;。</span></li></ul>
+</li><li><span style="color:rgb(0,0,0)">重复执行上述步骤直到达到开始的最小点。</span></li></ol>
+<p style="font-size:14px"><span style="color:rgb(0,0,0)">一个换面的三角剖分如下所示：</span></p>
+<p style="font-size:14px"><span style="color:rgb(0,0,0)">&nbsp;</span></p>
+<p align="center" style="font-size:14px"><span style="color:rgb(0,0,0)"><img height="176" alt="" hspace="0" src="http://p.blog.csdn.net/images/p_blog_csdn_net/ACMaker/EntryImages/20081116/anntri633624726664687500.gif" width="210" align="center" style="border:none"></span></p>
+<p style="font-size:14px"><span style="color:rgb(0,0,0)">上述的算法拥有线性时间复杂度。 当对于一个点集进行三角剖分的时候， 一个凸包在整个过程中遍历（最多）两次， 最里面和最外部的凸包都只执行遍历一次。 因此对于一个&nbsp;<em>n</em>&nbsp;个点的三角剖分的总运行时间是&nbsp;<em>O(n)</em>&nbsp;。&nbsp;<br>
+<br>
+另一个有效且与三角剖分有关的问题是基于点集的凸螺旋线的</span><span style="color:rgb(0,0,0)">螺旋三角剖分</span><span style="color:rgb(0,0,0)">。&nbsp;</span></p>
+<h2 style="margin:0px; padding:0px">2.螺旋三角剖分</h2>
+<p>点集的螺旋三角剖分是基于集合螺旋凸包的三角剖分图。&nbsp;<br>
+凸螺旋线可以通过如下方法构造：</p>
+<ol>
+<li>从一个特定的端点开始（比如给定方向上的最小点）， 这里取有最小&nbsp;<em>x</em>&nbsp;坐标的点。</li><li>通过那个点构造一条铅垂线。</li><li>按照一个给定的方向旋转线（总保持顺时针或者是逆时针方向）， 直到线“击” 出另一个顶点。</li><li>将两个点用一条线段连接。</li><li>重复步骤3和步骤4， 但是总忽略已经击出的点。</li></ol>
+<p>大体上， 这个过程类&#20284;于计算凸包的卷包裹算法， 但是不同在于其循环永远不会停止。 对于一个凸包上有&nbsp;<em>h</em>&nbsp;个点的点集， 存在&nbsp;<em>2h</em>&nbsp;个凸螺旋线： 对于每个起点有顺时针和逆时针螺旋线两种。&nbsp;<br>
+<img height="160" alt="" src="http://p.blog.csdn.net/images/p_blog_csdn_net/ACMaker/EntryImages/20081116/consp.gif" width="421" align="left" style="border:none">&nbsp;</p>
+<p>一个点集（左边）， 及其顺时针凸螺旋线， 以最小的&nbsp;<em>x</em>&nbsp;坐标点作为初始点。</p>
+<p><br clear="all">
+有趣的是， 一个点集的凸螺旋线和<span style="color:rgb(0,0,0)">洋葱皮</span>可以在线性时间内相互转换。 进一步的， 类&#20284;于<span style="color:rgb(0,0,0)">洋葱三角剖分</span>， 我们可以定义一个点集的子图为凸螺旋线的螺旋三角剖分。&nbsp;<br>
+<br>
+构造螺旋三角剖分的算法， 虽然是基于环面三角剖分的， 但是却更为复杂， 因为螺旋线必须被分割为合适的凸包链。 假设输入是一个点集的顺时针凸螺旋线&nbsp;<em>C</em>&nbsp;， 且有&nbsp;<em>C</em>&nbsp;= { p1 , ... , pn } 。</p>
+<ol>
+<li>将凸螺旋线的边作为三角剖分的边插入。</li><li>从&nbsp;<em>p1</em>&nbsp;开始， 寻找点集凸螺旋线上的最后一个点&nbsp;<em>ph</em>&nbsp;。</li><li>延长凸螺旋线上的最后一条边 [<em>p(n-1)</em>,<em>pn</em>] 直到其与凸螺旋线相交。 标记交点为&nbsp;<em>q'</em>&nbsp;。</li><li>构造与&nbsp;<em>C</em>&nbsp;切于点&nbsp;<em>q'</em>&nbsp;的切线。 逆时针旋转那条线直到他与&nbsp;<em>C</em>&nbsp;相交于一点&nbsp;<em>q</em>&nbsp;并且平行于 [<em>p(n-1)</em>,<em>pn</em>] 。</li><li>将 [<em>p(n-1)</em>,q] 插入三角剖分中。</li><li>此操作后将凸螺旋链分割称了两个部分： 链外的部分和链内的多边形区域。 设&nbsp;<em>Co</em>&nbsp;= {&nbsp;<em>p1</em>&nbsp;, ... ,&nbsp;<em>q</em>&nbsp;} 且&nbsp;<em>Ci</em>&nbsp;= {&nbsp;<em>ph</em>&nbsp;, ... ,&nbsp;<em>q</em>&nbsp;, ... ,&nbsp;<em>pn</em>&nbsp;} 。 这个构造过程如下图所示：<br>
+&nbsp;
+<p><img height="443" alt="" src="http://p.blog.csdn.net/images/p_blog_csdn_net/ACMaker/EntryImages/20081116/spcons.gif" width="501" align="left" style="border:none">左上角： 构造过程。 右上角： 螺旋外和内部的多边形区域。 底部： 外部和内部的凸链&nbsp;<em>Co</em>&nbsp;和<em>Ci</em>&nbsp;。</p>
+<br clear="all">
+</li><li>外部螺旋区域可以如环面一样进行三角剖分。&nbsp;<em>Co</em>&nbsp;和&nbsp;<em>Ci</em>&nbsp;此时可以被看成一个嵌套凸包。</li><li>内部的多边形区域可以很容易的在&nbsp;<em>pn</em>&nbsp;处星型划分形成三角剖分。</li><li>这两个三角剖分的组合构成了整个螺旋三角剖分的结构。</li></ol>
+<p>一个螺旋凸包的例子和其三角剖分如下所示：</p>
+<center>&nbsp;</center>
+<p><img alt="" src="http://p.blog.csdn.net/images/p_blog_csdn_net/ACMaker/EntryImages/20081116/sptri.gif" style="border:none"></p>
+<p style="font-size:14px"><span style="color:rgb(0,0,0)">上述的算法是线性时间复杂度的， 算法的时间依赖于环面剖分的运行时间。</span></p>
+<h2>3.四边形剖分</h2>
+<p>虽然三角剖分是一个更常用的结构， 但最近四边形剖分在某些特定条件下显得更适用， 比如 scattered data interpolation 以及 finite element method 等。&nbsp;<br>
+<br>
+一个四边形剖分实际上是一个点集的四边形分割。 一些与三角剖分本质上的区别（除了特别明显的）应该引起注意：&nbsp;<br>
+首先， 不是所有的点集都存在四边形剖分。 事实上， 只有偶数点集才有。 对于奇数点集， 有时需要附加点（称为Steiner点）到原集合中， 从而构造一个四边形剖分。&nbsp;<br>
+同时， 人们经常期望四边形剖分构造拥有一些“好的”性质， 比如凸的。 这个与三角剖分是不同的。&nbsp;<br>
+<br>
+有许多简单的四边形剖分算法。 比如， 首先考虑点集的三角剖分， 然后加入一个Steiner点到每个三角形内部， 以及每条边的中间。 连接这些新点构成了四边形剖分（这是DeBerg提出的）。&nbsp;<br>
+<br>
+Bose 和 Toussaint 在1997年提出从一个点集的<span style="color:rgb(0,0,0)">螺旋三角剖分</span>开始， 来构造一个o四边形剖分。&nbsp;<br>
+如果点集是偶数的， 那么每隔一个的对角线（在螺旋三角剖分算法中加入的）移除， 构造了一个四边形剖分。 如果是奇数个点， 那么从最后一条对角线开始每个隔一条对角线（比如最后一个， 倒数第三个等）进行移除， 在被移除的第一条对角线附近加入一个Steiner点。 下图展示第一种情况（偶数个点的点集）。 螺旋三角剖分（左边）， 和最终的四边形剖分（右边）。&nbsp;<br>
+<img height="169" alt="" src="http://p.blog.csdn.net/images/p_blog_csdn_net/ACMaker/EntryImages/20081116/quad.gif" width="441"></p>
+<p style="font-size:14px"><span style="color:rgb(0,0,0)">因为对角线的移除过程（和必要的更新）花费&nbsp;<em>O</em>(<em>n</em>) 的时间， 这个四边形剖分算法与螺旋三角剖分有相同的时间复杂度。 这个算法的优点在于便于理解与实现（一旦凸螺旋线建立）， 并且事实上其产生了一个比许多竞争者“更好的”四边形剖分算法。&nbsp;<br>
+<br>
+下一个问题集是关于凸多边形， 特别的， 关于凸包上的操作， 比如合并凸包。</span></p>
+<h1><span style="color:rgb(51,51,51); font-family:Arial; line-height:26px"><span style="font-size:18px">五、凸多边形属性</span></span></h1>
+</div>
+<div><span style="color:rgb(51,51,51); font-family:Arial; line-height:26px"><span style="font-size:14px"></span></span>
+<h2>1.合并凸包</h2>
+考虑如下问题： 给定两个凸多边形， 包含他们并的最小凸多边形是怎样的？ 答案即合并凸包后得到的凸多边形。&nbsp;<br>
+<br>
+合并凸包可以通过一个低效的方式实现： 给定两个多边形的所有顶点， 计算这些点对应的凸包。 更高效的方法是存在的， 他依赖于多边形间的&nbsp;桥&nbsp;的查找。 下图描述了这个概念：&nbsp;<br>
+<p><img height="257" alt="" src="http://p.blog.csdn.net/images/p_blog_csdn_net/ACMaker/EntryImages/20081220/mergech.gif" width="365" align="left">两个不相交的凸多边形。 合并后的凸包包含两个多边形中的凸包链（途中蓝色粗实线）， 通过多边形间的桥进行连接（途中蓝色虚线）</p>
+<br clear="all">
+给定两个不相交的多边形， 在多边形间存在两条桥。 多边形相交时， 拥有和顶点数同样数量的桥， 如下图所示：&nbsp;<br>
+<p><img alt="" src="http://p.blog.csdn.net/images/p_blog_csdn_net/ACMaker/EntryImages/20081220/mergech2.gif" align="left">两个相交的凸多边形。 合并凸包只包含多边形间的桥（图中虚线所示）。 存在连接八个顶点的八个桥。</p>
+<br clear="all">
+合并操作的核心是分治方法。 他同样用于多边形中。 一个获取凸包的十分简单的方法是将点集分为两部分， 分别计算两个较小点集的凸包， 并且将他们合并。 每个集合再次被分割， 直到元素的个数足够小（比如说三个或者更少） 因此凸包就能被很容易获得了。&nbsp;<br>
+Toussaint 提出利用旋转卡壳来寻找两个凸多边形间的桥。 这个方法的主要优点在于其利用回溯， 并且多边形可以交叠（其他的算法要求多边形不相交）。 下述结论是他的算法的主要过程：&nbsp;<br>
+给定凸多边形&nbsp;P&nbsp;= {&nbsp;p(1) , ... ,&nbsp;p(m) } 和&nbsp;Q&nbsp;= {&nbsp;q(1) , ... ,&nbsp;q(n) }，一个点对 (p(i),&nbsp;q(j)) 形成&nbsp;P&nbsp;和&nbsp;Q&nbsp;之间的桥当且仅当：
+<ol>
+<li>(<em>p</em>(<em>i</em>),&nbsp;<em>q</em>(<em>j</em>)) 形成一个<span style="color:rgb(0,0,0)">并踵点对</span>。</li><li><em>p</em>(<em>i</em>-1),&nbsp;<em>p</em>(<em>i</em>&#43;1),&nbsp;<em>q</em>(<em>j</em>-1),&nbsp;<em>q</em>(<em>j</em>&#43;1) 都位于由 (<em>p</em>(<em>i</em>),&nbsp;<em>q</em>(<em>j</em>)) 组成的线的同一侧。</li></ol>
+假设多边形以标准形式给出并且顶点是以顺时针序排列， 算法如下：
+<ol>
+<li>分别计算&nbsp;<em>P</em>&nbsp;和&nbsp;<em>Q</em>&nbsp;拥有最大&nbsp;<em>y</em>&nbsp;坐标的顶点。 如果存在不止一个这样的点， 取&nbsp;<em>x</em>&nbsp;坐标最大的。</li><li>构造这些点的遂平切线， 以多边形处于其右侧为正方向（因此他们指向&nbsp;<em>x</em>&nbsp;轴正方向）。</li><li>同时顺时针旋转两条切线直到其中一条与边相交。 得到一个新的并踵点对 (<em>p</em>(<em>i</em>),&nbsp;<em>q</em>(<em>j</em>)) 。 对于平行边的情况， 得到三个并踵点对。</li><li>对于所有有效的并踵点对 (<em>p</em>(<em>i</em>),&nbsp;<em>q</em>(<em>j</em>))： 判定&nbsp;<em>p</em>(<em>i</em>-1),&nbsp;<em>p</em>(<em>i</em>&#43;1),&nbsp;<em>q</em>(<em>j</em>-1),&nbsp;<em>q</em>(<em>j</em>&#43;1) 是否都位于连接点 (<em>p</em>(<em>i</em>),&nbsp;<em>q</em>(<em>j</em>)) 形成的线的同一侧。 如果是， 这个并踵点对就形成了一个桥，
+ 并标记他。</li><li>重复执行步骤3和步骤4直到切线回到他们原来的位置。</li><li>所有可能的桥此时都已经确定了。 通过连续连接桥间对应的凸包链来构造合并凸包。</li></ol>
+上述的结论确定了算法的正确性。 运行时间受步骤1，5，6约束。 他们都为&nbsp;O(N)&nbsp;运行时间（N&nbsp;是顶点总数）。 因此算法拥有现行的时间复杂度。&nbsp;<br>
+<br>
+<p>一个凸多边形间的桥实际上确定了另一个有用的概念：多边形间<span style="color:rgb(0,0,0)">公切线</span>。 同时， 桥也是计算<span style="color:rgb(0,0,0)">凸多边形交</span>的算法核心。</p>
+<h2 style="margin:0px; padding:0px">2.找共切线</h2>
+公切线是同时与多边形相切的简单直线， 并且两个多边形都位于线的同一侧。 换句话说， 一条公切线是一条与两个多边形都相切的线。 一个例子如下图所示：&nbsp;<br style="margin:0px; padding:0px">
+<br style="margin:0px; padding:0px">
+<p style="margin-top:0px; margin-bottom:0px; padding-top:0px; padding-bottom:0px">
+<img height="263" alt="" hspace="0" src="http://p.blog.csdn.net/images/p_blog_csdn_net/ACMaker/EntryImages/20081220/comtan.gif" width="531" style="margin:0px; padding:0px; border:none"></p>
+<p style="margin-top:0px; margin-bottom:0px; padding-top:0px; padding-bottom:0px">
+两个不相交的凸多边形和一条他们的公切线</p>
+<p style="margin-top:0px; margin-bottom:0px; padding-top:0px; padding-bottom:0px">
+<br clear="all" style="margin:0px; padding:0px">
+事实上， 公切线可以通过多边形间的一些确定<span style="color:rgb(0,0,0); margin:0px; padding:0px">桥</span>的点对来确立。 因此， 给定两个不相交的多边形， 就存在两个多边形间两条公切线， 并且当多边形相交时， 还有可能存在与顶点数一样多的公切线。&nbsp;<br style="margin:0px; padding:0px">
+用来计算两多边形间桥的算法（如<span style="color:rgb(0,0,0); margin:0px; padding:0px">归并算法</span>）同样可以用来确定公切线。&nbsp;<br style="margin:0px; padding:0px">
+<br style="margin:0px; padding:0px">
+另一个“版本”的两多边形的公切线是<span style="color:rgb(0,0,0); margin:0px; padding:0px">关键切线</span>。 那种情况下多边形分立于线的两侧。&nbsp;<br style="margin:0px; padding:0px">
+<br style="margin:0px; padding:0px">
+桥可以用来计算<span style="color:rgb(0,0,0); margin:0px; padding:0px">多边形的交</span>。</p>
+<h2 style="margin:0px; padding:0px">3.凸多边形交</h2>
+给定两个多边形， 我们第一个需要讨论的问题应该是：“他们相交吗？”。 Chazelle 和 Dobkin 1980年在他们的一篇叫做“Detection is easier than computation”的论文中发表了一个对数时间级的算法（论文的名字很贴切）。 对于多边形的交， 许多算法能计算出交集。 有趣的是一个结论（由Guibas提出）证明了多边形交点和和他们之间的桥是一一对应关系。&nbsp;<br style="margin:0px; padding:0px">
+<img height="326" alt="" src="http://p.blog.csdn.net/images/p_blog_csdn_net/ACMaker/EntryImages/20081220/inter.gif" width="374" style="margin:0px; padding:0px; border:none">&nbsp;
+<p style="margin-top:0px; margin-bottom:0px; padding-top:0px; padding-bottom:0px">
+两个多边形（浅红色和蓝色）和他们的交集（浅紫色）。 交点以红色标记。 每个交点与一个多边形之间的桥（标记为红色点划线）有关。</p>
+<br clear="all" style="margin:0px; padding:0px">
+Toussaint在1985年的文献中利用Guibas的结论， 加上他先前的关于<span style="color:rgb(0,0,0); margin:0px; padding:0px">查找桥</span>的算法来计算交点集。 他的算法利用桥来计算交点集。 一旦他们被找到， 与合并凸包的操作类&#20284;， 凸链以及交点集形成了多边形的交集。&nbsp;<br style="margin:0px; padding:0px">
+<br style="margin:0px; padding:0px">
+算法的细节， 特别是从桥到交点的计算可以在Toussaint的论文中找到：&nbsp;<br style="margin:0px; padding:0px">
+<br style="margin:0px; padding:0px">
+G.T. Toussaint.&nbsp;<a style="margin:0px; padding:0px; color:rgb(51,102,153)">A simple linear algorithm for intersecting convex polygons</a>.&nbsp;<span style="margin:0px; padding:0px">The Visual Computer</span>.&nbsp;<span style="margin:0px; padding:0px">1</span>: 118-123.
+ 1985.&nbsp;<br style="margin:0px; padding:0px">
+<br style="margin:0px; padding:0px">
+下一个问题设计寻找两个凸多边形的<span style="color:rgb(0,0,0); margin:0px; padding:0px">临界切线</span>。<br>
+</div>
+<div><span style="color:rgb(51,51,51); font-family:Arial; line-height:26px"><span style="font-size:14px"></span></span>
+<h2 style="margin:0px; padding:0px">4.临界切线</h2>
+两个凸多边形间的临界切线（一般被叫做CS线）是使得两个多边形分居线不同侧的切线。 换句话说， 他们分隔了多边形。<br style="margin:0px; padding:0px">
+CS线可以应用于motion planning， visibility 和 range fitting。&nbsp;<br style="margin:0px; padding:0px">
+<br style="margin:0px; padding:0px">
+下图是关于两个多边形和他们的两条临界切线。
+<center style="margin:0px; padding:0px">&nbsp;</center>
+<p style="margin-top:0px; margin-bottom:0px; padding-top:0px; padding-bottom:0px">
+&nbsp;</p>
+<p style="margin-top:0px; margin-bottom:0px; padding-top:0px; padding-bottom:0px">
+<img height="310" alt="" src="http://p.blog.csdn.net/images/p_blog_csdn_net/ACMaker/EntryImages/20081220/cslines.gif" width="387" style="margin:0px; padding:0px; border:none"></p>
+<p style="margin-top:0px; margin-bottom:0px; padding-top:0px; padding-bottom:0px">
+这里要注意的一点是假设数据是以标准形式给出的， CS线只会在两个顶点处与两个多边形相交。 因此， 一条CS线由多边形间顶点对确定。&nbsp;<br style="margin:0px; padding:0px">
+如下的结论描述了这个点对：&nbsp;<br style="margin:0px; padding:0px">
+<br style="margin:0px; padding:0px">
+给定两个凸多边形&nbsp;<span style="margin:0px; padding:0px">P</span>，&nbsp;<span style="margin:0px; padding:0px">Q</span>， 两个顶点&nbsp;<span style="margin:0px; padding:0px">p</span>(<span style="margin:0px; padding:0px">i</span>),&nbsp;<span style="margin:0px; padding:0px">q</span>(<span style="margin:0px; padding:0px">j</span>)
+ （分别属于&nbsp;<span style="margin:0px; padding:0px">P</span>&nbsp;和&nbsp;<span style="margin:0px; padding:0px">Q</span>） 确定一条CS线当且仅当：</p>
+<ol style="margin:0px; padding:0px">
+<li style="margin:0px; padding:0px"><span style="margin:0px; padding:0px">p</span>(<span style="margin:0px; padding:0px">i</span>),&nbsp;<span style="margin:0px; padding:0px">q</span>(<span style="margin:0px; padding:0px">j</span>) 构成<span style="color:rgb(0,0,0); margin:0px; padding:0px">多边形间对踵点对</span>。</li><li style="margin:0px; padding:0px"><span style="margin:0px; padding:0px">p</span>(<span style="margin:0px; padding:0px">i</span>-1),<span style="margin:0px; padding:0px">p</span>(<span style="margin:0px; padding:0px">i</span>&#43;1) 位于线 (<span style="margin:0px; padding:0px">p</span>(<span style="margin:0px; padding:0px">i</span>),&nbsp;<span style="margin:0px; padding:0px">q</span>(<span style="margin:0px; padding:0px">j</span>))
+ 一侧，同时<span style="margin:0px; padding:0px">q</span>(<span style="margin:0px; padding:0px">j</span>-1),<span style="margin:0px; padding:0px">q</span>(<span style="margin:0px; padding:0px">j</span>&#43;1) 位于另一次。</li></ol>
+利用这个结论， CS线可以很容易地确定。 只有多边形间的对踵点对才需要进行测试。 因此， Toussaint建议使用旋转卡壳。 假设多边形是以标准形式给出并且是顺时针序排列顶点， 考虑如下过程：
+<ol style="margin:0px; padding:0px">
+<li style="margin:0px; padding:0px">计算&nbsp;<span style="margin:0px; padding:0px">P</span>&nbsp;上&nbsp;<span style="margin:0px; padding:0px">y</span>&nbsp;坐标&#20540;最小的顶点（称为&nbsp;<span style="margin:0px; padding:0px">yminP</span>&nbsp;） 和&nbsp;<span style="margin:0px; padding:0px">Q</span>&nbsp;上&nbsp;<span style="margin:0px; padding:0px">y</span>&nbsp;坐标&#20540;最大的顶点（称为&nbsp;<span style="margin:0px; padding:0px">ymaxQ</span>）。</li><li style="margin:0px; padding:0px">为多边形在&nbsp;<span style="margin:0px; padding:0px">yminP</span>&nbsp;和&nbsp;<span style="margin:0px; padding:0px">ymaxQ</span>&nbsp;处构造两条切线&nbsp;<span style="margin:0px; padding:0px">LP</span>&nbsp;和&nbsp;<span style="margin:0px; padding:0px">LQ</span>&nbsp;使得他们对应的多边形位于他们的右侧。
+ 此时&nbsp;<span style="margin:0px; padding:0px">LP</span>&nbsp;和&nbsp;<span style="margin:0px; padding:0px">LQ</span>拥有不同的方向， 并且&nbsp;<span style="margin:0px; padding:0px">yminP</span>&nbsp;和&nbsp;<span style="margin:0px; padding:0px">ymaxQ</span>&nbsp;成为了多边形间的一个对踵点对。</li><li style="margin:0px; padding:0px">令&nbsp;<span style="margin:0px; padding:0px">p</span>(<span style="margin:0px; padding:0px">i</span>)=&nbsp;<span style="margin:0px; padding:0px">yminP</span>，&nbsp;<span style="margin:0px; padding:0px">q</span>(<span style="margin:0px; padding:0px">j</span>)=&nbsp;<span style="margin:0px; padding:0px">ymaxQ</span>。
+ (<span style="margin:0px; padding:0px">p</span>(<span style="margin:0px; padding:0px">i</span>),&nbsp;<span style="margin:0px; padding:0px">q</span>(<span style="margin:0px; padding:0px">j</span>)) 构成了多边形间的一个对踵点对。 检测是否有&nbsp;<span style="margin:0px; padding:0px">p</span>(<span style="margin:0px; padding:0px">i</span>-1),<span style="margin:0px; padding:0px">p</span>(<span style="margin:0px; padding:0px">i</span>&#43;1)
+ 在线 (<span style="margin:0px; padding:0px">p</span>(<span style="margin:0px; padding:0px">i</span>),<span style="margin:0px; padding:0px">q</span>(<span style="margin:0px; padding:0px">j</span>)) 的一侧， 并且&nbsp;<span style="margin:0px; padding:0px">q</span>(<span style="margin:0px; padding:0px">j</span>-1),<span style="margin:0px; padding:0px">q</span>(<span style="margin:0px; padding:0px">j</span>&#43;1)
+ 在另一侧。 如果成立， (<span style="margin:0px; padding:0px">p</span>(<span style="margin:0px; padding:0px">i</span>),&nbsp;<span style="margin:0px; padding:0px">q</span>(<span style="margin:0px; padding:0px">j</span>)) 确定了一条CS线。</li><li style="margin:0px; padding:0px">旋转这两条线， 直到其中一条和其对应的多边形的边重合。</li><li style="margin:0px; padding:0px">一个新的对踵点对确定了。 如果两条线都与边重合， 总共三对对踵点对（原先的顶点和新的顶点的组合）需要考虑。 对于所有的对踵点对， 执行上面的测试。</li><li style="margin:0px; padding:0px">重复执行步骤4和步骤5， 直到新的点对为(<span style="margin:0px; padding:0px">yminP</span>,<span style="margin:0px; padding:0px">ymaxQ</span>)。</li><li style="margin:0px; padding:0px">输出CS线。</li></ol>
+<br style="margin:0px; padding:0px">
+这个算法基本通过绕着多边形旋转切线， 顺序查找所有多边形间的对踵点对。 每次一对对踵点确定后， 执行所有必要的测试。 在上述过程执行完后， 所有的临界切线都被找到了。&nbsp;<br style="margin:0px; padding:0px">
+算法的运行时间由步骤1和步骤6决定， 他们都花费&nbsp;<span style="margin:0px; padding:0px">O(n)</span>&nbsp;的时间（所有的检测都花费常数时间。 因为有&nbsp;<span style="margin:0px; padding:0px">O(n)</span>&nbsp;的对踵点对， 总的花费为&nbsp;<span style="margin:0px; padding:0px">O(n)</span>）。&nbsp;<br style="margin:0px; padding:0px">
+<br style="margin:0px; padding:0px">
+关于凸多边形的学习， 最后的操作是<span style="color:rgb(0,0,0); margin:0px; padding:0px">凸多边形矢量和</span>。<br>
+</div>
+<div><span style="color:rgb(51,51,51); font-family:Arial; line-height:26px"><span style="font-size:14px"></span></span>
+<h2 style="margin:0px; padding:0px">5.凸多边形矢量和</h2>
+给定平面上两个凸多边形&nbsp;<span style="margin:0px; padding:0px">P</span>&nbsp;和&nbsp;<span style="margin:0px; padding:0px">Q</span>&nbsp;，&nbsp;<span style="margin:0px; padding:0px">P</span>&nbsp;和&nbsp;<span style="margin:0px; padding:0px">Q</span>&nbsp;的矢量和， 记为&nbsp;<span style="margin:0px; padding:0px">P</span>&nbsp;&#43;&nbsp;<span style="margin:0px; padding:0px">Q</span>&nbsp;定义如下：
+<center style="margin:0px; padding:0px"><span style="margin:0px; padding:0px">P</span>&nbsp;&#43;&nbsp;<span style="margin:0px; padding:0px">Q</span>&nbsp;= {&nbsp;<span style="margin:0px; padding:0px">p</span>&nbsp;&#43;&nbsp;<span style="margin:0px; padding:0px">q</span>&nbsp;} 所有的分别属于&nbsp;<span style="margin:0px; padding:0px">P</span>&nbsp;和&nbsp;<span style="margin:0px; padding:0px">Q</span>&nbsp;的&nbsp;<span style="margin:0px; padding:0px">p</span>&nbsp;和&nbsp;<span style="margin:0px; padding:0px">q</span>&nbsp;。</center>
+<br style="margin:0px; padding:0px">
+多边形矢量和在 motion planning 中也称为 Minkowski 总数。&nbsp;<br style="margin:0px; padding:0px">
+<br style="margin:0px; padding:0px">
+考虑上述的定义， 许多问题可以通过询问集合&nbsp;<span style="margin:0px; padding:0px">P</span>&nbsp;&#43;&nbsp;<span style="margin:0px; padding:0px">Q</span>&nbsp;的组成， 他拥有的性质等等。 下属结果帮助我们描述多边形矢量和。
+<ol style="margin:0px; padding:0px">
+<li style="margin:0px; padding:0px"><span style="margin:0px; padding:0px">P</span>&nbsp;&#43;&nbsp;<span style="margin:0px; padding:0px">Q</span>&nbsp;是一个凸多边形。</li><li style="margin:0px; padding:0px">顶点集&nbsp;<span style="margin:0px; padding:0px">P</span>&nbsp;&#43;&nbsp;<span style="margin:0px; padding:0px">Q</span>&nbsp;是顶点集&nbsp;<span style="margin:0px; padding:0px">P</span>&nbsp;和&nbsp;<span style="margin:0px; padding:0px">Q</span>&nbsp;的和。</li><li style="margin:0px; padding:0px">顶点集&nbsp;<span style="margin:0px; padding:0px">P</span>&nbsp;&#43;&nbsp;<span style="margin:0px; padding:0px">Q</span>&nbsp;是&nbsp;<span style="margin:0px; padding:0px">P</span>&nbsp;和&nbsp;<span style="margin:0px; padding:0px">Q</span>&nbsp;间的<span style="color:rgb(0,0,0); margin:0px; padding:0px">并踵点对</span>集。</li><li style="margin:0px; padding:0px">给定分别有&nbsp;<span style="margin:0px; padding:0px">m</span>&nbsp;和&nbsp;<span style="margin:0px; padding:0px">n</span>&nbsp;个顶点的&nbsp;<span style="margin:0px; padding:0px">P</span>&nbsp;和&nbsp;<span style="margin:0px; padding:0px">Q</span>&nbsp;，&nbsp;<span style="margin:0px; padding:0px">P</span>&nbsp;&#43;&nbsp;<span style="margin:0px; padding:0px">Q</span>&nbsp;有不多于&nbsp;<span style="margin:0px; padding:0px">m</span>&nbsp;&#43;&nbsp;<span style="margin:0px; padding:0px">n</span>&nbsp;个顶点。</li></ol>
+<p style="margin-top:0px; margin-bottom:0px; padding-top:0px; padding-bottom:0px">
+最后， 下属结论不仅仅描述了这个问题， 同时也提供了一个一个个顶点的增量式计算矢量和的计算方法。&nbsp;<br style="margin:0px; padding:0px">
+给定&nbsp;<span style="margin:0px; padding:0px">P</span>&nbsp;&#43;&nbsp;<span style="margin:0px; padding:0px">Q</span>&nbsp;集合的第 k 个向量&nbsp;<span style="margin:0px; padding:0px">z</span>(<span style="margin:0px; padding:0px">k</span>)， 满足&nbsp;<span style="margin:0px; padding:0px">z</span>(<span style="margin:0px; padding:0px">k</span>)
+ =&nbsp;<span style="margin:0px; padding:0px">p</span>(<span style="margin:0px; padding:0px">i</span>) &#43;&nbsp;<span style="margin:0px; padding:0px">q</span>(<span style="margin:0px; padding:0px">j</span>)。 构造在&nbsp;<span style="margin:0px; padding:0px">p</span>(<span style="margin:0px; padding:0px">i</span>)
+ 和&nbsp;<span style="margin:0px; padding:0px">q</span>(<span style="margin:0px; padding:0px">j</span>) 处构造两条平行切线， 使得多边形同时位于各自线的右侧。 两条线分别在&nbsp;<span style="margin:0px; padding:0px">p</span>(<span style="margin:0px; padding:0px">i</span>) 和&nbsp;<span style="margin:0px; padding:0px">q</span>(<span style="margin:0px; padding:0px">j</span>)
+ 处确定了角&nbsp;<span style="margin:0px; padding:0px">theta</span>(<span style="margin:0px; padding:0px">i</span>) 和&nbsp;<span style="margin:0px; padding:0px">phi</span>(<span style="margin:0px; padding:0px">j</span>) （如下图所示）</p>
+<p style="margin-top:0px; margin-bottom:0px; padding-top:0px; padding-bottom:0px">
+<img height="359" alt="" hspace="0" src="http://p.blog.csdn.net/images/p_blog_csdn_net/ACMaker/EntryImages/20081220/vecsum.gif" width="330" align="left" style="margin:0px; padding:0px; border:none"></p>
+<p style="margin-top:0px; margin-bottom:0px; padding-top:0px; padding-bottom:0px">
+因此下一个向量&nbsp;<span style="margin:0px; padding:0px">z</span>(<span style="margin:0px; padding:0px">k</span>&#43;1) 等于：</p>
+<ul style="margin:0px; padding:0px">
+<li style="margin:0px; padding:0px"><span style="margin:0px; padding:0px">p</span>(<span style="margin:0px; padding:0px">i</span>&#43;1) &#43;&nbsp;<span style="margin:0px; padding:0px">q</span>(<span style="margin:0px; padding:0px">j</span>) 若&nbsp;<span style="margin:0px; padding:0px">theta</span>(<span style="margin:0px; padding:0px">i</span>)
+ &lt;&nbsp;<span style="margin:0px; padding:0px">phi</span>(<span style="margin:0px; padding:0px">j</span>)</li><li style="margin:0px; padding:0px"><span style="margin:0px; padding:0px">p</span>(<span style="margin:0px; padding:0px">i</span>) &#43;&nbsp;<span style="margin:0px; padding:0px">q</span>(<span style="margin:0px; padding:0px">j</span>&#43;1) 若&nbsp;<span style="margin:0px; padding:0px">theta</span>(<span style="margin:0px; padding:0px">i</span>)
+ &gt;&nbsp;<span style="margin:0px; padding:0px">phi</span>(<span style="margin:0px; padding:0px">j</span>)</li><li style="margin:0px; padding:0px"><span style="margin:0px; padding:0px">p</span>(<span style="margin:0px; padding:0px">i</span>&#43;1) &#43;&nbsp;<span style="margin:0px; padding:0px">q</span>(<span style="margin:0px; padding:0px">j</span>&#43;1) 若&nbsp;<span style="margin:0px; padding:0px">theta</span>(<span style="margin:0px; padding:0px">i</span>)
+ =&nbsp;<span style="margin:0px; padding:0px">phi</span>(<span style="margin:0px; padding:0px">j</span>)</li></ul>
+<p style="margin-top:0px; margin-bottom:0px; padding-top:0px; padding-bottom:0px">
+</p>
+<p style="margin-top:0px; margin-bottom:0px; padding-top:0px; padding-bottom:0px">
+&nbsp;</p>
+<p style="margin-top:0px; margin-bottom:0px; padding-top:0px; padding-bottom:0px">
+&nbsp;</p>
+<p style="margin-top:0px; margin-bottom:0px; padding-top:0px; padding-bottom:0px">
+&nbsp;</p>
+<p style="margin-top:0px; margin-bottom:0px; padding-top:0px; padding-bottom:0px">
+&nbsp;</p>
+<p style="margin-top:0px; margin-bottom:0px; padding-top:0px; padding-bottom:0px">
+&nbsp;</p>
+<p style="margin-top:0px; margin-bottom:0px; padding-top:0px; padding-bottom:0px">
+&nbsp;</p>
+<p style="margin-top:0px; margin-bottom:0px; padding-top:0px; padding-bottom:0px">
+&nbsp;</p>
+<p style="margin-top:0px; margin-bottom:0px; padding-top:0px; padding-bottom:0px">
+&nbsp;</p>
+<p style="margin-top:0px; margin-bottom:0px; padding-top:0px; padding-bottom:0px">
+下述的多边形和他们的矢量和作为一个例子。</p>
+<p style="margin-top:0px; margin-bottom:0px; padding-top:0px; padding-bottom:0px">
+&nbsp;</p>
+<p style="margin-top:0px; margin-bottom:0px; padding-top:0px; padding-bottom:0px">
+<img height="183" alt="" src="http://p.blog.csdn.net/images/p_blog_csdn_net/ACMaker/EntryImages/20081220/vecsum2_1.gif" width="299" style="margin:0px; padding:0px; border:none"></p>
+<p style="margin-top:0px; margin-bottom:0px; padding-top:0px; padding-bottom:0px">
+两个凸多边形。 第一个多边形的边用红色标记， 第二个用蓝色。</p>
+<br clear="all" style="margin:0px; padding:0px">
+<br style="margin:0px; padding:0px">
+&nbsp;
+<p style="margin-top:0px; margin-bottom:0px; padding-top:0px; padding-bottom:0px">
+&nbsp;</p>
+<p style="margin-top:0px; margin-bottom:0px; padding-top:0px; padding-bottom:0px">
+<img alt="" src="http://p.blog.csdn.net/images/p_blog_csdn_net/ACMaker/EntryImages/20081220/vecsum2_2.gif" style="margin:0px; padding:0px; border:none"></p>
+<p style="margin-top:0px; margin-bottom:0px; padding-top:0px; padding-bottom:0px">
+上述多边形的矢量和。 其边的颜色与原多边形的一致。</p>
+<p style="margin-top:0px; margin-bottom:0px; padding-top:0px; padding-bottom:0px">
+<br clear="all" style="margin:0px; padding:0px">
+用上述的结果， 我们十分容易的就能构造出一个算法来计算矢量和。 第一个向量可以是在给定方向上边界向量的和（如&nbsp;<span style="margin:0px; padding:0px">y</span>&nbsp;轴负方向）。 切线构造后， 在计算角度时候更新， 下一个点就很明确了。 我们需要做的只是同时旋转两条线到新的位置来确定新的角度。&nbsp;<br style="margin:0px; padding:0px">
+<br style="margin:0px; padding:0px">
+算法的正确性来自主要的结论； 他是线性时间复杂度的， 因为每一步只有一个所要求的向量和集合中的向量被确定， 并且他们只有&nbsp;<span style="margin:0px; padding:0px">m &#43; n</span>&nbsp;个， 因此总运行时间是&nbsp;<span style="margin:0px; padding:0px">m &#43; n</span>&nbsp;。</p>
+<h1><span style="color:rgb(51,51,51); font-family:Arial; line-height:26px"><span style="font-size:18px">六、最薄截面</span></span></h1>
+</div>
+<div><span style="color:rgb(51,51,51); font-family:Arial; line-height:26px"><span style="font-size:14px"></span></span>
+<h2 style="margin:0px; padding:0px"><span style="font-size:18px">1.最薄横截带</span></h2>
+考虑下述设备放置问题：一个“消费群体群”的集合是以个体呈现为平面上凸多边形的一个家庭&nbsp;<span style="margin:0px; padding:0px">F</span>&nbsp;给出的。 我们的目标是找到一个“设备”， 一条平面上的直线， 使得线到消费者的最大距离最小。&nbsp;<br style="margin:0px; padding:0px">
+<br style="margin:0px; padding:0px">
+最后一点需要澄清。 直线与任何一个多边形的距离都是指多边形上一点到线的正交距离的最小&#20540;。 因此，每个多边形到线的距离是唯一的。&nbsp;<br style="margin:0px; padding:0px">
+现在， 给定家庭中各个呈多边形的成员和平面上的一条直线， 每个多边形都有一个到线的距离。 因此， 对于整个家庭存在一个最大的线-多边形距离。 这个距离同时依赖于线与各个家庭成员多边形。&nbsp;<br style="margin:0px; padding:0px">
+这个问题的目标是： 给定一个特定的家庭成员多边形集， 找到使得这个最大距离最小的线。 这个问题同样存在着其他版本， 常见的有找一条线使得距离和最小， 或是使得多边形带权距离和最小。&nbsp;<br style="margin:0px; padding:0px">
+<br style="margin:0px; padding:0px">
+这里的提出的结论是Robert和Toussaint在1990年发表的。&nbsp;<br style="margin:0px; padding:0px">
+主问题等价于找到一个宽最小的带（一个平面上由两条平行线为边界的区域）和所有的家庭成员多边形相交。因此， 带的中心（与带的边界线平行等距的线）就是所求的使得最大距离最小的线。&nbsp;<br style="margin:0px; padding:0px">
+<br style="margin:0px; padding:0px">
+为了讨论这个问题我们做如下定义：&nbsp;<br style="margin:0px; padding:0px">
+<br style="margin:0px; padding:0px">
+平面上的一条直线&nbsp;<span style="margin:0px; padding:0px">l</span>&nbsp;， 其方程为&nbsp;<span style="margin:0px; padding:0px">ax</span>&nbsp;&#43;&nbsp;<span style="margin:0px; padding:0px">by</span>&nbsp;&#43;&nbsp;<span style="margin:0px; padding:0px">c</span>&nbsp;= 0 （且&nbsp;<span style="margin:0px; padding:0px">b</span>&nbsp;&gt;
+ 0 或&nbsp;<span style="margin:0px; padding:0px">a</span>&nbsp;= -1）将平面分为两个区域：上半平面&nbsp;<span style="margin:0px; padding:0px">Hu</span>(<span style="margin:0px; padding:0px">l</span>) 中的点&nbsp;<span style="margin:0px; padding:0px">p</span>&nbsp;= (<span style="margin:0px; padding:0px">px</span>,<span style="margin:0px; padding:0px">py</span>)
+ 满足&nbsp;<span style="margin:0px; padding:0px">apx</span>&nbsp;&#43;&nbsp;<span style="margin:0px; padding:0px">apy</span>&nbsp;&#43;&nbsp;<span style="margin:0px; padding:0px">c</span>&nbsp;&gt;= 0 ， 且下半平面&nbsp;<span style="margin:0px; padding:0px">Hl</span>(<span style="margin:0px; padding:0px">l</span>)
+ 中的点&nbsp;<span style="margin:0px; padding:0px">p</span>&nbsp;= (<span style="margin:0px; padding:0px">px</span>,<span style="margin:0px; padding:0px">py</span>) 满足&nbsp;<span style="margin:0px; padding:0px">apx</span>&nbsp;&#43;&nbsp;<span style="margin:0px; padding:0px">apy</span>&nbsp;&#43;&nbsp;<span style="margin:0px; padding:0px">c</span>&nbsp;&lt;=
+ 0 。&nbsp;<br style="margin:0px; padding:0px">
+通过上面的定义， 如果线是铅直的， 上半平面为&nbsp;<span style="margin:0px; padding:0px">x</span>&nbsp;轴的负方向。&nbsp;<br style="margin:0px; padding:0px">
+<br style="margin:0px; padding:0px">
+进一步地， 一个带可以定义为一条线的上半平面和另一条（平行）线的下半平面的交集。&nbsp;<br style="margin:0px; padding:0px">
+<br style="margin:0px; padding:0px">
+给定一个凸多边形&nbsp;<span style="margin:0px; padding:0px">P</span>&nbsp;， 一个方向角&nbsp;<span style="margin:0px; padding:0px">theta</span>&nbsp;， 下切线&nbsp;<span style="margin:0px; padding:0px">tl</span>(<span style="margin:0px; padding:0px">P</span>,&nbsp;<span style="margin:0px; padding:0px">theta</span>)
+ 是一条与&nbsp;<span style="margin:0px; padding:0px">x</span>&nbsp;轴正半轴夹角为&nbsp;<span style="margin:0px; padding:0px">theta</span>&nbsp;的线， 他与&nbsp;<span style="margin:0px; padding:0px">P</span>相交并且&nbsp;<span style="margin:0px; padding:0px">P</span>&nbsp;在&nbsp;<span style="margin:0px; padding:0px">tl</span>(<span style="margin:0px; padding:0px">P</span>,&nbsp;<span style="margin:0px; padding:0px">theta</span>)
+ 的上半平面。 交点（可能不止一个）称为下顶点。&nbsp;<br style="margin:0px; padding:0px">
+同样的， 定义上切线和上顶点。<br style="margin:0px; padding:0px">
+给定一个家庭的多边形集合和一个固定的方向角， 就确定了一个下顶点集和上顶点集。&nbsp;<br style="margin:0px; padding:0px">
+<br style="margin:0px; padding:0px">
+最后， 考虑下面的结论：&nbsp;<br style="margin:0px; padding:0px">
+给定家庭&nbsp;<span style="margin:0px; padding:0px">F</span>&nbsp;的多边形集， 和一个方向角&nbsp;<span style="margin:0px; padding:0px">theta</span>&nbsp;， 一个带&nbsp;<span style="margin:0px; padding:0px">S</span>&nbsp;（由&nbsp;<span style="margin:0px; padding:0px">Hu</span>(<span style="margin:0px; padding:0px">l</span>1)
+ 和&nbsp;<span style="margin:0px; padding:0px">Hl</span>(<span style="margin:0px; padding:0px">l</span>2) 大于0的交集得到）是&nbsp;<span style="margin:0px; padding:0px">F</span>&nbsp;（在此方向上）最小宽度带， 当且仅当&nbsp;<span style="margin:0px; padding:0px">F</span>&nbsp;中存在两个多边形&nbsp;<span style="margin:0px; padding:0px">P</span>&nbsp;和&nbsp;<span style="margin:0px; padding:0px">Q</span>&nbsp;有
+<ul style="margin:0px; padding:0px">
+<li style="margin:0px; padding:0px"><span style="margin:0px; padding:0px">P</span>&nbsp;和&nbsp;<span style="margin:0px; padding:0px">Hu</span>(<span style="margin:0px; padding:0px">l</span>1) 的交在&nbsp;<span style="margin:0px; padding:0px">l</span>1 上。</li><li style="margin:0px; padding:0px"><span style="margin:0px; padding:0px">Q</span>&nbsp;和&nbsp;<span style="margin:0px; padding:0px">Hl</span>(<span style="margin:0px; padding:0px">l</span>2) 的交在&nbsp;<span style="margin:0px; padding:0px">l</span>2 上。</li></ul>
+<br style="margin:0px; padding:0px">
+其主要的结论是： 一个家庭&nbsp;<span style="margin:0px; padding:0px">F</span>&nbsp;的凸多边形集的最小宽度带（一个给定方向&nbsp;<span style="margin:0px; padding:0px">theta</span>&nbsp;上）由&nbsp;<span style="margin:0px; padding:0px">l</span>1 和&nbsp;<span style="margin:0px; padding:0px">l</span>2 确定当<br style="margin:0px; padding:0px">
+<span style="margin:0px; padding:0px">l</span>1=<span style="margin:0px; padding:0px">tl</span>(<span style="margin:0px; padding:0px">CH</span>(<span style="margin:0px; padding:0px">UP</span>(<span style="margin:0px; padding:0px">F</span>,&nbsp;<span style="margin:0px; padding:0px">theta</span>)),&nbsp;<span style="margin:0px; padding:0px">theta</span>)
+ 且<br style="margin:0px; padding:0px">
+<span style="margin:0px; padding:0px">l</span>2=<span style="margin:0px; padding:0px">tu</span>(<span style="margin:0px; padding:0px">CH</span>(<span style="margin:0px; padding:0px">LP</span>(<span style="margin:0px; padding:0px">F</span>,&nbsp;<span style="margin:0px; padding:0px">theta</span>)),&nbsp;<span style="margin:0px; padding:0px">theta</span>)
+ 成立。&nbsp;<br style="margin:0px; padding:0px">
+<p style="margin-top:0px; margin-bottom:0px; padding-top:0px; padding-bottom:0px">
+<img height="427" alt="" src="http://p.blog.csdn.net/images/p_blog_csdn_net/ACMaker/EntryImages/20081220/thstrip.gif" width="482" style="margin:0px; padding:0px; border:none">一个家庭的凸多边形集， 以及给定角度上的最小带宽。 下顶点和上顶点的凸包， 上述的结论如图所示。 注意到两个多边形和带的交都只在一个顶点上出现。</p>
+<br clear="all" style="margin:0px; padding:0px">
+因此， 只要确定了家庭多边形集的下顶点和上顶点的序列， 就能通过计算凸包得到给定方向上最小宽度带。就如Robert和Toussaint解释的， 幸运的是这些凸包不需要每次都完全重新计算： 他们需要更新即可。 实际上， 考虑两个接近的方向：许多（或者是全部）多边形对于这两个方向拥有相同的上顶点和下顶点。 这个结果同样暗示这只有有限的方向上（当下顶点或上顶点变化时）需要检测。<br style="margin:0px; padding:0px">
+<br style="margin:0px; padding:0px">
+这里的焦点在于旋转卡壳模型， 而非关系到算法的细节。 本文打算利用旋转卡壳来计算多边形的上顶点和下顶点。下面是算法的主要实现过程。 给定一个凸多边形&nbsp;<span style="margin:0px; padding:0px">P</span>&nbsp;：
+<ol style="margin:0px; padding:0px">
+<li style="margin:0px; padding:0px">找到拥有最小和最大&nbsp;<span style="margin:0px; padding:0px">y</span>&nbsp;坐标的顶点。 标记为&nbsp;<span style="margin:0px; padding:0px">p</span>&nbsp;和&nbsp;<span style="margin:0px; padding:0px">q</span>&nbsp;并且通过他们构造水平切线。</li><li style="margin:0px; padding:0px">逆时针将切线旋转过&nbsp;<span style="margin:0px; padding:0px">theta</span>&nbsp;角直到其中一条与其中一个多边形的边平行。</li><li style="margin:0px; padding:0px">如果顶点在&nbsp;<span style="margin:0px; padding:0px">p</span>&nbsp;后被击出（按照逆时针方向）， 那么&nbsp;<span style="margin:0px; padding:0px">p</span>&nbsp;就是对于角度0（包括）到角度&nbsp;<span style="margin:0px; padding:0px">theta</span>（不包括） 之间的下顶点。 如果顶点是在&nbsp;<span style="margin:0px; padding:0px">q</span>&nbsp;后被击出，
+ 那么&nbsp;<span style="margin:0px; padding:0px">q</span>&nbsp;就是同样角度范围内的上顶点。 这两个情况当边平行的时候也可能同时发生。</li><li style="margin:0px; padding:0px">更新当前点为新击出的顶点， 并更新当前角度。</li><li style="margin:0px; padding:0px">重复执行步骤2到步骤4， 同时跟新角度区间， 知道新的角度大等于180度（在哪一点先回到了最初的位置， 但此时次序颠倒）。</li></ol>
+<p style="margin-top:0px; margin-bottom:0px; padding-top:0px; padding-bottom:0px">
+线与其中一个多边形的一条边平行的方向称之为&nbsp;<span style="margin:0px; padding:0px">临界方向</span>&nbsp;。 他们只在上顶点和下顶点处发生变化。 对于一个临界方向， 因为线穿过两个顶点， 当逆时针旋转时下顶点或是上顶点之一被定义为多边形与线的一个交点。&nbsp;<br style="margin:0px; padding:0px">
+<br style="margin:0px; padding:0px">
+一旦临界方向（按照顺序给出）得到， 一个带就能在第一个方向上进行计算。 然后， 在第二个临界方向上， 至少一个上顶点或是下顶点被更新。 因此， 凸包此时需要更新， 而非重新计算一次。 一旦完成上述步骤， 新的带就构造成功了， 并且他的宽度（边界间的正交距离）被算出。 对所有临界方向重复这个操作。 注意到如果任何点处如果产生了一个宽度为0的带f， 这个过程就能够因为找到一条穿过所有家庭多边形的线而终止了。&nbsp;<br style="margin:0px; padding:0px">
+<br style="margin:0px; padding:0px">
+对于完整的算法描述， 正确性讨论和运行时间分析， 见作者的论文：<br style="margin:0px; padding:0px">
+<br style="margin:0px; padding:0px">
+J.-M. Robert, G.T. Toussaint. Computational geometry and facility location.&nbsp;<span style="margin:0px; padding:0px">Proc. Internatioanl Conf. on Operations Research and Management Science</span>, Manila, The Philippines, Dec. 11-15, 1990. pp B-1 to B-19.</p>
+<p style="margin-top:0px; margin-bottom:0px; padding-top:0px; padding-bottom:0px">
+源自：<a href="http://cgm.cs.mcgill.ca/~orm/rotcal.frame.html">http://cgm.cs.mcgill.ca/~orm/rotcal.frame.html</a></p>
+<div><br>
+</div>
+</div>
+   
+</div>
+
+
+
+
+<!-- Baidu Button BEGIN -->
+
+
+
+
+<div class="bdsharebuttonbox tracking-ad" style="float: right;" data-mod="popu_172">
+<a href="#" class="bds_more" data-cmd="more" style="background-position:0 0 !important; background-image: url(http://bdimg.share.baidu.com/static/api/img/share/icons_0_16.png?v=d754dcc0.png) !important"></a>
+<a href="#" class="bds_qzone" data-cmd="qzone" title="分享到QQ空间"  style="background-position:0 -52px !important"></a>
+<a href="#" class="bds_tsina" data-cmd="tsina" title="分享到新浪微博"style="background-position:0 -104px !important"></a>
+<a href="#" class="bds_tqq" data-cmd="tqq" title="分享到腾讯微博"style="background-position:0 -260px !important"></a>
+<a href="#" class="bds_renren" data-cmd="renren" title="分享到人人网"style="background-position:0 -208px !important"></a>
+<a href="#" class="bds_weixin" data-cmd="weixin" title="分享到微信"style="background-position:0 -1612px !important" ></a>
+</div>
+<script>window._bd_share_config = { "common": { "bdSnsKey": {}, "bdText": "", "bdMini": "1", "bdMiniList": false, "bdPic": "", "bdStyle": "0", "bdSize": "16" }, "share": {} }; with (document) 0[(getElementsByTagName('head')[0] || body).appendChild(createElement('script')).src = 'http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion=' + ~(-new Date() / 36e5)];</script>
+<!-- Baidu Button END -->
+
+   
+
+<!--172.16.140.14-->
+
+<!-- Baidu Button BEGIN -->
+<script type="text/javascript" id="bdshare_js" data="type=tools&amp;uid=1536434" ></script>
+<script type="text/javascript" id="bdshell_js"></script>
+<script type="text/javascript">
+    document.getElementById("bdshell_js").src = "http://bdimg.share.baidu.com/static/js/shell_v2.js?cdnversion=" + Math.ceil(new Date()/3600000)
+</script>
+<!-- Baidu Button END -->
+
+
+
+ 
+
+
+        <div id="digg" ArticleId="8639476" >
+            <dl id="btnDigg" class="digg digg_disable"  onclick="btndigga();">
+               
+                 <dt>顶</dt>
+                <dd>2</dd>
+            </dl>
+           
+              
+            <dl id="btnBury" class="digg digg_disable"  onclick="btnburya();">
+              
+                  <dt>踩</dt>
+                <dd>0</dd>               
+            </dl>
+            
+        </div>
+     <div class="tracking-ad" data-mod="popu_222"><a href="javascript:void(0);" >&nbsp;</a>   </div>
+    <div class="tracking-ad" data-mod="popu_223"> <a href="javascript:void(0);" >&nbsp;</a></div>
+    <script type="text/javascript">
+        function btndigga() {
+            $(".tracking-ad[data-mod='popu_222'] a").click();
+        }
+        function btnburya() {
+            $(".tracking-ad[data-mod='popu_223'] a").click();
+        }
+            </script>
+
+   <ul class="article_next_prev">
+                <li class="prev_article"><span  onclick="_gaq.push(['_trackEvent','function', 'onclick', 'blog_articles_shangyipian']);location.href='http://blog.csdn.net/hanchengxi/article/details/8631607';">上一篇</span><a href="http://blog.csdn.net/hanchengxi/article/details/8631607" onclick="_gaq.push(['_trackEvent','function', 'onclick', 'blog_articles_shangyipian'])">Fibonacci数计算中的两个思维盲点及其扩展数列的通用高效解法</a></li>
+                <li class="next_article"><span onclick="_gaq.push(['_trackEvent','function', 'onclick', 'blog_articles_xiayipian']);location.href='http://blog.csdn.net/hanchengxi/article/details/8835556';">下一篇</span><a href="http://blog.csdn.net/hanchengxi/article/details/8835556" onclick="_gaq.push(['_trackEvent','function', 'onclick', 'blog_articles_xiayipian'])">Linux下删除大量小文件</a></li>
+    </ul>
+
+    <div style="clear:both; height:10px;"></div>
+
+
+            <div class="similar_article"   >
+                    <h4></h4>
+                    <div class="similar_c"style="margin:20px 0px 0px 0px">
+                        <div class="similar_c_t">
+                          &nbsp;&nbsp;相关文章推荐
+                        </div>
+                   
+                        <div class="similar_wrap tracking-ad" data-mod="popu_36" >                       
+                            <ul class="similar_list fl">    
+                                   <li>
+                                       <em>•</em>
+                                       <a href="http://blog.csdn.net/carson2005/article/details/31363865" title="旋转卡壳（卡尺）算法" strategy="BlogCommendFromBaidu" target="_blank">旋转卡壳（卡尺）算法</a>
+                                   </li>
+                                   <li>
+                                       <em>•</em>
+                                       <a href="http://blog.csdn.net/kingpharaoh/article/details/47807901" title="谈谈我对旋转卡壳算法本质的理解" strategy="BlogCommendFromBaidu" target="_blank">谈谈我对旋转卡壳算法本质的理解</a>
+                                   </li>
+                                   <li>
+                                       <em>•</em>
+                                       <a href="http://blog.csdn.net/cqbzwja/article/details/51038792" title="计算几何学习笔记之旋转卡壳" strategy="BlogCommendFromBaidu" target="_blank">计算几何学习笔记之旋转卡壳</a>
+                                   </li>
+                                   <li>
+                                       <em>•</em>
+                                       <a href="http://blog.csdn.net/pi9nc/article/details/11715227" title="旋转卡壳法总结" strategy="BlogCommendFromBaidu" target="_blank">旋转卡壳法总结</a>
+                                   </li>
+                                   <li>
+                                       <em>•</em>
+                                       <a href="http://blog.csdn.net/u013250442/article/details/23923069" title="旋转卡壳算法" strategy="BlogCommendFromBaidu" target="_blank">旋转卡壳算法</a>
+                                   </li>
+                            </ul>
+                              <ul class="similar_list fr">      
+                                   <li>
+                                       <em>•</em>
+                                       <a href="http://blog.csdn.net/heyongluoyao8/article/details/7165756" title="求凸包+旋转卡壳算法——求平面点集S内点对的最远距离" strategy="BlogCommendFromBaidu" target="_blank">求凸包+旋转卡壳算法——求平面点集S内点对的最远距离</a>
+                                   </li>
+                                   <li>
+                                       <em>•</em>
+                                       <a href="http://blog.csdn.net/onlyonename/article/details/7560442" title="旋转卡壳算法" strategy="BlogCommendFromBaidu" target="_blank">旋转卡壳算法</a>
+                                   </li>
+                                   <li>
+                                       <em>•</em>
+                                       <a href="http://blog.csdn.net/x314542916/article/details/7949096" title="【计算几何】 Andrew凸包算法 + 旋转卡壳(以求点对最长距离为例) -- 以 POJ 2187 Beauty Contest 为例" strategy="BlogCommendFromBaidu" target="_blank">【计算几何】 Andrew凸包算法 + 旋转卡壳(以求点对最长距离为例) -- 以 POJ 2187 Beauty Contest 为例</a>
+                                   </li>
+                                   <li>
+                                       <em>•</em>
+                                       <a href="http://blog.csdn.net/liujie619406439/article/details/11985449" title="旋转卡壳——凸多边形的宽度" strategy="BlogCommendFromBaidu" target="_blank">旋转卡壳——凸多边形的宽度</a>
+                                   </li>
+                                   <li>
+                                       <em>•</em>
+                                       <a href="http://blog.csdn.net/Tczxw/article/details/50814349" title="旋转卡壳算法" strategy="BlogCommendFromBaidu" target="_blank">旋转卡壳算法</a>
+                                   </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>   
+      
+</div>
+
+    <div>
+        
+
+        <script type="text/javascript">
+            /*博客内容页下方Banner1-728*90，创建于2016-12-13*/
+            var cpro_id = "u2843949";
+        </script>
+        <script type="text/javascript" src="http://cpro.baidustatic.com/cpro/ui/c.js"></script>
+
+     </div>
+
+<div id="suggest"></div>
+         <script  language="javascript" type='text/javascript'>     
+             $(function(){
+                 $.get("/hanchengxi/svc/GetSuggestContent/8639476",function(data){
+                     $("#suggest").html(data);
+                 });     
+             });             
+         </script>  
+
+        <dl class="blog-ass-articl tracking-ad" id="res-relatived" data-mod="popu_84"  > 
+             <dt><span>猜你在找</span></dt>    
+           
+    
+           
+
+                        <dd style="background:url(http://static.blog.csdn.net/skin/default/images/blog-dot-red3.gif) no-repeat 0 10px; white-space: nowrap;">
+                             <a href="http://edu.csdn.net/course/detail/5084" title="【直播】机器学习&amp;深度学习系统实战（唐宇迪）" strategy="undefined" target="_blank">【直播】机器学习&amp;深度学习系统实战（唐宇迪）</a>
+                        </dd>
+                        <dd style="background:url(http://static.blog.csdn.net/skin/default/images/blog-dot-red3.gif) no-repeat 0 10px; white-space: nowrap;">
+                             <a href="http://edu.csdn.net/course/detail/5219" title="【直播】Kaggle 神器：XGBoost 从基础到实战（冒教授）" strategy="undefined" target="_blank">【直播】Kaggle 神器：XGBoost 从基础到实战（冒教授）</a>
+                        </dd>
+                        <dd style="background:url(http://static.blog.csdn.net/skin/default/images/blog-dot-red3.gif) no-repeat 0 10px; white-space: nowrap;">
+                             <a href="http://edu.csdn.net/course/detail/5222" title="【直播回放】深度学习基础与TensorFlow实践（王琛）" strategy="undefined" target="_blank">【直播回放】深度学习基础与TensorFlow实践（王琛）</a>
+                        </dd>
+                        <dd style="background:url(http://static.blog.csdn.net/skin/default/images/blog-dot-red3.gif) no-repeat 0 10px; white-space: nowrap;">
+                             <a href="http://edu.csdn.net/huiyiCourse/series_detail/52" title="【直播】计算机视觉原理及实战（屈教授）" strategy="undefined" target="_blank">【直播】计算机视觉原理及实战（屈教授）</a>
+                        </dd>
+                        <dd style="background:url(http://static.blog.csdn.net/skin/default/images/blog-dot-red3.gif) no-repeat 0 10px; white-space: nowrap;">
+                             <a href="http://edu.csdn.net/huiyiCourse/series_detail/48" title="【直播】机器学习之凸优化（马博士）" strategy="undefined" target="_blank">【直播】机器学习之凸优化（马博士）</a>
+                        </dd>
+                        <dd style="background:url(http://static.blog.csdn.net/skin/default/images/blog-dot-red3.gif) no-repeat 0 10px; white-space: nowrap;">
+                             <a href="http://edu.csdn.net/huiyiCourse/series_detail/47" title="【直播】机器学习之矩阵（黄博士）" strategy="undefined" target="_blank">【直播】机器学习之矩阵（黄博士）</a>
+                        </dd>
+                        <dd style="background:url(http://static.blog.csdn.net/skin/default/images/blog-dot-red3.gif) no-repeat 0 10px; white-space: nowrap;">
+                             <a href="http://edu.csdn.net/huiyiCourse/series_detail/46" title="【直播】机器学习之概率与统计推断（冒教授）" strategy="undefined" target="_blank">【直播】机器学习之概率与统计推断（冒教授）</a>
+                        </dd>
+                        <dd style="background:url(http://static.blog.csdn.net/skin/default/images/blog-dot-red3.gif) no-repeat 0 10px; white-space: nowrap;">
+                             <a href="http://edu.csdn.net/huiyiCourse/series_detail/49" title="【直播】机器学习之数学基础" strategy="undefined" target="_blank">【直播】机器学习之数学基础</a>
+                        </dd>
+                        <dd style="background:url(http://static.blog.csdn.net/skin/default/images/blog-dot-red3.gif) no-repeat 0 10px; white-space: nowrap;">
+                             <a href="http://edu.csdn.net/huiyiCourse/series_detail/44" title="【直播】TensorFlow实战进阶（智亮）" strategy="undefined" target="_blank">【直播】TensorFlow实战进阶（智亮）</a>
+                        </dd>
+                        <dd style="background:url(http://static.blog.csdn.net/skin/default/images/blog-dot-red3.gif) no-repeat 0 10px; white-space: nowrap;">
+                             <a href="http://edu.csdn.net/huiyiCourse/series_detail/45" title="【直播】深度学习30天系统实训（唐宇迪）" strategy="undefined" target="_blank">【直播】深度学习30天系统实训（唐宇迪）</a>
+                        </dd>
+
+                  
+              
+                 
+        </dl>
+
+
+
+
+            
+                                    
+            
+                                    
+
+        <!-- 广告位开始 -->
+        <!-- 广告位结束 -->
+
+
+<div class="comment_class">
+    <div id="comment_title" class="panel_head">
+        <span class="see_comment">查看评论</span><a name="comments"></a></div>
+    <div id="comment_list">
+    </div>
+    <div id="comment_bar">
+    </div>
+    <div id="comment_form">
+    </div>
+    <div class="announce">
+        * 以上用户言论只代表其个人观点，不代表CSDN网站的观点或立场<a name="reply"></a><a name="quote"></a></div>
+</div>
+
+<script type="text/javascript">
+    var fileName = '8639476';
+    var commentscount = 2;
+    var islock = false
+</script>
+
+    <div id="ad_bot">
+    </div>
+<div id="report_dialog">
+</div>
+
+<div id="d-top"  style="bottom:60px;">
+
+        <a id="quick-reply" class="btn btn-top q-reply" title="快速回复" style="display:none;">
+            <img src="http://static.blog.csdn.net/images/blog-icon-reply.png" alt="快速回复">
+        </a>    
+    <a id="d-top-a" class="btn btn-top backtop"  style="display: none;" title="返回顶部" onclick="_gaq.push(['_trackEvent','function', 'onclick', 'blog_articles_huidaodingbu'])" style="">         
+         <img src="http://static.blog.csdn.net/images/top.png" alt="TOP">
+    </a>
+</div>
+<script type="text/javascript">
+    $(function ()
+    {
+        $("#ad_frm_0").height("90px");
+        
+        setTimeout(function(){
+            $("#ad_frm_2").height("200px");
+        },1000);    
+    });
+  
+</script>
+<style type="text/css">
+    .tag_list
+    {
+        background: none repeat scroll 0 0 #FFFFFF;
+        border: 1px solid #D7CBC1;
+        color: #000000;
+        font-size: 12px;
+        line-height: 20px;
+        list-style: none outside none;
+        margin: 10px 2% 0 1%;
+        padding: 1px;
+    }
+    .tag_list h5
+    {
+        background: none repeat scroll 0 0 #E0DBD3;
+        color: #47381C;
+        font-size: 12px;
+        height: 24px;
+        line-height: 24px;
+        padding: 0 5px;
+        margin: 0;
+    }
+    .tag_list h5 a
+    {
+        color: #47381C;
+    }
+    .classify
+    {
+        margin: 10px 0;
+        padding: 4px 12px 8px;
+    }
+    .classify a
+    {
+        margin-right: 20px;
+        white-space: nowrap;
+    }
+</style>
+
+
+
+
+
+<div id="pop_win" style="display:none ;position: absolute; z-index: 10000; border: 1px solid rgb(220, 220, 220); top: 222.5px; left: 630px; opacity: 1; background: none 0px 0px repeat scroll rgb(255, 255, 255);">
+    
+</div>
+<div id="popup_mask"></div>
+<style>
+    #popup_mask
+    {
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        background: #000;
+        z-index: 9999;
+        left: 0px;
+        top: 0px;
+        opacity: 0.3;
+        filter: alpha(opacity=30);
+        display: none;
+    }
+
+</style>
+
+
+
+
+<script type="text/javascript">
+    $(function(){        
+        
+        setTimeout(function(){
+            $(".comment_body:contains('回复')").each(function(index,item){
+                var u=$(this).text().split('：')[0].toString().replace("回复","")
+                var thisComment=$(this);
+                if(u)
+                {
+                    $.getJSON("https://passport.csdn.net/get/nick?callback=?", {users: u}, function(a) {
+                        if(a!=null&&a.data!=null&&a.data.length>0)
+                        {
+                            nick=a.data[0].n; 
+                            if(u!=nick)
+                            {
+                                thisComment.text(thisComment.text().replace(u,nick));  
+                            }
+                        }       
+                    });  
+                }
+            });         
+
+        },200);  
+
+        setTimeout(function(){
+            $(".math").each(function(index,value){$(this).find("span").last().css("color","#fff"); })
+        },5000);
+
+        setTimeout(function(){
+            $(".math").each(function(index,value){$(this).find("span").last().css("color","#fff"); })
+        },10000);
+
+        setTimeout(function(){
+            $(".math").each(function(index,value){$(this).find("span").last().css("color","#fff"); })
+        },15000);
+        
+        setTimeout(function(){
+            $("a img[src='http://js.tongji.linezing.com/stats.gif']").parent().css({"position":"absolute","left":"50%"});
+        },300);
+    });
+
+    function loginbox(){
+        var $logpop=$("#pop_win");
+        $logpop.html('<iframe src="https://passport.csdn.net/account/loginbox?service=http://static.blog.csdn.net/callback.htm" frameborder="0" height="600" width="400" scrolling="no"></iframe>');
+
+        $('#popup_mask').css({
+            opacity: 0.5,
+            width: $( document ).width() + 'px',
+            height:  $( document ).height() + 'px'
+        });
+        $('#popup_mask').css("display","block");
+ 
+        $logpop.css( {
+            top: ($( window ).height() - $logpop.height())/ 2  + $( window 
+       ).scrollTop() + 'px',
+            left:($( window ).width() - $logpop.width())/ 2
+        } );
+ 
+        setTimeout( function () {
+            $logpop.show();
+            $logpop.css( {
+                opacity: 1
+            } );
+        }, 200 );
+ 
+        $('#popup_mask').unbind("click");
+        $('#popup_mask').bind("click", function(){
+            $('#popup_mask').hide();
+            var $clopop = $("#pop_win");
+            $("#common_ask_div_sc").css("display","none");
+            $clopop.css( {
+                opacity: 0
+            } );
+            setTimeout( function () {
+                $clopop.hide();
+            }, 350 );
+            return false;
+        });
+    }   
+
+    var articletitle='旋转卡壳算法';
+
+</script>
+
+
+
+
+
+
+
+
+
+
+                        <div class="clear">
+                        </div>
+                    </div>                   
+                
+            </div>
+                   
+           <div id="side">
+               
+    <div class="side">
+<div id="panel_Profile" class="panel">
+<ul class="panel_head"><span>个人资料</span></ul>
+<ul class="panel_body profile">
+<div id="blog_userface">
+    <a href="http://my.csdn.net/hanchengxi" target="_blank">
+    <img src="http://avatar.csdn.net/3/3/A/1_hanchengxi.jpg" title="访问我的空间" style="max-width:90%"/>
+    </a>
+    <br />
+    <span><a href="http://my.csdn.net/hanchengxi" class="user_name" target="_blank">hanchengxi</a></span>
+</div>
+<div class="interact">
+
+    <a href="javascript:void(0);" class="attent" id="span_add_follow" title="[加关注]"></a>
+
+ <a href="javascript:void(0);" class="letter"  title="[发私信]" onclick="window.open('http://msg.csdn.net/letters/model?receiver=hanchengxi','_blank','height=350,width=700');_gaq.push(['_trackEvent','function', 'onclick', 'blog_articles_sixin'])"></a>  
+</div>
+<div id="blog_medal">
+                <div id="bms_box">
+               </div>
+</div>
+<ul id="blog_rank">
+    <li>访问：<span>152717次</span></li>
+    <li>积分：<span>1579</span> </li>    
+    <li >等级： <span style="position:relative;display:inline-block;z-index:1" >
+            <img src="http://c.csdnimg.cn/jifen/images/xunzhang/jianzhang/blog4.png" alt="" style="vertical-align: middle;" id="leveImg">
+            <div id="smallTittle" style=" position: absolute;  left: -24px;  top: 25px;  text-align: center;  width: 101px;  height: 32px;  background-color: #fff;  line-height: 32px;  border: 2px #DDDDDD solid;  box-shadow: 0px 2px 2px rgba (0,0,0,0.1);  display: none;   z-index: 999;">
+            <div style="left: 42%;  top: -8px;  position: absolute;  width: 0;  height: 0;  border-left: 10px solid transparent;  border-right: 10px solid transparent;  border-bottom: 8px solid #EAEAEA;"></div>
+            积分：1579 </div>
+        </span>  </li>
+    <li>排名：<span>千里之外</span></li>
+</ul>
+<ul id="blog_statistics">
+    <li>原创：<span>19篇</span></li>
+    <li>转载：<span>39篇</span></li>
+    <li>译文：<span>0篇</span></li>
+    <li>评论：<span>12条</span></li>
+</ul>
+</ul>
+</div>
+
+
+<div class="panel" id="panel_Search">
+    <ul class="panel_head"><span>文章搜索</span></ul>
+    <ul class="panel_body" class="form_search">
+        <form id="frmSearch" action="http://so.csdn.net/search" class="form_search csdn-tracking-statistics" target="_blank"  data-mod="popu_306">
+        <span><input id="inputSearch" type="text" class="blogsearch" title="请输入关键字" /></span>
+        <input id="btnSubmit" type="button" value="搜索" title="search in blog" />
+        <input type="hidden" name="q" id="inputQ" />
+        <input type="hidden" name="t" value="blog" />
+        <a id="btnSearchBlog" target="_blank"></a>
+        </form>
+    </ul>
+</div>
+
+<script type="text/javascript">
+
+   
+    $(function () {
+        $("#btnSubmit").unbind("click");
+        $("#btnSubmit").click(function () {           
+            search();
+        });
+
+        $("#frmSearch").submit(function () {           
+            search();
+            return false;
+        });
+
+        function search()
+        {
+            if ($("#inputSearch").val() == "") {               
+                alert("请录入搜索关键词！");                         
+                return false;
+            }
+            //var url = "http://so.csdn.net/so/search/s.do?q=" + encodeURIComponent($("#inputSearch").val()) + "&u=" + username + "&t=blog";           
+            var url = "https://www.baidu.com/s?wd=" + encodeURIComponent($("#inputSearch").val()) + "%20site%3Ablog.csdn.net"
+            window.location.href = url;
+        }   
+    });
+</script>
+
+<div id="custom_column_22374789" class="panel">
+<ul class="panel_head"><span>github_ACM竞赛答案整理</span></ul>
+<ul class="panel_body">
+
+<a href="https://github.com/Jackie0423/ACM">https://github.com/Jackie0423/ACM</a>
+
+</ul>
+</div><div id="panel_Category" class="panel">
+<ul class="panel_head"><span>文章分类</span></ul>
+<ul class="panel_body">    
+                 <li>
+                    <a href="/hanchengxi/article/category/1264532" onclick="_gaq.push(['_trackEvent','function', 'onclick', 'blog_articles_wenzhangfenlei']); ">Windows核心编程</a><span>(4)</span>
+                </li>
+                 <li>
+                    <a href="/hanchengxi/article/category/1264534" onclick="_gaq.push(['_trackEvent','function', 'onclick', 'blog_articles_wenzhangfenlei']); ">Windows应用编程</a><span>(6)</span>
+                </li>
+                 <li>
+                    <a href="/hanchengxi/article/category/1292453" onclick="_gaq.push(['_trackEvent','function', 'onclick', 'blog_articles_wenzhangfenlei']); ">Windows操作系统</a><span>(3)</span>
+                </li>
+                 <li>
+                    <a href="/hanchengxi/article/category/1264536" onclick="_gaq.push(['_trackEvent','function', 'onclick', 'blog_articles_wenzhangfenlei']); ">Unix高级编程</a><span>(1)</span>
+                </li>
+                 <li>
+                    <a href="/hanchengxi/article/category/1292454" onclick="_gaq.push(['_trackEvent','function', 'onclick', 'blog_articles_wenzhangfenlei']); ">Unix/Linux操作系统</a><span>(5)</span>
+                </li>
+                 <li>
+                    <a href="/hanchengxi/article/category/1292455" onclick="_gaq.push(['_trackEvent','function', 'onclick', 'blog_articles_wenzhangfenlei']); ">Java虚拟机</a><span>(2)</span>
+                </li>
+                 <li>
+                    <a href="/hanchengxi/article/category/1264535" onclick="_gaq.push(['_trackEvent','function', 'onclick', 'blog_articles_wenzhangfenlei']); ">Java应用编程</a><span>(3)</span>
+                </li>
+                 <li>
+                    <a href="/hanchengxi/article/category/1264544" onclick="_gaq.push(['_trackEvent','function', 'onclick', 'blog_articles_wenzhangfenlei']); ">C/C++编程</a><span>(11)</span>
+                </li>
+                 <li>
+                    <a href="/hanchengxi/article/category/1264543" onclick="_gaq.push(['_trackEvent','function', 'onclick', 'blog_articles_wenzhangfenlei']); ">算法导论/数据结构</a><span>(23)</span>
+                </li>
+                 <li>
+                    <a href="/hanchengxi/article/category/1304804" onclick="_gaq.push(['_trackEvent','function', 'onclick', 'blog_articles_wenzhangfenlei']); ">其它</a><span>(9)</span>
+                </li>
+                 <li>
+                    <a href="/hanchengxi/article/category/1735035" onclick="_gaq.push(['_trackEvent','function', 'onclick', 'blog_articles_wenzhangfenlei']); ">ACM:UVaOJ/PKUOJ</a><span>(0)</span>
+                </li>
+</ul>
+</div><div id="panel_Archive" class="panel">
+<ul class="panel_head"><span>文章存档</span></ul>
+<ul class="panel_body">
+<div id="archive_list">
+<!--归档统计-->
+<li><a href="/hanchengxi/article/month/2017/06">2017年06月</a><span>(1)</span></li><li><a href="/hanchengxi/article/month/2015/12">2015年12月</a><span>(1)</span></li><li><a href="/hanchengxi/article/month/2014/10">2014年10月</a><span>(1)</span></li><li><a href="/hanchengxi/article/month/2014/02">2014年02月</a><span>(1)</span></li><li><a href="/hanchengxi/article/month/2013/12">2013年12月</a><span>(1)</span></li><li><a href="/hanchengxi/article/month/2013/10">2013年10月</a><span>(2)</span></li><li><a href="/hanchengxi/article/month/2013/09">2013年09月</a><span>(7)</span></li><li><a href="/hanchengxi/article/month/2013/08">2013年08月</a><span>(2)</span></li><li><a href="/hanchengxi/article/month/2013/07">2013年07月</a><span>(7)</span></li><li><a href="/hanchengxi/article/month/2013/04">2013年04月</a><span>(1)</span></li><li><a href="/hanchengxi/article/month/2013/03">2013年03月</a><span>(2)</span></li><li><a href="/hanchengxi/article/month/2013/02">2013年02月</a><span>(5)</span></li><li><a href="/hanchengxi/article/month/2013/01">2013年01月</a><span>(9)</span></li><li><a href="/hanchengxi/article/month/2012/12">2012年12月</a><span>(14)</span></li><li><a href="/hanchengxi/article/month/2012/11">2012年11月</a><span>(3)</span></li><li><a href="/hanchengxi/article/month/2012/10">2012年10月</a><span>(1)</span></li>
+</div>
+</ul>
+</div>
+<div id="hotarticls" class="panel tracking-ad" data-mod="popu_340">
+<ul class="panel_head">
+    <span>       
+阅读排行    </span>
+</ul>
+
+<ul class="panel_body itemlist">
+<li>
+<a href="/hanchengxi/article/details/19089589" title="磁盘性能评价指标—IOPS和吞吐量">磁盘性能评价指标—IOPS和吞吐量</a><span>(31388)</span>
+</li>
+<li>
+<a href="/hanchengxi/article/details/8197093" title="平衡二叉树算法详解">平衡二叉树算法详解</a><span>(11461)</span>
+</li>
+<li>
+<a href="/hanchengxi/article/details/8639476" title="旋转卡壳算法">旋转卡壳算法</a><span>(10392)</span>
+</li>
+<li>
+<a href="/hanchengxi/article/details/11918127" title="博弈论——取石子问题">博弈论——取石子问题</a><span>(6318)</span>
+</li>
+<li>
+<a href="/hanchengxi/article/details/9410165" title="澳大利亚的父母喜欢女孩，如果生出来的第一个是女孩，就不再生了，如果是男孩就继续生，直到生到第一个女孩为止，问若干年后，男女的比例是多少？">澳大利亚的父母喜欢女孩，如果生出来的第一个是女孩，就不再生了，如果是男孩就继续生，直到生到第一个女孩为止，问若干年后，男女的比例是多少？</a><span>(6275)</span>
+</li>
+<li>
+<a href="/hanchengxi/article/details/10024863" title="dpkg: error processing mysql-server (--configure): dependency problems - leaving unconfigured">dpkg: error processing mysql-server (--configure): dependency problems - leaving unconfigured</a><span>(5242)</span>
+</li>
+<li>
+<a href="/hanchengxi/article/details/9527151" title="五只猴子采得一堆桃子，半夜里第一只猴子偷偷起来把桃平均分成五分，发现还多一个，它吃了哪个桃子，还拿走其中的一份，第二只猴子起来又把桃子分成五分，还多一个，它吃了那个桃子，有拿走其中的一份，第三第四第五">五只猴子采得一堆桃子，半夜里第一只猴子偷偷起来把桃平均分成五分，发现还多一个，它吃了哪个桃子，还拿走其中的一份，第二只猴子起来又把桃子分成五分，还多一个，它吃了那个桃子，有拿走其中的一份，第三第四第五</a><span>(4769)</span>
+</li>
+<li>
+<a href="/hanchengxi/article/details/8296106" title="UTF-8的繁体与简体转换">UTF-8的繁体与简体转换</a><span>(4647)</span>
+</li>
+<li>
+<a href="/hanchengxi/article/details/8591663" title="getchar()和scanf(&quot;%c&quot;,ch)在用EOF判断结束时的区别">getchar()和scanf(&quot;%c&quot;,ch)在用EOF判断结束时的区别</a><span>(3753)</span>
+</li>
+<li>
+<a href="/hanchengxi/article/details/17550429" title="特征方程法求解递推关系中的数列通项">特征方程法求解递推关系中的数列通项</a><span>(3591)</span>
+</li>
+</ul>
+</div>
+<div id="hotarticls2" class="panel tracking-ad" data-mod="popu_341">
+<ul class="panel_head"><span>评论排行</span></ul>
+<ul class="panel_body itemlist">
+<li>
+<a href="/hanchengxi/article/details/8197093" title="平衡二叉树算法详解">平衡二叉树算法详解</a><span>(3)</span>
+</li>
+<li>
+<a href="/hanchengxi/article/details/11800043" title="阿里巴巴笔试题：两个人捡到一张10元购物卡，谁出价出的高，则该卡归谁，另一个人获得出价的钱，">阿里巴巴笔试题：两个人捡到一张10元购物卡，谁出价出的高，则该卡归谁，另一个人获得出价的钱，</a><span>(2)</span>
+</li>
+<li>
+<a href="/hanchengxi/article/details/8639476" title="旋转卡壳算法">旋转卡壳算法</a><span>(2)</span>
+</li>
+<li>
+<a href="/hanchengxi/article/details/8280773" title="VC6.0和VC2005项目配置详解">VC6.0和VC2005项目配置详解</a><span>(1)</span>
+</li>
+<li>
+<a href="/hanchengxi/article/details/9410165" title="澳大利亚的父母喜欢女孩，如果生出来的第一个是女孩，就不再生了，如果是男孩就继续生，直到生到第一个女孩为止，问若干年后，男女的比例是多少？">澳大利亚的父母喜欢女孩，如果生出来的第一个是女孩，就不再生了，如果是男孩就继续生，直到生到第一个女孩为止，问若干年后，男女的比例是多少？</a><span>(1)</span>
+</li>
+<li>
+<a href="/hanchengxi/article/details/9340377" title="谷歌面试题：给定一个数据流，其中包含无穷尽的搜索关键字（比如，人们在谷歌搜索时不断输入的关键字） 。如何才能从这个无穷尽的流中随机的选取 1000 个关键字？">谷歌面试题：给定一个数据流，其中包含无穷尽的搜索关键字（比如，人们在谷歌搜索时不断输入的关键字） 。如何才能从这个无穷尽的流中随机的选取 1000 个关键字？</a><span>(1)</span>
+</li>
+<li>
+<a href="/hanchengxi/article/details/8362372" title="字符集-Locale详解（续）">字符集-Locale详解（续）</a><span>(1)</span>
+</li>
+<li>
+<a href="/hanchengxi/article/details/9527151" title="五只猴子采得一堆桃子，半夜里第一只猴子偷偷起来把桃平均分成五分，发现还多一个，它吃了哪个桃子，还拿走其中的一份，第二只猴子起来又把桃子分成五分，还多一个，它吃了那个桃子，有拿走其中的一份，第三第四第五">五只猴子采得一堆桃子，半夜里第一只猴子偷偷起来把桃平均分成五分，发现还多一个，它吃了哪个桃子，还拿走其中的一份，第二只猴子起来又把桃子分成五分，还多一个，它吃了那个桃子，有拿走其中的一份，第三第四第五</a><span>(1)</span>
+</li>
+<li>
+<a href="/hanchengxi/article/details/8257094" title="MS SQL2005无法连接服务器 1433端口没有监听">MS SQL2005无法连接服务器 1433端口没有监听</a><span>(0)</span>
+</li>
+<li>
+<a href="/hanchengxi/article/details/73194598" title="Linux中的线程同步机制-futex">Linux中的线程同步机制-futex</a><span>(0)</span>
+</li>
+</ul>
+</div>
+<div id="homepageArticles" class="panel tracking-ad" data-mod="popu_4">
+<ul class="panel_head"><span>推荐文章</span></ul>
+<ul class="panel_body" id="ad_commend">
+<ul>
+<li><a href="http://blog.csdn.net/blogdevteam/article/details/76092129" target="_blank">* CSDN日报20170725——《新的开始，从研究生到入职亚马逊》</a></li>
+<li><a href="http://blog.csdn.net/javazejian/article/details/75043422" 
+target="_blank">* 深入剖析基于并发AQS的重入锁(ReetrantLock)及其Condition实现原理</a></li>
+<li><a href="http://blog.csdn.net/jiangwei0910410003/article/details/75512732"target="_blank">* Android版本的"Wannacry"文件加密病毒样本分析(附带锁机)</a></li>
+<li><a href="http://blog.csdn.net/mindfloating/article/details/75948781" 
+target="_blank">* 工作与生活真的可以平衡吗？</a></li>
+<li><a href="http://blog.csdn.net/poem_qianmo/article/details/75943714" 
+target="_blank">* 《Real-Time Rendering 3rd》 提炼总结——高级着色：BRDF及相关技术</a></li>
+<li><a href="http://blog.csdn.net/dog250/article/details/75735806" 
+target="_blank">* 《三体》读后思考-泰勒展开/维度打击/黑暗森林</a></li>
+
+</ul></ul>
+</div>
+
+
+<div id="newcomments" class="panel">
+<ul class="panel_head"><span>最新评论</span></ul>
+<ul class="panel_body itemlist">
+    <li>
+   
+         <a href="/hanchengxi/article/details/8197093#comments">平衡二叉树算法详解</a>
+    <p style="margin:0px;"><a href="/qq_33885702" class="user_name">qq_33885702</a>:
+代码这么长，我选择死亡
+    </p>
+    </li>
+    <li>
+   
+         <a href="/hanchengxi/article/details/9527151#comments">五只猴子采得一堆桃子，半夜里第一只猴子偷偷起来把桃平均分成五分，发现还多一个，它吃了哪个桃子，还拿走其中的一份，第二只猴子起来又把桃子分成五分，还多一个，它吃了那个桃子，有拿走其中的一份，第三第四第五</a>
+    <p style="margin:0px;"><a href="/bigwhitebunny" class="user_name">bigwhitebunny</a>:
+你看看我的思路好吗？http://user.qzone.qq.com/2830865941/2
+    </p>
+    </li>
+    <li>
+   
+         <a href="/hanchengxi/article/details/8639476#comments">旋转卡壳算法</a>
+    <p style="margin:0px;"><a href="/R1986799047" class="user_name">R1986799047</a>:
+orz
+    </p>
+    </li>
+    <li>
+   
+         <a href="/hanchengxi/article/details/8639476#comments">平衡二叉树算法详解</a>
+    <p style="margin:0px;"><a href="/liuyajiasudu" class="user_name">liuyajiasudu</a>:
+good
+    </p>
+    </li>
+    <li>
+   
+         <a href="/hanchengxi/article/details/8639476#comments">平衡二叉树算法详解</a>
+    <p style="margin:0px;"><a href="/actor1999" class="user_name">actor1999</a>:
+我也是看大话数据机构上的，我也是气得蛋疼。
+    </p>
+    </li>
+    <li>
+   
+         <a href="/hanchengxi/article/details/8639476#comments">旋转卡壳算法</a>
+    <p style="margin:0px;"><a href="/Vmurder" class="user_name">Vmurder</a>:
+跪跪跪跪跪。。。。太神了啊Qwq
+    </p>
+    </li>
+    <li>
+   
+         <a href="/hanchengxi/article/details/8280773#comments">VC6.0和VC2005项目配置详解</a>
+    <p style="margin:0px;"><a href="/lovemoreh" class="user_name">lovemoreh</a>:
+挺好的文章！
+    </p>
+    </li>
+    <li>
+   
+         <a href="/hanchengxi/article/details/8362372#comments">字符集-Locale详解（续）</a>
+    <p style="margin:0px;"><a href="/qq_19636947" class="user_name">qq_19636947</a>:
+非常棒的文章
+    </p>
+    </li>
+    <li>
+   
+         <a href="/hanchengxi/article/details/11800043#comments">阿里巴巴笔试题：两个人捡到一张10元购物卡，谁出价出的高，则该卡归谁，另一个人获得出价的钱，</a>
+    <p style="margin:0px;"><a href="/hanchengxi" class="user_name">hanchengxi</a>:
+@top_along:谢谢指点，“盈亏”理解失误，已修正！
+    </p>
+    </li>
+    <li>
+   
+         <a href="/hanchengxi/article/details/9410165#comments">澳大利亚的父母喜欢女孩，如果生出来的第一个是女孩，就不再生了，如果是男孩就继续生，直到生到第一个女孩为止，问若干年后，男女的比例是多少？</a>
+    <p style="margin:0px;"><a href="/zpng2012" class="user_name">zpng2012</a>:
+nice，赞！
+    </p>
+    </li>
+</ul>
+</div>
+    </div>
+    <div class="clear">
+    </div>
+
+                   <!-- 广告位开始 -->                    <!-- 广告位结束 -->
+                   <div class="tracking-ad" data-view="true"  data-mtp="63" data-order="40" data-con="ad_content_1260" style="width: 200px; height: 500px;">
+                         <div id="nav_show_top_stop" style="width: 200px;height: 500px;z-index:1000"><div id="cpro_u2734128"></div>
+                             <div id="cpro_u3031287"></div></div>
+                   </div>
+    <script type="text/javascript">
+        setTimeout(function () {
+            var naviga_offsetTop = 0;
+            function naviga_stay_top() { var scrollTop = jQuery(document).scrollTop(); if (scrollTop > naviga_offsetTop) { jQuery("#nav_show_top_stop").css({ "position": "fixed" }); jQuery("#nav_show_top_stop").css({ "top": "0px" }); } else { jQuery("#nav_show_top_stop").css({ "position": "fixed" }); jQuery("#nav_show_top_stop").css({ "top": naviga_offsetTop - scrollTop + "px" }); } }
+            function onload_function() { naviga_offsetTop = jQuery("#nav_show_top_stop").position().top; jQuery(window).bind("scroll", naviga_stay_top); jQuery(window).bind("mousewheel", naviga_stay_top); jQuery(document).bind("scroll", naviga_stay_top); jQuery(document).bind("mousewheel", naviga_stay_top); } jQuery(document).ready(onload_function);
+
+        }, 200);
+    </script>
+<script type="text/javascript">(window.cproArray = window.cproArray || []).push({ id: "u2734128" });  </script> 
+                    <script src="http://cpro.baidustatic.com/cpro/ui/c.js" type="text/javascript"></script> 
+                   <script type="text/javascript">
+                       /*PC端-博客内容页左侧Button2-200*200-2017/7/10*/
+                       (window.cproArray = window.cproArray || []).push({ id: "u3031287" });
+</script>
+<script type="text/javascript" src="http://cpro.baidustatic.com/cpro/ui/c.js"></script>
+
+           </div>   
+
+            <div class="clear">
+            </div>
+        </div>
+
+        
+
+
+
+
+
+
+
+
+    <script type="text/javascript" src="http://passport.csdn.net/content/loginbox/login.js"></script>
+<script type="text/javascript">
+    $(function () {
+        function __get_code_toolbar(snippet_id) {
+            return $("<span class='tracking-ad' data-mod='popu_167'><a href='https://code.csdn.net/snippets/"
+                    + snippet_id
+                    + "' target='_blank' title='在CODE上查看代码片'  style='text-indent:0;'><img src='https://code.csdn.net/assets/CODE_ico.png' width=12 height=12 alt='在CODE上查看代码片' style='position:relative;top:1px;left:2px;'/></a></span>"
+                    + "<span class='tracking-ad' data-mod='popu_170'><a href='https://code.csdn.net/snippets/"
+                    + snippet_id
+                    + "/fork' target='_blank' title='派生到我的代码片' style='text-indent:0;'><img src='https://code.csdn.net/assets/ico_fork.svg' width=12 height=12 alt='派生到我的代码片' style='position:relative;top:2px;left:2px;'/></a></span>");
+        }
+        
+        $("[code_snippet_id]").each(function () {
+            __s_id = $(this).attr("code_snippet_id");
+            if (__s_id != null && __s_id != "" && __s_id != 0 && parseInt(__s_id) > 70020) {
+                __code_tool = __get_code_toolbar(__s_id);
+                $(this).prev().find(".tools").append(__code_tool);
+            }
+        });
+
+        $(".bar").show();
+    });
+</script>
+
+
+
+
+
+    </div>
+      <!--new top-->
+    
+
+     
+
+   
+   
+     <!--new top-->
+   
+   
+
+    
+    
+    
+   
+
+   
+
+
+       <script type="text/javascript" src="http://static.blog.csdn.net/public/res/bower-libs/MathJax/MathJax.js?config=TeX-AMS_HTML"></script>
+          <script type="text/javascript">
+              //$(function () {
+              //    setTimeout(function () {
+              //        var searchtitletags = articletitle + ',' + $("#tags").html();
+              //        searchService({
+              //            index: 'blog',
+              //            query: searchtitletags,
+              //            from: 5,
+              //            size: 5,
+              //            appendTo: '#res',
+              //            url: 'recommend',
+              //            his: 2,
+              //            client: "blog_cf_enhance",
+              //            tmpl: '<dd style="background:url(http://static.blog.csdn.net/skin/default/images/blog-dot-red3.gif) no-repeat 0 10px;"><a href="#{ url }" title="#{ title }" strategy="#{ strategy }">#{ title }</a></dd>'
+              //        });
+              //    }, 1000);
+              //});
+
+         </script>
+    
+    <script src="http://static.blog.csdn.net/scripts/csdn_blog_detail.min.js" type="text/javascript"></script>
+        
+    <script type="text/javascript" src="http://c.csdnimg.cn/blog/csdn_public_blog_detail.min.js?20170719001"></script>
+
+    <script type="text/javascript" src="http://medal.blog.csdn.net/showblogmedal.ashx?blogid=1186643"></script>
+
+     
+    
+
+
+  <div id="a52b5334d" style="width: 1px; height: 1px; display: none;">
+                    <script id="adJs52b5334"></script>
+                    <script>document.getElementById("adJs52b5334").src = "http://ads.csdn.net/js/opt/52b5334.js?t=" + Math.random();</script>
+   </div>
+
+    
+    
+        
+     
+
+    
+          
+    <div class="pop_CA_cover"  style="display:none"></div>
+    <div class="pop pop_CA"  style="display:none">
+          <div class="CA_header">
+            收藏助手
+            <span class="cancel_icon"  id="fapancle"  onclick="$('.pop_CA').hide();$('.pop_CA_cover').hide();"></span>
+          </div>
+          <iframe src="" id="fa" frameborder="0" width="100%" height="360"  scrolling="no" ></iframe>
+    </div>
+
+
+        <script type="text/javascript">
+
+            $(function () {
+                var fromjs = $("#fromjs");
+                if (fromjs.length > 0) {
+                    $("#fromjs .markdown_views pre").addClass("prettyprint");
+                    prettyPrint();
+
+                    $('pre.prettyprint code').each(function () {
+                        var lines = $(this).text().split('\n').length;
+                        var $numbering = $('<ul/>').addClass('pre-numbering').hide();
+                        $(this).addClass('has-numbering').parent().append($numbering);
+                        for (i = 1; i <= lines; i++) {
+                            $numbering.append($('<li/>').text(i));
+                        };
+                        $numbering.fadeIn(1700);
+                    });
+
+                    $('.pre-numbering li').css("color", "#999");
+                }
+            });
+
+            $(".markdown_views a[target!='_blank']").attr("target", "_blank");
+
+            //$(".toc a[target='_blank']").attr("target", "");
+
+            setTimeout(function () {
+                $(".toc a[target='_blank']").attr("target", "");
+            }, 500);
+
+        </script>
+    
+</body>
+</html>   
